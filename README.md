@@ -6,11 +6,15 @@ INTAKE
 
 Motors
 
-1. Elbow Rotator
- 
-2. Wrist Rotator
+1. Elbow Rotator Left
 
-3. Intake
+2. Elbow Rotator Right
+ 
+3. Wrist Rotator
+
+4. Intake Roller Left
+
+5. Intake Roller Right
 	
 Methods
 
@@ -57,9 +61,9 @@ Shooter
 	
  Motors
 		
-  1. Trigger
+  1. Flywheel Left
 		
-  2. Flywheel
+  2. Flywheel Right
 	
  Methods
 		

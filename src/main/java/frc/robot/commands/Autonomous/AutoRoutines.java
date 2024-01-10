@@ -6,6 +6,7 @@ package frc.robot.commands.Autonomous;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
@@ -59,7 +60,7 @@ public final class AutoRoutines {
         Units.inchesToMeters(Math.sqrt(Math.pow(28.5, 2)+Math.pow(18.5,2))/2), // Radius in meters of 28.5 x 18.5 inch robot using a^2 +b^2 = c^2
         new ReplanningConfig()
       ),
-      Robot.drivetrain
+      null, Robot.drivetrain
     );
 
     // Autonomous selector options
@@ -83,17 +84,17 @@ public final class AutoRoutines {
 
     public Command helix() {
       PathPlannerPath path1 = PathPlannerPath.fromPathFile("Helix");
-      return AutoBuilder.followPathWithEvents(path1);
+      return AutoBuilder.followPath(path1);
     }
     
     public Command box() {
       PathPlannerPath path2 = PathPlannerPath.fromPathFile("Box");
-      return AutoBuilder.followPathWithEvents(path2);    
+      return AutoBuilder.followPath(path2);    
     }
 
     public Command spikes() {
       PathPlannerPath path3 = PathPlannerPath.fromPathFile("Spikes");
-      return AutoBuilder.followPathWithEvents(path3);     
+      return AutoBuilder.followPath(path3);     
     }
   
     private HashMap<String, Command> buildEventMap() {

@@ -21,7 +21,7 @@ import frc.robot.Constants.CANID;
 import frc.robot.util.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveSubsystem extends SubsystemBase {
+public class Drivetrain extends SubsystemBase {
   // Create MAXSwerveModules
   public final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
     CANID.LEFT_FRONT_DRIVE,
@@ -67,7 +67,7 @@ public class DriveSubsystem extends SubsystemBase {
       });
 
   /** Creates a new DriveSubsystem. */
-  public DriveSubsystem() {}
+  public Drivetrain() {}
 
   @Override
   public void periodic() {
@@ -233,11 +233,6 @@ public void align(double distance){
     }
     
     drive(linear, strafe, rotation, true,true);
-}
-
-public double getRoll(){
-  // get the property
-  return m_gyro.getRoll();
 }
 
   /**

@@ -9,7 +9,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.ExampleArmConstants;
 import frc.robot.util.Logger;
 
 public class ExampleArm extends SubsystemBase {
@@ -27,22 +27,22 @@ public class ExampleArm extends SubsystemBase {
 
         armEncoder = armMotor.getEncoder();
 
-        armEncoder.setPositionConversionFactor(Constants.ArmConstants.kArmEncoderDistancePerPulse);
+        armEncoder.setPositionConversionFactor(ExampleArmConstants.kArmEncoderDistancePerPulse);
     
         armMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
         armMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
         intakeMotor.enableSoftLimit(SoftLimitDirection.kForward, false);
         intakeMotor.enableSoftLimit(SoftLimitDirection.kReverse, false);
 
-        armMotor.setSmartCurrentLimit(Constants.ArmConstants.kArmCurrentLimit);
-        intakeMotor.setSmartCurrentLimit(Constants.ArmConstants.kIntakeCurrentLimit);
+        armMotor.setSmartCurrentLimit(ExampleArmConstants.kArmCurrentLimit);
+        intakeMotor.setSmartCurrentLimit(ExampleArmConstants.kIntakeCurrentLimit);
 
         armMotor.setSoftLimit(SoftLimitDirection.kForward, 330);
         armMotor.setSoftLimit(SoftLimitDirection.kReverse, 0);
 
         armPID = armMotor.getPIDController();
 
-        armPID.setP(Constants.ArmConstants.kArmKP);
+        armPID.setP(ExampleArmConstants.kArmKP);
 
         armPID.setOutputRange(-1, 1);
 
@@ -59,7 +59,7 @@ public class ExampleArm extends SubsystemBase {
     }
 
     public void setArm(double setPoint) {
-        double arbFF = 0 * Math.cos(Math.toRadians(getArmEncoder() - Constants.ArmConstants.armHorizontalOffset));
+        double arbFF = 0 * Math.cos(Math.toRadians(getArmEncoder() - ExampleArmConstants.armHorizontalOffset));
         armPID.setReference(setPoint, ControlType.kPosition, 0, arbFF);
         SmartDashboard.putNumber("Arm Setpoint", setPoint);
     }

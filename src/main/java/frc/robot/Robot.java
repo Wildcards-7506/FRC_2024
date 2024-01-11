@@ -11,17 +11,23 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.ControlConfigs.PlayerConfigs;
-import frc.robot.commands.ExampleTeleopCommand;
+import frc.robot.ControlConfigs.Drivers.Jayden;
+import frc.robot.ControlConfigs.Drivers.Ricardo;
+import frc.robot.ControlConfigs.Drivers.Ryan;
 import frc.robot.commands.DrivetrainTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.commands.LimelightTeleopCommand;
 import frc.robot.commands.Autonomous.AutoRoutines;
-import frc.robot.subsystems.ExampleArm;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Climbers;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.HDD.HDD;
+import frc.robot.subsystems.LimelightRotator;
 import frc.robot.subsystems.LEDs;
 import frc.robot.util.Logger;
 
@@ -37,12 +43,11 @@ public class Robot extends TimedRobot {
   public PlayerConfigs coDriver;
   //Subsystem Declarations
 
-  public static final DriveSubsystem drivetrain = new DriveSubsystem();
-
-  public static final ExampleArm exampleArm = new ExampleArm(
-    Constants.CANID.EX_ARM,
-    Constants.CANID.EX_INTAKE
-  );
+  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Intake intake = new Intake();
+  public static final Shooter shooter = new Shooter();
+  public static final Climbers climbers = new Climbers();
+  public static final LimelightRotator llrotator = new LimelightRotator();
   
   public static final Limelight limelight = new Limelight();
 
@@ -57,13 +62,33 @@ public class Robot extends TimedRobot {
 
   public static Optional<Alliance> teamColor;
 
+  public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
+  public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
+
+  public static PlayerConfigs ryan = new Ryan();
+  public static PlayerConfigs anthony = new Jayden();
+  public static PlayerConfigs ricardo = new Ricardo();
+
   /*
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-    HDD.initBot();
+    // Driver choosers
+    driver_chooser.setDefaultOption("Ryan", ryan);
+    driver_chooser.addOption("Anthony", anthony);
+    driver_chooser.addOption("Ricardo", ricardo);        
+
+    // Co-Driver choosers
+    coDriver_chooser.setDefaultOption("Anthony", anthony);
+    coDriver_chooser.addOption("Ricardo", ricardo);
+    coDriver_chooser.addOption("Ryan", ryan);        
+
+    // Put the choosers on the dashboard
+    SmartDashboard.putData(driver_chooser);
+    SmartDashboard.putData(coDriver_chooser);
+
     Logger.info("SYSTEM","Robot Started");
   }
 
@@ -76,7 +101,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    //SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
+    SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
   }
 
   @Override
@@ -102,9 +127,8 @@ public class Robot extends TimedRobot {
     Logger.info("SYSTEM","Teleop Started");
     CommandScheduler.getInstance().cancelAll();
     teamColor = DriverStation.getAlliance();
-    driver = HDD.driver_chooser.getSelected();
-    coDriver = HDD.coDriver_chooser.getSelected();
-    Robot.exampleArm.setDefaultCommand(new ExampleTeleopCommand());
+    driver = driver_chooser.getSelected();
+    coDriver = coDriver_chooser.getSelected();
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
     Robot.limelight.setDefaultCommand(new LimelightTeleopCommand());

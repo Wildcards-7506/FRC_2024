@@ -3,7 +3,7 @@ package frc.robot.ControlConfigs.Drivers;
 import frc.robot.Robot;
 import frc.robot.ControlConfigs.PlayerConfigs;
 
-public class Anthony extends PlayerConfigs {
+public class Jayden extends PlayerConfigs {
     public void getDriverConfig() {
         //Constants
         PlayerConfigs.turnSpeed = 0.5;

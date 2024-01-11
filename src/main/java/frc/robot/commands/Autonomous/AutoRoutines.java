@@ -29,10 +29,9 @@ import frc.robot.Robot;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoBalance;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoSnap;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoX;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Drivetrain;
 
 @SuppressWarnings("unused")
 public final class AutoRoutines {
@@ -104,7 +103,6 @@ public final class AutoRoutines {
               Map.entry("Checkpoint 1", Commands.print("Checkpoint 1")),
               Map.entry("Checkpoint 2", Commands.print("Checkpoint 2")),
               Map.entry("Checkpoint 3", Commands.print("Checkpoint 3")),
-              Map.entry("AutoBalance", new AutoBalance(0)),
               Map.entry("AutoSnap0", new AutoSnap(0)),
               Map.entry("AutoSnap90", new AutoSnap(90)),
               Map.entry("AutoSnap180", new AutoSnap(180)),

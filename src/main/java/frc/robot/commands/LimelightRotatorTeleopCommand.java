@@ -3,10 +3,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 
-public class LEDTeleopCommand extends Command{
+public class LimelightRotatorTeleopCommand extends Command{
     
-    public LEDTeleopCommand(){
-        addRequirements(Robot.ledSystem);
+    public LimelightRotatorTeleopCommand(){
+        addRequirements(Robot.llrotator);
     }
     
     @Override

@@ -176,4 +176,8 @@ public final class Constants {
         public static final int kIntakeCurrentLimit = 40;
         
       }
+
+      public static final class ShooterConstants {
+        public static final int KshooterCurrentLimit = 50;
+      }
 }

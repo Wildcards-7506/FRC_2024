@@ -38,7 +38,7 @@ import frc.robot.util.Logger;
  * project.
  */
 public class Robot extends TimedRobot {  
-  private AutoRoutines autoMode = new AutoRoutines();
+  private AutoRoutines autoMode;
   public PlayerConfigs driver;
   public PlayerConfigs coDriver;
   //Subsystem Declarations
@@ -107,7 +107,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     Logger.info("SYSTEM","Autonomous Program Started");
-    teamColor = DriverStation.getAlliance();
     CommandScheduler.getInstance().cancelAll();
     //Need LED Indicator Here
     autoMode.resetAutoHeading();
@@ -152,6 +151,14 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
+    teamColor = DriverStation.getAlliance();
+    if(!teamColor.isEmpty() && autoMode == null){
+      if(teamColor.get() == Alliance.Red){
+        autoMode = new AutoRoutines(true);
+      } else if(teamColor.get() == Alliance.Blue){
+        autoMode = new AutoRoutines(false);
+      }
+    }
     ledSystem.rainbow();
   }
 

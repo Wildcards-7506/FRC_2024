@@ -43,7 +43,7 @@ public final class AutoRoutines {
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
   private double kAutoStartDelaySeconds;
   
-  public AutoRoutines() {
+  public AutoRoutines(boolean flip) {
     eventMap = new HashMap<>();
     setMarkers();
 
@@ -59,7 +59,7 @@ public final class AutoRoutines {
         Units.inchesToMeters(Math.sqrt(Math.pow(28.5, 2)+Math.pow(18.5,2))/2), // Radius in meters of 28.5 x 18.5 inch robot using a^2 +b^2 = c^2
         new ReplanningConfig()
       ),
-      null, Robot.drivetrain
+      ()->flip, Robot.drivetrain
     );
 
     // Autonomous selector options

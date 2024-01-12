@@ -19,11 +19,20 @@ public final class Constants {
         public static final int RIGHT_REAR_DRIVE = 6;
         public static final int LEFT_REAR_TURN = 7;
         public static final int LEFT_REAR_DRIVE = 8;
+
+        public static final int ELBOW_LEFT = 9;
+        public static final int ELBOW_RIGHT = 10;
+        public static final int WRIST = 11;
+        public static final int INTAKE_LEFT = 12;
+        public static final int INTAKE_RIGHT = 13;
         
-        public static final int FLYWHEEL_LEFT = 9;
-        public static final int FLYWHEEL_RIGHT = 10;
-        //Add Constants for Climbers, LL Rotator, and Intake
-        //Maintain number order starting at 11
+        public static final int FLYWHEEL_LEFT = 14;
+        public static final int FLYWHEEL_RIGHT = 15;
+
+        public static final int CLIMBER_LEFT = 16;
+        public static final int CLIMBER_RIGHT = 17;
+
+        public static final int LL_ROTATOR = 18;
     }
 
     public static final class IOConstants {

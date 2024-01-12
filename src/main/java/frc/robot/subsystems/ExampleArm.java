@@ -59,8 +59,7 @@ public class ExampleArm extends SubsystemBase {
     }
 
     public void setArm(double setPoint) {
-        double arbFF = 0 * Math.cos(Math.toRadians(getArmEncoder() - ExampleArmConstants.armHorizontalOffset));
-        armPID.setReference(setPoint, ControlType.kPosition, 0, arbFF);
+        armPID.setReference(setPoint, ControlType.kPosition, 0);
         SmartDashboard.putNumber("Arm Setpoint", setPoint);
     }
 
@@ -70,6 +69,6 @@ public class ExampleArm extends SubsystemBase {
 
     public void errorCheck(){
         if(intakeMotor.getFaults()!=0){Logger.warn("INTKE: " + Short.toString(intakeMotor.getFaults()));}
-        if(armMotor.getFaults()!=0){Logger.warn("ARM: " + Short.toString(armMotor.getFaults()));}
+        if(armMotor.getFaults()!=0){Logger.warn("EXARM: " + Short.toString(armMotor.getFaults()));}
     }
 }

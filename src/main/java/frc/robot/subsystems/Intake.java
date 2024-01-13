@@ -3,16 +3,16 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CANID;
 import frc.robot.util.Logger;
 
-public class Intake extends SubsystemBase{
+public class Intake extends SubsystemBase {
     private CANSparkMax elbowRotatorLeader;
     private CANSparkMax elbowRotatorFollower;
     private CANSparkMax wristRotator;
@@ -68,6 +68,15 @@ public class Intake extends SubsystemBase{
         intakeFollower.enableSoftLimit(SoftLimitDirection.kForward, false);
         intakeFollower.enableSoftLimit(SoftLimitDirection.kReverse, false);
 
+        // Will need to test these angle parameters when testing
+        elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 0);
+        elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
+        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
+        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, 0);
+        wristRotator.setSoftLimit(SoftLimitDirection.kForward, 0);
+        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, 0);
+
+
         elbowRotatorLeader.setSmartCurrentLimit(Constants.ElbowConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(Constants.ElbowConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(Constants.WristConstants.kWristCurrentLimit);
@@ -101,17 +110,17 @@ public class Intake extends SubsystemBase{
         return wristEncoder.getPosition();
     }
     
-    // Code here comes from FRC 2023 I just modified it for 2024
-    // What is the meaning of this arbFF???? I'm about to barf on em.
-    // What is elbowHorizontalOffset? Is it for the initial offset of the old crane arm 2023?
     public void setElbowPosition(double setPoint) {
-        double arbFF = 0 * Math.cos(Math.toRadians(getElbowLEncoder() - Constants.ElbowConstants.elbowHorizontalOffset));
-        elbowPID.setReference(setPoint, CANSparkMax.ControlType.kPosition, 0, arbFF);
-        SmartDashboard.putNumber("Arm Setpoint", setPoint);
+        elbowPID.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
 	public void setWristPosition(double setPoint) {
-        wristPID.setReference(setPoint, CANSparkMax.ControlType.kPosition);
+        wristPID.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+    }
+
+    public void setIntakeVoltage(double setPoint) {
+        intakeLeader.setVoltage(setPoint);
+        intakeFollower.setVoltage(setPoint);
     }
 
     public void errorCheck(){

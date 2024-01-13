@@ -2,16 +2,12 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANID;
 import frc.robot.Constants.ClimberConstants;
-import frc.robot.Constants.ExampleArmConstants;
 import frc.robot.util.Logger;
 public class Climbers extends SubsystemBase{
     private CANSparkMax climberright;
@@ -48,7 +44,10 @@ public class Climbers extends SubsystemBase{
             climberleft.setVoltage(volts);
             climberright.setVoltage(volts);
         }
-
+        public void errorCheck(){
+            if(climberleft.getFaults()!=0){Logger.warn("CLBLT: " + Short.toString(climberleft.getFaults()));}
+            if(climberright.getFaults()!=0){Logger.warn("CLBRT: " + Short.toString(climberright.getFaults()));}
+        }
         
     
 }

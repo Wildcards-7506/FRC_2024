@@ -20,7 +20,7 @@ public class ClimberTeleopCommand extends Command{
         } else {
             Robot.climbers.setclimbers(0);
         }
-        Robot.climbers.errorCheck();
+        Robot.climbers.climberLog();
 
     SmartDashboard.putNumber("climberposition", Robot.climbers.getClimberEncoder());
     } 

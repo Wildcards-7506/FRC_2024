@@ -10,43 +10,47 @@ import frc.robot.Constants.CANID;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.util.Logger;
 public class Climbers extends SubsystemBase{
-    private CANSparkMax climberright;
-    private CANSparkMax climberleft;
+    private CANSparkMax climberRight;
+    private CANSparkMax climberLeft;
     
     private RelativeEncoder climbEncoder;
     public Climbers () {
-        climberright = new CANSparkMax(CANID.CLIMBER_RIGHT, MotorType.kBrushless);
-        climberleft = new CANSparkMax(CANID.CLIMBER_LEFT, MotorType.kBrushless);
+        climberRight = new CANSparkMax(CANID.CLIMBER_RIGHT, MotorType.kBrushless);
+        climberLeft = new CANSparkMax(CANID.CLIMBER_LEFT, MotorType.kBrushless);
 
-        climbEncoder = climberleft.getEncoder();
-        climbEncoder.setPositionConversionFactor(ClimberConstants.kclimberEncoderDistancePerPulse);
+        climbEncoder = climberLeft.getEncoder();
+        climbEncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
     
-        climberleft.enableSoftLimit(SoftLimitDirection.kForward, true);
-        climberleft.enableSoftLimit(SoftLimitDirection.kReverse, true);
-        climberright.enableSoftLimit(SoftLimitDirection.kForward, true);
-        climberright.enableSoftLimit(SoftLimitDirection.kReverse, true);
+        climberLeft.enableSoftLimit(SoftLimitDirection.kForward, true);
+        climberLeft.enableSoftLimit(SoftLimitDirection.kReverse, true);
+        climberRight.enableSoftLimit(SoftLimitDirection.kForward, true);
+        climberRight.enableSoftLimit(SoftLimitDirection.kReverse, true);
 
-        climberleft.setSmartCurrentLimit(ClimberConstants.kclimberCurrentLimit);
-        climberright.setSmartCurrentLimit(ClimberConstants.kclimberCurrentLimit);
+        climberLeft.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
+        climberRight.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
 
-        climberleft.setSoftLimit(SoftLimitDirection.kForward, 24);
-        climberleft.setSoftLimit(SoftLimitDirection.kReverse, 0);
-        climberright.setSoftLimit(SoftLimitDirection.kForward, 24);
-        climberright.setSoftLimit(SoftLimitDirection.kReverse, 0);
-        climberleft.burnFlash();
-        climberright.burnFlash();}
+        climberLeft.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
+        climberLeft.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
+        climberRight.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
+        climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
 
-         public double getClimberEncoder() {
+        climberLeft.burnFlash();
+        climberRight.burnFlash();
+    }
+
+        public double getClimberEncoder() {
             return climbEncoder.getPosition();
         }
 
         public void setclimbers (double volts) {
-            climberleft.setVoltage(volts);
-            climberright.setVoltage(volts);
+            climberLeft.setVoltage(volts);
+            climberRight.setVoltage(volts);
         }
-        public void errorCheck(){
-            if(climberleft.getFaults()!=0){Logger.warn("CLBLT: " + Short.toString(climberleft.getFaults()));}
-            if(climberright.getFaults()!=0){Logger.warn("CLBRT: " + Short.toString(climberright.getFaults()));}
+
+        public void climberLog(){
+            Logger.info("CLIMB: ", Double.toString(getClimberEncoder()) + " Inches");
+            if(climberLeft.getFaults()!=0){Logger.warn("CLBLT: " + Short.toString(climberLeft.getFaults()));}
+            if(climberRight.getFaults()!=0){Logger.warn("CLBRT: " + Short.toString(climberRight.getFaults()));}
         }
         
     

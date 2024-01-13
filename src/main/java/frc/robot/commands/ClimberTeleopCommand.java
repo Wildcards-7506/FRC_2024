@@ -14,11 +14,11 @@ public class ClimberTeleopCommand extends Command{
     @Override
     public void execute (){
     if (PlayerConfigs.climberdown) {
-            Robot.climbers.setclimbers(8);
+            Robot.climbers.setClimbers(12);
         } else if (PlayerConfigs.climberup) {
-            Robot.climbers.setclimbers(-8);
+            Robot.climbers.setClimbers(-12);
         } else {
-            Robot.climbers.setclimbers(0);
+            Robot.climbers.setClimbers(0);
         }
         Robot.climbers.climberLog();
 

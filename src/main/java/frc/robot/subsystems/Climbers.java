@@ -34,6 +34,9 @@ public class Climbers extends SubsystemBase{
         climberRight.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
         climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
 
+        climberLeft.setOpenLoopRampRate(1);
+        climberRight.setOpenLoopRampRate(1);
+
         climberLeft.burnFlash();
         climberRight.burnFlash();
     }
@@ -42,7 +45,7 @@ public class Climbers extends SubsystemBase{
             return climbEncoder.getPosition();
         }
 
-        public void setclimbers (double volts) {
+        public void setClimbers (double volts) {
             climberLeft.setVoltage(volts);
             climberRight.setVoltage(volts);
         }

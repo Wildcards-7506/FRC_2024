@@ -189,8 +189,37 @@ public final class Constants {
         
       }
 
+      public static final class ElbowConstants {
+        public static final int kElbowCurrentLimit = 30;
+        public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 12.0/15 * 360;
+        public static final double kElbowKP = 0.007;
+        // public static final double kElbowHi = 120.0;
+        // public static final double kElbowMid = 50.0;
+        // public static final double kElbowLow = 10.0;
+        // public static final double kElbowClosed = 0.0;
+        public static final double elbowHorizontalOffset = 60;
+      }
+
+      public static final class WristConstants {
+        public static final int kWristCurrentLimit = 30;
+        public static final double kWristEncoderDistancePerPulse = 1.0/125 * 12.0/15 * 360;
+        public static final double kWristKP = 0.007;
+        // public static final double kWristHi = 120.0;
+        // public static final double kWristMid = 50.0;
+        // public static final double kWristLow = 10.0;
+        // public static final double kWristClosed = 0.0;
+        // public static final double wristHorizontalOffset = 60;
+      }
+
       public static final class IntakeConstants {
-        //Intake Constants Here
+        public static final int kIntakeCurrentLimit = 30;
+        public static final double kIntakeEncoderDistancePerPulse = 1.0/125 * 12.0/15 * 360;
+        // public static final double kIntakeKP = 0.007;
+        // public static final double kIntakeHi = 120.0;
+        // public static final double kIntakeMid = 50.0;
+        // public static final double kIntakeLow = 10.0;
+        // public static final double kIntakeClosed = 0.0;
+        // public static final double intakeHorizontalOffset = 60;
       }
 
       public static final class ShooterConstants {

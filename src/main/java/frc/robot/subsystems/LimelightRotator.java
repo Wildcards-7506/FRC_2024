@@ -15,14 +15,17 @@ public class LimelightRotator extends SubsystemBase{
     private RelativeEncoder llEncoder;
     private CANSparkMax llRotator;
 
-    public LimelightRotator (int llRotator) {
-        this.llRotator = new CANSparkMax(llRotator, MotorType.kBrushless);
-        llEncoder = this.llRotator.getEncoder();
-        llPIDController = this.llRotator.getPIDController();
+    public LimelightRotator (int llr) {
+        llRotator = new CANSparkMax(llr, MotorType.kBrushless);
+
+        llEncoder = llRotator.getEncoder();
+
+        llPIDController = llRotator.getPIDController();
         llPIDController.setOutputRange(-1, 1);
-        this.llRotator.setSmartCurrentLimit(Constants.limelightRotatorConstants.kRotateCurrentLimit);
+        llRotator.setSmartCurrentLimit(Constants.limelightRotatorConstants.kRotateCurrentLimit);
         llPIDController.setP(Constants.limelightRotatorConstants.kRotatorKP);
-        this.llRotator.burnFlash();
+
+        llRotator.burnFlash();
     }
 
     public void setLLRotatorPosition(double kPosition) {

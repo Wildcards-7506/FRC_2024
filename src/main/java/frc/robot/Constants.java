@@ -194,7 +194,9 @@ public final class Constants {
       }
 
       public static final class ShooterConstants {
-        public static final int KshooterCurrentLimit = 50;
+        public static final int kShooterCurrentLimit = 50;
+        public static final double kShooterVolts = 5;
+        public static final double kPrimeVolts = 2.5;
         //Add constants for shooting speed, idle speed, and shooter kP
       }
 

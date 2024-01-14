@@ -33,6 +33,10 @@ public class PlayerConfigs {
     public static boolean intake;
     public static boolean release;
 
+    //climbers
+    public static boolean climberup;
+    public static boolean climberdown;
+
     public void getDriverConfig(){}
 
     public void getCoDriverConfig(){}

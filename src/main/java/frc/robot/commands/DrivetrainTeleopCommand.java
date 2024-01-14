@@ -40,8 +40,6 @@ public class DrivetrainTeleopCommand extends Command{
             Robot.drivetrain.snap(270);
         } else if((PlayerConfigs.align)){
             Robot.drivetrain.align(Robot.limelight.getTX());
-        } else if (PlayerConfigs.brake) {
-            Robot.drivetrain.drive(0, 0, 0, true, false);
         } else if (PlayerConfigs.xToggle) {
             Robot.drivetrain.setX();
         } else {

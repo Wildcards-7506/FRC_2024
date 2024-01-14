@@ -1,17 +1,16 @@
 package frc.robot.ControlConfigs;
 
 public class PlayerConfigs {
-
-    //buttons used: left joystick, right joystick, circle, entire d pad, L1, L2, R1, R2
-    
-    //primary drivetrain controls
-    public static double xMovement;
-    public static double yMovement;
-    public static double turnMovement;
+    //Constants
     public static double turnSpeed;
     public static double driveSpeed;
     public static double fineTurnSpeed;
     public static double fineDriveSpeed;
+    
+    //Drivetrain
+    public static double xMovement;
+    public static double yMovement;
+    public static double turnMovement;
     public static boolean fineControlToggle;
     public static boolean xToggle;
     public static boolean snapZero;
@@ -19,27 +18,19 @@ public class PlayerConfigs {
     public static boolean snap180;
     public static boolean snap270;
     public static boolean align;
-    public static boolean brake;
-
-    //arm
-    public static int armControl;
-    public static double armPos;
-    public static boolean armFineControl;
-
-    //limelight
-    public static boolean switchPipeline;
 
     //Intake
     public static boolean intake;
     public static boolean release;
+    public static boolean trap;
 
     //Shooter
-    public static boolean shooter;
-    public static boolean shooterPrime;
+    public static boolean shooterArmed;
+    public static boolean shooterPrimed;
 
-    //climbers
-    public static boolean climberup;
-    public static boolean climberdown;
+    //Climbers
+    public static boolean climberUp;
+    public static boolean climberDown;
 
     public void getDriverConfig(){}
 

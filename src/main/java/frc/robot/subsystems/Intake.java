@@ -8,7 +8,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.CANID;
 import frc.robot.util.Logger;
 
@@ -20,7 +20,6 @@ public class Intake extends SubsystemBase {
     private CANSparkMax intakeFollower;
     
     private RelativeEncoder elbowLEncoder;
-    private RelativeEncoder elbowFEncoder;
     private RelativeEncoder wristEncoder;
 
     private SparkPIDController elbowPID;
@@ -34,7 +33,6 @@ public class Intake extends SubsystemBase {
         intakeFollower = new CANSparkMax(CANID.INTAKE_RIGHT, MotorType.kBrushless);
 
         elbowLEncoder = elbowRotatorLeader.getEncoder();
-        elbowFEncoder = elbowRotatorFollower.getEncoder();
         wristEncoder = wristRotator.getEncoder();
 
         elbowPID = elbowRotatorLeader.getPIDController();
@@ -43,18 +41,6 @@ public class Intake extends SubsystemBase {
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
         intakeFollower.follow(intakeLeader, true);
 
-        configureMotorLimits();
-        configureEncoders();
-        configurePID();
-
-        elbowRotatorLeader.burnFlash();
-        elbowRotatorFollower.burnFlash();
-        wristRotator.burnFlash();
-        intakeLeader.burnFlash();
-        intakeFollower.burnFlash();
-    }
-
-    private void configureMotorLimits() {
         elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kForward, true);
         elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kReverse, true);
         elbowRotatorFollower.enableSoftLimit(SoftLimitDirection.kForward, true);
@@ -76,34 +62,30 @@ public class Intake extends SubsystemBase {
         wristRotator.setSoftLimit(SoftLimitDirection.kForward, 0);
         wristRotator.setSoftLimit(SoftLimitDirection.kReverse, 0);
 
+        elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
+        elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
+        wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
+        intakeLeader.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+        intakeFollower.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
 
-        elbowRotatorLeader.setSmartCurrentLimit(Constants.ElbowConstants.kElbowCurrentLimit);
-        elbowRotatorFollower.setSmartCurrentLimit(Constants.ElbowConstants.kElbowCurrentLimit);
-        wristRotator.setSmartCurrentLimit(Constants.WristConstants.kWristCurrentLimit);
-        intakeLeader.setSmartCurrentLimit(Constants.IntakeConstants.kIntakeCurrentLimit);
-        intakeFollower.setSmartCurrentLimit(Constants.IntakeConstants.kIntakeCurrentLimit);
-    }
+        elbowLEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
+        wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
 
-    private void configureEncoders() {
-        elbowLEncoder.setPositionConversionFactor(Constants.ElbowConstants.kElbowEncoderDistancePerPulse);
-        elbowFEncoder.setPositionConversionFactor(Constants.ElbowConstants.kElbowEncoderDistancePerPulse);
-        wristEncoder.setPositionConversionFactor(Constants.WristConstants.kWristEncoderDistancePerPulse);
-    }
-
-    private void configurePID() {
-        elbowPID.setP(Constants.ElbowConstants.kElbowKP);
-        wristPID.setP(Constants.WristConstants.kWristKP);
+        elbowPID.setP(IntakeConstants.kElbowKP);
+        wristPID.setP(IntakeConstants.kWristKP);
 
         elbowPID.setOutputRange(-1, 1);
         wristPID.setOutputRange(-1, 1);
+
+        elbowRotatorLeader.burnFlash();
+        elbowRotatorFollower.burnFlash();
+        wristRotator.burnFlash();
+        intakeLeader.burnFlash();
+        intakeFollower.burnFlash();
     }
 
-    public double getElbowLEncoder() {
+    public double getElbowEncoder() {
         return elbowLEncoder.getPosition();
-    }
-
-    public double getElbowFEncoder() {
-        return elbowFEncoder.getPosition();
     }
 
     public double getWristEncoder() {
@@ -120,7 +102,6 @@ public class Intake extends SubsystemBase {
 
     public void setIntakeVoltage(double setPoint) {
         intakeLeader.setVoltage(setPoint);
-        intakeFollower.setVoltage(setPoint);
     }
 
     public void errorCheck(){

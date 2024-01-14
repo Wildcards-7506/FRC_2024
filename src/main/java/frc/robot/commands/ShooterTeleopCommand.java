@@ -16,15 +16,16 @@ public class ShooterTeleopCommand extends Command{
     
     @Override
     public void execute (){
-        
-        if(PlayerConfigs.shooterPrime == true && PlayerConfigs.shooter == true){
-            shoot.SetFlywheelVoltage(Constants.ShooterConstants.kShooterVolts);
+        //Need to set Shooter Primed as a boolean toggle to turn climbers on/off and use lights
+
+        if(PlayerConfigs.shooterPrimed == true && PlayerConfigs.shooterArmed == true){
+            shoot.SetFlywheelSpeed(Constants.ShooterConstants.kArmedRPM);
+        } else if(PlayerConfigs.shooterPrimed == true){
+            shoot.SetFlywheelSpeed(Constants.ShooterConstants.kPrimeRPM);
+        } else {
+            shoot.SetFlywheelSpeed(0);
         }
-        else if(PlayerConfigs.shooterPrime == true){
-            shoot.SetFlywheelVoltage(Constants.ShooterConstants.kPrimeVolts);
-        }
-        else{
-            shoot.SetFlywheelVoltage(0);
-        }
+
+        //Add code to post shooter speed to the dashboard. See ClimberTeleopCommand.java for an example
     } 
 }

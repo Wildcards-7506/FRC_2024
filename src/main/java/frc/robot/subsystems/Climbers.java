@@ -14,6 +14,7 @@ public class Climbers extends SubsystemBase{
     private CANSparkMax climberLeft;
     
     private RelativeEncoder climbEncoder;
+    
     public Climbers () {
         climberRight = new CANSparkMax(CANID.CLIMBER_RIGHT, MotorType.kBrushless);
         climberLeft = new CANSparkMax(CANID.CLIMBER_LEFT, MotorType.kBrushless);
@@ -41,20 +42,20 @@ public class Climbers extends SubsystemBase{
         climberRight.burnFlash();
     }
 
-        public double getClimberEncoder() {
-            return climbEncoder.getPosition();
-        }
+    public double getClimberEncoder() {
+        return climbEncoder.getPosition();
+    }
 
-        public void setClimbers (double volts) {
-            climberLeft.setVoltage(volts);
-            climberRight.setVoltage(volts);
-        }
+    public void setClimbers (double volts) {
+        climberLeft.setVoltage(volts);
+        climberRight.setVoltage(volts);
+    }
 
-        public void climberLog(){
-            Logger.info("CLIMB: ", Double.toString(getClimberEncoder()) + " Inches");
-            if(climberLeft.getFaults()!=0){Logger.warn("CLBLT: " + Short.toString(climberLeft.getFaults()));}
-            if(climberRight.getFaults()!=0){Logger.warn("CLBRT: " + Short.toString(climberRight.getFaults()));}
-        }
+    public void climberLog(){
+        Logger.info("CLIMB: ", Double.toString(getClimberEncoder()) + " Inches");
+        if(climberLeft.getFaults()!=0){Logger.warn("CLBLT: " + Short.toString(climberLeft.getFaults()));}
+        if(climberRight.getFaults()!=0){Logger.warn("CLBRT: " + Short.toString(climberRight.getFaults()));}
+    }
         
     
 }

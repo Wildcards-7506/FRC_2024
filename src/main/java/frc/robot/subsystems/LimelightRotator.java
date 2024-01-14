@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.CANID;
 
 public class LimelightRotator extends SubsystemBase{
 
@@ -15,8 +16,8 @@ public class LimelightRotator extends SubsystemBase{
     private RelativeEncoder llEncoder;
     private CANSparkMax llRotator;
 
-    public LimelightRotator (int llr) {
-        llRotator = new CANSparkMax(llr, MotorType.kBrushless);
+    public LimelightRotator () {
+        llRotator = new CANSparkMax(CANID.LL_ROTATOR, MotorType.kBrushless);
 
         llEncoder = llRotator.getEncoder();
 

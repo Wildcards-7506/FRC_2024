@@ -13,15 +13,17 @@ public class ClimberTeleopCommand extends Command{
     
     @Override
     public void execute (){
-    if (PlayerConfigs.climberdown) {
+        //Add line to only run climbers if shooter is not primed
+
+        if (PlayerConfigs.climberDown) {
             Robot.climbers.setClimbers(12);
-        } else if (PlayerConfigs.climberup) {
+        } else if (PlayerConfigs.climberUp) {
             Robot.climbers.setClimbers(-12);
         } else {
             Robot.climbers.setClimbers(0);
         }
         Robot.climbers.climberLog();
 
-    SmartDashboard.putNumber("climberposition", Robot.climbers.getClimberEncoder());
+        SmartDashboard.putNumber("Climber Position", Robot.climbers.getClimberEncoder());
     } 
 }

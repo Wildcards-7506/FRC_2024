@@ -56,7 +56,7 @@ public final class AutoRoutines {
         new PIDConstants(AutoConstants.kPXController,0,0),
         new PIDConstants(AutoConstants.kPThetaController,0,0),
         4.8, // max speed in m/s
-        Units.inchesToMeters(Math.sqrt(Math.pow(28.5, 2)+Math.pow(18.5,2))/2), // Radius in meters of 28.5 x 18.5 inch robot using a^2 +b^2 = c^2
+        Units.inchesToMeters(Math.sqrt(Math.pow(20.0, 2)+Math.pow(20.0,2))/2), // Radius in meters of 28.5 x 18.5 inch robot using a^2 +b^2 = c^2
         new ReplanningConfig()
       ),
       ()->flip, Robot.drivetrain

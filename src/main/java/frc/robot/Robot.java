@@ -18,6 +18,7 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
 import frc.robot.ControlConfigs.Drivers.Ryan;
+import frc.robot.commands.ClimberTeleopCommand;
 import frc.robot.commands.DrivetrainTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.commands.LimelightTeleopCommand;
@@ -131,6 +132,7 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
     Robot.limelight.setDefaultCommand(new LimelightTeleopCommand());
+    Robot.climbers.setDefaultCommand(new ClimberTeleopCommand());
   }
 
   /** This function is called periodically during operator control. */

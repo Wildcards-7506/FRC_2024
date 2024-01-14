@@ -34,6 +34,8 @@ public class Ryan extends PlayerConfigs {
         //Intake
         PlayerConfigs.intake = Robot.controller0.getRightTriggerAxis() > 0.2;
         PlayerConfigs.release = Robot.controller0.getRightBumper();
+        // PlayerConfigs.climberup = Robot.controller1.
+        // PlayerConfigs.climberdown = Robot.controller1.
 
         //Limelight Switch
         PlayerConfigs.switchPipeline = Robot.controller1.getStartButton();

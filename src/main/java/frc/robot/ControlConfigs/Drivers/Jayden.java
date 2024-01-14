@@ -34,6 +34,8 @@ public class Jayden extends PlayerConfigs {
         //Intake
         PlayerConfigs.intake = Robot.controller0.getRightTriggerAxis() > 0.2;
         PlayerConfigs.release = Robot.controller0.getRightBumper();
+        PlayerConfigs.climberup = Robot.controller1.getLeftTriggerAxis () > 0.2;
+        PlayerConfigs.climberdown = Robot.controller1.getRightTriggerAxis() > 0.2; 
 
         //Limelight Switch
         PlayerConfigs.switchPipeline = Robot.controller1.getStartButton();

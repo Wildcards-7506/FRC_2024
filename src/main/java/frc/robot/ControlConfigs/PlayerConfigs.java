@@ -37,6 +37,10 @@ public class PlayerConfigs {
     public static boolean shooter;
     public static boolean shooterPrime;
 
+    //climbers
+    public static boolean climberup;
+    public static boolean climberdown;
+
     public void getDriverConfig(){}
 
     public void getCoDriverConfig(){}

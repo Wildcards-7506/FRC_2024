@@ -66,9 +66,7 @@ public final class AutoRoutines {
     kAutoStartDelaySeconds = SmartDashboard.getNumber("Auto Delay",0.0);
     
     autoChooser.setDefaultOption("Nothing", Commands.none());
-    autoChooser.addOption("Helix", helix());
-    autoChooser.addOption("Box", box());
-    autoChooser.addOption("Spikes", spikes());
+    autoChooser.addOption("Four Piece Wing", fourPieceWing());
 
     SmartDashboard.putData("Auto Chooser",autoChooser);
   }
@@ -77,40 +75,29 @@ public final class AutoRoutines {
     eventMap = buildEventMap();
   }
 
-    public Command none() {
-      return Commands.none();
-    }
+  public Command none() {
+    return Commands.none();
+  }
 
-    public Command helix() {
-      PathPlannerPath path1 = PathPlannerPath.fromPathFile("Helix");
-      return AutoBuilder.followPath(path1);
-    }
-    
-    public Command box() {
-      PathPlannerPath path2 = PathPlannerPath.fromPathFile("Box");
-      return AutoBuilder.followPath(path2);    
-    }
+  public Command fourPieceWing() {
+    return AutoBuilder.buildAuto("FourPieceWing");
+  }
 
-    public Command spikes() {
-      PathPlannerPath path3 = PathPlannerPath.fromPathFile("Spikes");
-      return AutoBuilder.followPath(path3);     
-    }
-  
-    private HashMap<String, Command> buildEventMap() {
-      return new HashMap<>(
-          Map.ofEntries(
-              //Map.entry("DoAction", subsystem.DoActionAutoCommand().alongWith(Commands.print("Doing Action"))),
-              Map.entry("Checkpoint 1", Commands.print("Checkpoint 1")),
-              Map.entry("Checkpoint 2", Commands.print("Checkpoint 2")),
-              Map.entry("Checkpoint 3", Commands.print("Checkpoint 3")),
-              Map.entry("AutoSnap0", new AutoSnap(0)),
-              Map.entry("AutoSnap90", new AutoSnap(90)),
-              Map.entry("AutoSnap180", new AutoSnap(180)),
-              Map.entry("AutoSnap270", new AutoSnap(270)),
-              Map.entry("AutoX", new AutoX())
-              )
-      );
-    }
+  private HashMap<String, Command> buildEventMap() {
+    return new HashMap<>(
+        Map.ofEntries(
+            //Map.entry("DoAction", subsystem.DoActionAutoCommand().alongWith(Commands.print("Doing Action"))),
+            Map.entry("Checkpoint 1", Commands.print("Checkpoint 1")),
+            Map.entry("Checkpoint 2", Commands.print("Checkpoint 2")),
+            Map.entry("Checkpoint 3", Commands.print("Checkpoint 3")),
+            Map.entry("AutoSnap0", new AutoSnap(0)),
+            Map.entry("AutoSnap90", new AutoSnap(90)),
+            Map.entry("AutoSnap180", new AutoSnap(180)),
+            Map.entry("AutoSnap270", new AutoSnap(270)),
+            Map.entry("AutoX", new AutoX())
+            )
+    );
+  }
 
       /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

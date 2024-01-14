@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.ledConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
@@ -28,7 +29,6 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Climbers;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.LimelightRotator;
 import frc.robot.subsystems.LEDs;
 import frc.robot.util.Logger;
 
@@ -42,17 +42,14 @@ public class Robot extends TimedRobot {
   private AutoRoutines autoMode;
   public PlayerConfigs driver;
   public PlayerConfigs coDriver;
+  
   //Subsystem Declarations
-
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Intake intake = new Intake();
   public static final Shooter shooter = new Shooter();
-  public static final Climbers climbers = new Climbers();
-  public static final LimelightRotator llrotator = new LimelightRotator();
-  
+  public static final Climbers climbers = new Climbers();  
   public static final Limelight limelight = new Limelight();
-
-  public static final LEDs ledSystem = new LEDs(0,30);
+  public static final LEDs ledSystem = new LEDs(ledConstants.pwmPort,ledConstants.bufferSize);
 
   //Controllers
   public static final XboxController controller0 = new XboxController(Constants.IOConstants.DRIVER_CONTROLLER_0);

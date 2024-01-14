@@ -174,21 +174,6 @@ public final class Constants {
         public static final double kFreeSpeedRpm = 5676;
       }
 
-
-      public static final class ExampleArmConstants {
-        public static final int kArmCurrentLimit = 30;
-        public static final double kArmEncoderDistancePerPulse = 1.0/125 * 12.0/15 * 360;
-        public static final double kArmKP = 0.007;
-        public static final double kArmHi = 120.0;
-        public static final double kArmMid = 50.0;
-        public static final double kArmLow = 10.0;
-        public static final double kArmClosed = 0.0;
-        public static final double armHorizontalOffset = 60;
-        
-        public static final int kIntakeCurrentLimit = 40;
-        
-      }
-
       public static final class IntakeConstants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
@@ -199,7 +184,7 @@ public final class Constants {
         public static final double kElbowStowed = 10.0;
 
         public static final int kWristCurrentLimit = 40;
-        public static final double kWristEncoderDistancePerPulse = 1.0/125 * 12.0/15 * 360;
+        public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
         public static final double kWristKP = 0.001;
         public static final double kWristGround = 0.0;
         public static final double kWristTrap = 15.0;
@@ -212,7 +197,7 @@ public final class Constants {
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static final double kArmedRPM = 2000;
+        public static final double kArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
         public static final double kShooterP = 1;
       }
@@ -230,7 +215,26 @@ public final class Constants {
         public static final int kRotateCurrentLimit = 30;
       }
 
-      public static final class ledconstants {
-        //led Constants Here
+      public static final class ledConstants {
+        public static final int pwmPort = 0;
+        public static final int bufferSize = 30;
+
+        public static final int RED = 0;
+        public static final int ORANGE = 15;
+        public static final int YELLOW = 30;
+        public static final int LIME = 45;
+        public static final int GREEN = 60;
+        public static final int EMERALD = 75;
+        public static final int CYAN = 90;
+        public static final int AZURE = 105;
+        public static final int BLUE = 120;
+        public static final int VIOLET = 135;
+        public static final int MAGENTA = 150;
+        public static final int PINK = 165;
+
+        public static final int SV_FULL = 255;
+        public static final int SV_MID = 170;
+        public static final int SV_LOW = 85;
+        public static final int SV_OFF = 0;
       }
 }

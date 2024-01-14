@@ -207,6 +207,8 @@ public final class Constants {
 
       public static final class limelightRotatorConstants {
         //Limelight Rotator Constants Here
+        public static final double kRotatorKP = 0.007;
+        public static final int kRotateCurrentLimit = 30;
       }
 
       public static final class ledconstants {

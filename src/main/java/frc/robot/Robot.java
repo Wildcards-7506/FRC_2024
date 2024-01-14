@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
   public static final Intake intake = new Intake();
   public static final Shooter shooter = new Shooter();
   public static final Climbers climbers = new Climbers();
-  public static final LimelightRotator llrotator = new LimelightRotator();
+  public static final LimelightRotator llrotator = new LimelightRotator(18);
   
   public static final Limelight limelight = new Limelight();
 

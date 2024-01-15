@@ -66,21 +66,14 @@ public final class AutoRoutines {
     kAutoStartDelaySeconds = SmartDashboard.getNumber("Auto Delay",0.0);
     
     autoChooser.setDefaultOption("Nothing", Commands.none());
-    autoChooser.addOption("Four Piece Wing", fourPieceWing());
+    autoChooser.addOption("Center 4", AutoBuilder.buildAuto("C4PA"));
+    autoChooser.addOption("Top 4", AutoBuilder.buildAuto("T4PA"));
 
     SmartDashboard.putData("Auto Chooser",autoChooser);
   }
 
   private void setMarkers() {
     eventMap = buildEventMap();
-  }
-
-  public Command none() {
-    return Commands.none();
-  }
-
-  public Command fourPieceWing() {
-    return AutoBuilder.buildAuto("FourPieceWing");
   }
 
   private HashMap<String, Command> buildEventMap() {

@@ -60,7 +60,6 @@
           "width": 0.5
         },
         "height": 8.013679504394531,
-        "image": "/Users/homecomputer/Desktop/Screenshot 2024-01-16 at 8.55.08 AM.png",
         "width": 16.541748046875,
         "window": {
           "visible": true
@@ -113,6 +112,15 @@
       "open": true
     },
     "Server": {
+      "Publishers": {
+        "open": true
+      },
+      "Subscribers": {
+        "open": true
+      },
+      "open": true
+    },
+    "shuffleboard@1": {
       "Publishers": {
         "open": true
       },

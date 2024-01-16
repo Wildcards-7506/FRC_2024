@@ -10,8 +10,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.CANID;
+import frc.robot.Constants.LimelightConstants;
 
 public class Limelight extends SubsystemBase{
     public double distance;
@@ -22,25 +22,26 @@ public class Limelight extends SubsystemBase{
     private NetworkTableEntry ta;
     private NetworkTableEntry tv;
     private NetworkTableEntry ty;
+    private NetworkTableEntry tid;
 
     private SparkPIDController llPIDController;
     private RelativeEncoder llEncoder;
     private CANSparkMax llRotator;
 
     public Limelight () {
-        llRotator = new CANSparkMax(CANID.LL_ROTATOR, MotorType.kBrushless);
+        llRotator = new CANSparkMax(CANID.LIMELIGHT, MotorType.kBrushless);
 
         llEncoder = llRotator.getEncoder();
 
         llPIDController = llRotator.getPIDController();
         llPIDController.setOutputRange(-1, 1);
-        llRotator.setSmartCurrentLimit(Constants.limelightRotatorConstants.kRotateCurrentLimit);
-        llPIDController.setP(Constants.limelightRotatorConstants.kRotatorKP);
+        llRotator.setSmartCurrentLimit(LimelightConstants.kRotateCurrentLimit);
+        llPIDController.setP(LimelightConstants.kRotatorKP);
 
         llRotator.burnFlash();
     }
 
-    public void setLLRotatorPosition(double kPosition) {
+    public void setLimelightPosition(double kPosition) {
         llPIDController.setReference(kPosition, ControlType.kPosition);
     }
 
@@ -56,6 +57,7 @@ public class Limelight extends SubsystemBase{
         tv = table.getEntry("tv");
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
+        tid = table.getEntry("tid");
     }
 
     public double getTX() {
@@ -76,6 +78,11 @@ public class Limelight extends SubsystemBase{
     public double getTV() {
         updateData();
         return tv.getDouble(0.0);
+    }
+
+    public double getID() {
+        updateData();
+        return tid.getDouble(0.0);
     }
 
 }

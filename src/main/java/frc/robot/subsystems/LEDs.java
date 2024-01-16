@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ledConstants;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.Robot;
 
 public class LEDs extends SubsystemBase{
@@ -35,7 +35,7 @@ public class LEDs extends SubsystemBase{
           // shape is a circle so only one value needs to precess
           final var hue = (m_rainbowFirstPixelHue + (i * 180 / this.size)) % 180;
           // Set the value
-          ledBuffer.setHSV(i, hue, ledConstants.SV_FULL, ledConstants.SV_FULL);
+          ledBuffer.setHSV(i, hue, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         }
         // Increase by to make the rainbow "move"
         m_rainbowFirstPixelHue += 3;
@@ -65,41 +65,41 @@ public class LEDs extends SubsystemBase{
     public void checkAlign(double alignment, boolean aligning) {
         if(aligning){
             if(alignment < 2){
-                Robot.ledSystem.section(0, 9, ledConstants.GREEN, ledConstants.SV_FULL, ledConstants.SV_FULL);
+                Robot.ledSystem.section(0, 9, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             } else {
-                Robot.ledSystem.section(0, 9, ledConstants.ORANGE, ledConstants.SV_FULL, ledConstants.SV_FULL);
+                Robot.ledSystem.section(0, 9, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             }
         } else {
-            Robot.ledSystem.section(0, 9, ledConstants.RED, ledConstants.SV_OFF, ledConstants.SV_OFF);
+            Robot.ledSystem.section(0, 9, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
     }
 
     public void checkSpinup(double speed) {
         if(speed > 2800){
-            Robot.ledSystem.section(10, 19, ledConstants.GREEN, ledConstants.SV_FULL, ledConstants.SV_FULL);
+            Robot.ledSystem.section(10, 19, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         } else if(Robot.shooter.getSpeed() > 150){
-            Robot.ledSystem.section(10, 19, ledConstants.RED, ledConstants.SV_FULL, ledConstants.SV_FULL);
+            Robot.ledSystem.section(10, 19, LEDConstants.RED, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         } else{
-            Robot.ledSystem.section(10, 19, ledConstants.RED, ledConstants.SV_OFF, ledConstants.SV_OFF);
+            Robot.ledSystem.section(10, 19, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
     }
 
     public void checkIntake(double current, boolean intaking) {
         if(intaking){
             if(current < 10){
-                Robot.ledSystem.section(20, 29, ledConstants.GREEN, ledConstants.SV_FULL, ledConstants.SV_FULL);
+                Robot.ledSystem.section(20, 29, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             } else {
-                Robot.ledSystem.section(20, 29, ledConstants.MAGENTA, ledConstants.SV_FULL, ledConstants.SV_FULL);
+                Robot.ledSystem.section(20, 29, LEDConstants.MAGENTA, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             }
         } else {
-            Robot.ledSystem.section(20, 29, ledConstants.RED, ledConstants.SV_OFF, ledConstants.SV_OFF);
+            Robot.ledSystem.section(20, 29, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
     }
 
     public void checkClimberHeight(double height) {
         if(height > 2){
             if(Robot.climbers.getClimberEncoder() > 22){
-                Robot.ledSystem.solid(ledConstants.GREEN, ledConstants.SV_FULL, ledConstants.SV_FULL);
+                Robot.ledSystem.solid(LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             } else {
                 Robot.ledSystem.rainbow();
             }

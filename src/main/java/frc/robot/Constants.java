@@ -32,7 +32,7 @@ public final class Constants {
         public static final int CLIMBER_LEFT = 16;
         public static final int CLIMBER_RIGHT = 17;
 
-        public static final int LL_ROTATOR = 18;
+        public static final int LIMELIGHT = 18;
     }
 
     public static final class IOConstants {
@@ -209,13 +209,15 @@ public final class Constants {
         public static final int upLimit = 0;
       }
 
-      public static final class limelightRotatorConstants {
+      public static final class LimelightConstants {
         //Limelight Rotator Constants Here
         public static final double kRotatorKP = 0.007;
         public static final int kRotateCurrentLimit = 30;
+        public static final double kIntakePosition = 180;
+        public static final double kShooterPosition = 0;
       }
 
-      public static final class ledConstants {
+      public static final class LEDConstants {
         public static final int pwmPort = 0;
         public static final int bufferSize = 30;
 

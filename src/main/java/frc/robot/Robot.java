@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
 
   public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
   public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
+  public static SendableChooser<String> color_chooser = new SendableChooser<>();
 
   public static PlayerConfigs ryan = new Ryan();
   public static PlayerConfigs anthony = new Jayden();
@@ -82,11 +83,12 @@ public class Robot extends TimedRobot {
     // Co-Driver choosers
     coDriver_chooser.setDefaultOption("Anthony", anthony);
     coDriver_chooser.addOption("Ricardo", ricardo);
-    coDriver_chooser.addOption("Ryan", ryan);        
+    coDriver_chooser.addOption("Ryan", ryan);    
 
     // Put the choosers on the dashboard
     SmartDashboard.putData(driver_chooser);
     SmartDashboard.putData(coDriver_chooser);
+    SmartDashboard.putBoolean("Confirm Alliance", false);
     SmartDashboard.putData(m_field);
 
     Logger.info("SYSTEM","Robot Started");
@@ -102,7 +104,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
-
   }
 
   @Override
@@ -126,7 +127,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     Logger.info("SYSTEM","Teleop Started");
     CommandScheduler.getInstance().cancelAll();
-    teamColor = DriverStation.getAlliance();
     driver = driver_chooser.getSelected();
     coDriver = coDriver_chooser.getSelected();
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
@@ -154,14 +154,15 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     teamColor = DriverStation.getAlliance();
-    if(!teamColor.isEmpty() && autoMode == null){
-      if(teamColor.get() == Alliance.Red){
+    if(!teamColor.isEmpty()){
+      if(teamColor.get() == Alliance.Red && autoMode == null && SmartDashboard.getBoolean("Confirm Alliance", false)){
         autoMode = new AutoRoutines(true);
-      } else if(teamColor.get() == Alliance.Blue){
+      } else if(teamColor.get() == Alliance.Blue && autoMode == null && SmartDashboard.getBoolean("Confirm Alliance", false)){
         autoMode = new AutoRoutines(false);
       }
     }
     ledSystem.rainbow();
+    
   }
 
   /** This function is called once when test mode is enabled. */

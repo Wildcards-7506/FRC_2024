@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.LEDConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
@@ -58,7 +57,7 @@ public class Robot extends TimedRobot {
   public static final Shooter shooter = new Shooter();
   public static final Climbers climbers = new Climbers();  
   public static final Limelight limelight = new Limelight();
-  public static final LEDs ledSystem = new LEDs(LEDConstants.pwmPort, LEDConstants.bufferSize);
+  public static final LEDs ledSystem = new LEDs();
 
   //Controllers
   public static final XboxController controller0 = new XboxController(Constants.IOConstants.DRIVER_CONTROLLER_0);

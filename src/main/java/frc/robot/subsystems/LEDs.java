@@ -9,17 +9,15 @@ import frc.robot.Robot;
 public class LEDs extends SubsystemBase{
     private AddressableLED ledString;
     private AddressableLEDBuffer ledBuffer;
-    private int size;
 
     // Store what the last hue of the first pixel is
     private int m_rainbowFirstPixelHue;
 
-    public LEDs(int PWMPort, int BufferSize){
-        size = BufferSize;
-        ledString = new AddressableLED(PWMPort);
-        ledBuffer = new AddressableLEDBuffer(BufferSize);
+    public LEDs(){
+        ledString = new AddressableLED(LEDConstants.pwmPort);
+        ledBuffer = new AddressableLEDBuffer(LEDConstants.bufferSize);
 
-        ledString.setLength(BufferSize);
+        ledString.setLength(LEDConstants.bufferSize);
         ledString.setData(ledBuffer);
         ledString.start();
     }
@@ -30,10 +28,10 @@ public class LEDs extends SubsystemBase{
 
     public void rainbow() {
         // For every pixel
-        for (var i = 0; i < this.size; i++) {
+        for (var i = 0; i < LEDConstants.bufferSize; i++) {
           // Calculate the hue - hue is easier for rainbows because the color
           // shape is a circle so only one value needs to precess
-          final var hue = (m_rainbowFirstPixelHue + (i * 180 / this.size)) % 180;
+          final var hue = (m_rainbowFirstPixelHue + (i * 180 / LEDConstants.bufferSize)) % 180;
           // Set the value
           ledBuffer.setHSV(i, hue, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         }
@@ -46,7 +44,7 @@ public class LEDs extends SubsystemBase{
 
     public void solid(int hue, int sat, int val) {
         // For every pixel
-        for (var i = 0; i < this.size; i++) {
+        for (var i = 0; i < LEDConstants.bufferSize; i++) {
           // Set the value
           ledBuffer.setHSV(i, hue, sat, val);
         }
@@ -65,34 +63,34 @@ public class LEDs extends SubsystemBase{
     public void checkAlign(double alignment, boolean aligning) {
         if(aligning){
             if(alignment < 2){
-                Robot.ledSystem.section(0, 9, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+                Robot.ledSystem.section(0, LEDConstants.bufferSize/3-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             } else {
-                Robot.ledSystem.section(0, 9, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+                Robot.ledSystem.section(0, LEDConstants.bufferSize/3-1, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             }
         } else {
-            Robot.ledSystem.section(0, 9, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
+            Robot.ledSystem.section(0, LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
     }
 
     public void checkSpinup(double speed) {
         if(speed > 2800){
-            Robot.ledSystem.section(10, 19, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+            Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         } else if(Robot.shooter.getSpeed() > 150){
-            Robot.ledSystem.section(10, 19, LEDConstants.RED, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+            Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         } else{
-            Robot.ledSystem.section(10, 19, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
+            Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
     }
 
     public void checkIntake(double current, boolean intaking) {
         if(intaking){
             if(current < 10){
-                Robot.ledSystem.section(20, 29, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+                Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             } else {
-                Robot.ledSystem.section(20, 29, LEDConstants.MAGENTA, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+                Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.MAGENTA, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             }
         } else {
-            Robot.ledSystem.section(20, 29, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
+            Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
     }
 

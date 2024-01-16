@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -39,9 +40,17 @@ import frc.robot.util.Logger;
  * project.
  */
 public class Robot extends TimedRobot {  
+  //Modes and people
   private AutoRoutines autoMode;
   public PlayerConfigs driver;
   public PlayerConfigs coDriver;
+
+  public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
+  public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
+
+  public static PlayerConfigs ryan = new Ryan();
+  public static PlayerConfigs anthony = new Jayden();
+  public static PlayerConfigs ricardo = new Ricardo();
   
   //Subsystem Declarations
   public static final Drivetrain drivetrain = new Drivetrain();
@@ -55,17 +64,10 @@ public class Robot extends TimedRobot {
   public static final XboxController controller0 = new XboxController(Constants.IOConstants.DRIVER_CONTROLLER_0);
   public static final XboxController controller1 = new XboxController(Constants.IOConstants.DRIVER_CONTROLLER_1);
 
-  //Test Timer & Flag
+  //Test Timer & Field Info
   Timer timer = new Timer();
-
   public static Optional<Alliance> teamColor;
-
-  public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
-  public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
-
-  public static PlayerConfigs ryan = new Ryan();
-  public static PlayerConfigs anthony = new Jayden();
-  public static PlayerConfigs ricardo = new Ricardo();
+  public final static Field2d m_field = new Field2d();
 
   /*
    * This function is run when the robot is first started up and should be used for any
@@ -86,6 +88,7 @@ public class Robot extends TimedRobot {
     // Put the choosers on the dashboard
     SmartDashboard.putData(driver_chooser);
     SmartDashboard.putData(coDriver_chooser);
+    SmartDashboard.putData(m_field);
 
     Logger.info("SYSTEM","Robot Started");
   }
@@ -100,6 +103,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
+
   }
 
   @Override

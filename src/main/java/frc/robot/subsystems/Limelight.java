@@ -24,29 +24,29 @@ public class Limelight extends SubsystemBase{
     private NetworkTableEntry ty;
     private NetworkTableEntry tid;
 
-    private SparkPIDController llPIDController;
-    private RelativeEncoder llEncoder;
-    private CANSparkMax llRotator;
+    private SparkPIDController limelightPIDController;
+    private RelativeEncoder limelightEncoder;
+    private CANSparkMax limelightRotator;
 
     public Limelight () {
-        llRotator = new CANSparkMax(CANID.LIMELIGHT, MotorType.kBrushless);
+        limelightRotator = new CANSparkMax(CANID.LIMELIGHT, MotorType.kBrushless);
 
-        llEncoder = llRotator.getEncoder();
+        limelightEncoder = limelightRotator.getEncoder();
 
-        llPIDController = llRotator.getPIDController();
-        llPIDController.setOutputRange(-1, 1);
-        llRotator.setSmartCurrentLimit(LimelightConstants.kRotateCurrentLimit);
-        llPIDController.setP(LimelightConstants.kRotatorKP);
+        limelightPIDController = limelightRotator.getPIDController();
+        limelightPIDController.setOutputRange(-1, 1);
+        limelightRotator.setSmartCurrentLimit(LimelightConstants.kRotateCurrentLimit);
+        limelightPIDController.setP(LimelightConstants.kRotatorKP);
 
-        llRotator.burnFlash();
+        limelightRotator.burnFlash();
     }
 
     public void setLimelightPosition(double kPosition) {
-        llPIDController.setReference(kPosition, ControlType.kPosition);
+        limelightPIDController.setReference(kPosition, ControlType.kPosition);
     }
 
     public double getPos() {
-        return llEncoder.getPosition();
+        return limelightEncoder.getPosition();
     }
 
     //The following five methods retrieve and make data available from the Limelight Network Table

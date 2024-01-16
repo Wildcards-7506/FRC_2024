@@ -48,7 +48,6 @@ public class Robot extends TimedRobot {
 
   public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
   public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
-  public static SendableChooser<String> color_chooser = new SendableChooser<>();
 
   public static PlayerConfigs ryan = new Ryan();
   public static PlayerConfigs jayden = new Jayden();

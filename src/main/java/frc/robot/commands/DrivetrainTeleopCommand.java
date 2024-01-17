@@ -40,11 +40,12 @@ public class DrivetrainTeleopCommand extends Command{
             Robot.drivetrain.snap(270);
         } else if((PlayerConfigs.align)){
             Robot.drivetrain.align(Robot.limelight.getTX());
-        } else if (PlayerConfigs.xToggle) {
-            Robot.drivetrain.setX();
-        } else {
+        } else if (Math.abs(PlayerConfigs.xMovement) > 0.05 || Math.abs(PlayerConfigs.yMovement) > 0.05 || Math.abs(PlayerConfigs.turnMovement) > 0.05) {
             Robot.drivetrain.drive(yInputSpeed, xInputSpeed, inputRot, true, true);
-        }   
+        } else {
+            Robot.drivetrain.setX();
+        }
+
         payload = df.format(yInputSpeed)
          + " " + df.format(xInputSpeed)
          + " " + df.format(inputRot)

@@ -25,6 +25,9 @@ public class Intake extends SubsystemBase {
     private SparkPIDController elbowPID;
     private SparkPIDController wristPID;
 
+    public double wristSetPoint = 0;
+    public double elbowSetPoint = 0;
+
     public Intake() {
         elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
         elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);

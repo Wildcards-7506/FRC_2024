@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.ControlConfigs.PlayerConfigs;
-import frc.robot.subsystems.Shooter;
 
 public class ShooterTeleopCommand extends Command{
 
-    Shooter shoot = new Shooter();
+    private boolean prev_PrimeButton = false;
 
     public ShooterTeleopCommand(){
         addRequirements(Robot.shooter);
@@ -16,16 +16,22 @@ public class ShooterTeleopCommand extends Command{
     
     @Override
     public void execute (){
-        //Need to set Shooter Primed as a boolean toggle to turn climbers on/off and use lights
-
-        if(PlayerConfigs.shooterPrimed == true && PlayerConfigs.shooterArmed == true){
-            shoot.SetFlywheelSpeed(Constants.ShooterConstants.kArmedRPM);
-        } else if(PlayerConfigs.shooterPrimed == true){
-            shoot.SetFlywheelSpeed(Constants.ShooterConstants.kPrimeRPM);
-        } else {
-            shoot.SetFlywheelSpeed(0);
+        if(PlayerConfigs.shooterPrimed != prev_PrimeButton){
+            prev_PrimeButton = PlayerConfigs.shooterPrimed;
+            if(PlayerConfigs.shooterPrimed){
+                Robot.shooter.shootingMode = !Robot.shooter.shootingMode;
+            }
         }
 
-        //Add code to post shooter speed to the dashboard. See ClimberTeleopCommand.java for an example
+        if(PlayerConfigs.shooterPrimed == true && PlayerConfigs.shooterArmed == true){
+            Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kArmedRPM);
+        } else if(PlayerConfigs.shooterPrimed == true){
+            Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kPrimeRPM);
+        } else {
+            Robot.shooter.SetFlywheelSpeed(0);
+        }
+
+        SmartDashboard.putNumber("Shooter Speed", Robot.shooter.getSpeed());
+        SmartDashboard.putBoolean("Shooter Mode", Robot.shooter.shootingMode);
     } 
 }

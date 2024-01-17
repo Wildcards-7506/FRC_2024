@@ -16,6 +16,7 @@ public class Shooter extends SubsystemBase{
     private final CANSparkMax flywheelR;
     private final RelativeEncoder flywheelEncoder;
     private final SparkPIDController flywheelPID;
+    public boolean shootingMode;
 
     public Shooter () {
         flywheelL = new CANSparkMax(CANID.FLYWHEEL_LEFT, MotorType.kBrushless);
@@ -29,6 +30,8 @@ public class Shooter extends SubsystemBase{
 
         flywheelL.burnFlash();
         flywheelR.burnFlash();
+
+        shootingMode = true;
     }
 
     public double getSpeed(){

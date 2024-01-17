@@ -17,6 +17,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Robot;
 import frc.robot.Constants.CANID;
 import frc.robot.util.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -80,6 +81,8 @@ public class Drivetrain extends SubsystemBase {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
+
+      Robot.m_field.setRobotPose(m_odometry.getPoseMeters());
   }
 
   /**

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.CANID;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.util.Logger;
 
 public class Shooter extends SubsystemBase{
 
@@ -40,6 +41,12 @@ public class Shooter extends SubsystemBase{
 
     public void SetFlywheelSpeed(double speed) {
         flywheelPID.setReference(speed, ControlType.kVelocity);
+    }
+
+    public void shooterLog(){
+        Logger.info("SHOOT: ", Double.toString(getSpeed()) + " RPM");
+        if(flywheelL.getFaults()!=0){Logger.warn("FWLFT: " + Short.toString(flywheelL.getFaults()));}
+        if(flywheelR.getFaults()!=0){Logger.warn("FWRGT: " + Short.toString(flywheelR.getFaults()));}
     }
 
 }

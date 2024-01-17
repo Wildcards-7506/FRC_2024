@@ -19,6 +19,7 @@ import edu.wpi.first.util.WPIUtilJNI;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Robot;
 import frc.robot.Constants.CANID;
+import frc.robot.util.Logger;
 import frc.robot.util.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -281,5 +282,13 @@ public void align(double distance){
    */
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  public void driveLog(String payload){
+    Logger.info("DRIVE", payload);
+    Robot.drivetrain.m_frontLeft.errorCheck("FLDRV", "FLTRN");
+    Robot.drivetrain.m_rearLeft.errorCheck("RLDRV", "RLTRN");
+    Robot.drivetrain.m_frontRight.errorCheck("FRDRV", "FRTRN");
+    Robot.drivetrain.m_rearRight.errorCheck("RRDRV", "RRTRN");
   }
 }

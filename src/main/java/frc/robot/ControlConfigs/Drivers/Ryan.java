@@ -36,7 +36,7 @@ public class Ryan extends PlayerConfigs {
         PlayerConfigs.stow = false;
 
         //Shooter Spin up
-        PlayerConfigs.shooterArmed = false;
+        PlayerConfigs.armScoringMechanism = false;
 
         //Climbers
         PlayerConfigs.climberUp = false;

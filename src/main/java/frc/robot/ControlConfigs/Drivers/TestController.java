@@ -36,7 +36,7 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.stow = Robot.controller1.getYButton();
 
         //Shooter Spin Up
-        PlayerConfigs.shooterArmed = Robot.controller1.getRightTriggerAxis() > 0.2;
+        PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;
 
         //Climbers
         PlayerConfigs.climberUp = Robot.controller1.getLeftBumper();

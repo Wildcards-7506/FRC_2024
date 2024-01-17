@@ -36,7 +36,7 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.stow = false;
 
         //Shooter Spin up
-        PlayerConfigs.shooterArmed = false;
+        PlayerConfigs.armScoringMechanism = false;
         
         //Climbers
         PlayerConfigs.climberUp = Robot.controller1.getLeftTriggerAxis () > 0.2;

@@ -23,7 +23,7 @@ public class ShooterTeleopCommand extends Command{
             }
         }
 
-        if(PlayerConfigs.shooterActive == true && PlayerConfigs.shooterArmed == true){
+        if(PlayerConfigs.shooterActive == true && PlayerConfigs.armScoringMechanism == true){
             Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kArmedRPM);
         } else if(PlayerConfigs.shooterActive == true){
             Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kPrimeRPM);
@@ -33,5 +33,6 @@ public class ShooterTeleopCommand extends Command{
 
         SmartDashboard.putNumber("Shooter Speed", Robot.shooter.getSpeed());
         SmartDashboard.putBoolean("Shooter Mode", Robot.shooter.shootingMode);
+        Robot.shooter.shooterLog();
     } 
 }

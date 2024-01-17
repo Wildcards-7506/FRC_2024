@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.Robot;
-import frc.robot.util.Logger;
 
 public class DrivetrainTeleopCommand extends Command{
 
@@ -47,14 +46,10 @@ public class DrivetrainTeleopCommand extends Command{
         }
 
         payload = df.format(yInputSpeed)
-         + " " + df.format(xInputSpeed)
-         + " " + df.format(inputRot)
-         + " (Y,X,R)";
+        + " " + df.format(xInputSpeed)
+        + " " + df.format(inputRot)
+        + " (Y,X,R)";
         
-         Logger.info("DRIVE", payload);
-        Robot.drivetrain.m_frontLeft.errorCheck("FLDRV", "FLTRN");
-        Robot.drivetrain.m_rearLeft.errorCheck("RLDRV", "RLTRN");
-        Robot.drivetrain.m_frontRight.errorCheck("FRDRV", "FRTRN");
-        Robot.drivetrain.m_rearRight.errorCheck("RRDRV", "RRTRN");
+        Robot.drivetrain.driveLog(payload);
     }
 }

@@ -36,7 +36,7 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.stow = false;
 
         //Shooter Spin up
-        PlayerConfigs.shooterArmed = false;
+        PlayerConfigs.armScoringMechanism = false;
         
         //Climbers
         PlayerConfigs.climberUp = false;

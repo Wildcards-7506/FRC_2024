@@ -21,8 +21,9 @@ public class ClimberTeleopCommand extends Command{
             } else {
                 Robot.climbers.setClimbers(0);
             }
-            Robot.climbers.climberLog();
-            SmartDashboard.putNumber("Climber Position", Robot.climbers.getClimberEncoder());
         }
+
+        Robot.climbers.climberLog();
+        SmartDashboard.putNumber("Climber Position", Robot.climbers.getClimberEncoder());
     } 
 }

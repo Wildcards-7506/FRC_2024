@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANID;
 import frc.robot.Constants.LimelightConstants;
+import frc.robot.util.Logger;
 
 public class Limelight extends SubsystemBase{
     public double distance;
@@ -83,6 +84,11 @@ public class Limelight extends SubsystemBase{
     public double getID() {
         updateData();
         return tid.getDouble(0.0);
+    }
+
+    public void limelightLog(){
+        Logger.info("LMLGT: ", Double.toString(getPos()) + " Degrees");
+        if(limelightRotator.getFaults()!=0){Logger.warn("LMLGT: " + Short.toString(limelightRotator.getFaults()));}
     }
 
 }

@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
-import frc.robot.Robot;
 
 public class LEDs extends SubsystemBase{
     private AddressableLED ledString;
@@ -58,49 +57,5 @@ public class LEDs extends SubsystemBase{
           ledBuffer.setHSV(i, hue, sat, val);
         }
         update();
-    }
-
-    public void checkAlign(double alignment, boolean aligning) {
-        if(aligning){
-            if(alignment < 2){
-                Robot.ledSystem.section(0, LEDConstants.bufferSize/3-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-            } else {
-                Robot.ledSystem.section(0, LEDConstants.bufferSize/3-1, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-            }
-        } else {
-            Robot.ledSystem.section(0, LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
-        }
-    }
-
-    public void checkSpinup(double speed) {
-        if(speed > 2800){
-            Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-        } else if(Robot.shooter.getSpeed() > 150){
-            Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-        } else{
-            Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
-        }
-    }
-
-    public void checkIntake(double current, boolean intaking) {
-        if(intaking){
-            if(current > 10){
-                Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-            } else {
-                Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.MAGENTA, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-            }
-        } else {
-            Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
-        }
-    }
-
-    public void checkClimberHeight(double height) {
-        if(height > 2){
-            if(Robot.climbers.getClimberEncoder() > 22){
-                Robot.ledSystem.solid(LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-            } else {
-                Robot.ledSystem.rainbow();
-            }
-        }
     }
 }

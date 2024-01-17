@@ -26,7 +26,7 @@ public class PlayerConfigs {
     public static boolean stow;
 
     //Shooter
-    public static boolean shooterArmed;
+    public static boolean armScoringMechanism;
     public static boolean shooterActive;
     public static boolean fire;
 

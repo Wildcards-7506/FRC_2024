@@ -24,11 +24,11 @@ public class PlayerConfigs {
     public static boolean trap;
     public static boolean amp;
     public static boolean stow;
-    public static boolean release;
 
     //Shooter
     public static boolean shooterArmed;
-    public static boolean shooterPrimed;
+    public static boolean shooterActive;
+    public static boolean fire;
 
     //Climbers
     public static boolean climberUp;

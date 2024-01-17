@@ -24,8 +24,8 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.align = Robot.controller0.getLeftBumper();
 
         //Scoring and grabbing objects
-        PlayerConfigs.shooterPrimed = Robot.controller0.getRightTriggerAxis() > 0.2;
-        PlayerConfigs.shooterArmed = Robot.controller0.getRightBumper();
+        PlayerConfigs.shooterActive = Robot.controller0.getRightTriggerAxis() > 0.2;
+        PlayerConfigs.fire = Robot.controller0.getRightBumper();
     } 
 
     public void getCoDriverConfig() {
@@ -34,7 +34,9 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.trap = Robot.controller1.getBButton();
         PlayerConfigs.amp = Robot.controller1.getXButton();
         PlayerConfigs.stow = Robot.controller1.getYButton();
-        PlayerConfigs.release = Robot.controller1.getRightTriggerAxis() > 0.2;
+
+        //Shooter Spin Up
+        PlayerConfigs.shooterArmed = Robot.controller1.getRightTriggerAxis() > 0.2;
 
         //Climbers
         PlayerConfigs.climberUp = Robot.controller1.getLeftBumper();

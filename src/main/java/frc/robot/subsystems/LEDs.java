@@ -84,7 +84,7 @@ public class LEDs extends SubsystemBase{
 
     public void checkIntake(double current, boolean intaking) {
         if(intaking){
-            if(current < 10){
+            if(current > 10){
                 Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
             } else {
                 Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.MAGENTA, LEDConstants.SV_FULL, LEDConstants.SV_FULL);

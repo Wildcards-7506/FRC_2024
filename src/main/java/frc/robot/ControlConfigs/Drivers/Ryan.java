@@ -24,8 +24,8 @@ public class Ryan extends PlayerConfigs {
         PlayerConfigs.align = false;
 
         //Scoring and grabbing objects
-        PlayerConfigs.shooterPrimed = false;
-        PlayerConfigs.shooterArmed = false;
+        PlayerConfigs.shooterActive = false;
+        PlayerConfigs.fire = false;
     } 
 
     public void getCoDriverConfig() {
@@ -34,7 +34,9 @@ public class Ryan extends PlayerConfigs {
         PlayerConfigs.trap = false;
         PlayerConfigs.amp = false;
         PlayerConfigs.stow = false;
-        PlayerConfigs.release = false;
+
+        //Shooter Spin up
+        PlayerConfigs.shooterArmed = false;
 
         //Climbers
         PlayerConfigs.climberUp = false;

@@ -70,7 +70,7 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
 
-        if (PlayerConfigs.intake && PlayerConfigs.release) {
+        if (PlayerConfigs.intake || PlayerConfigs.fire) {
             Robot.intake.setIntakeVoltage(12);
         } else {
             Robot.intake.setIntakeVoltage(0);

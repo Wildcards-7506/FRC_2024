@@ -8,7 +8,7 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class ShooterTeleopCommand extends Command{
 
-    private boolean prev_PrimeButton = false;
+    private boolean prev_ActiveButton = false;
 
     public ShooterTeleopCommand(){
         addRequirements(Robot.shooter);
@@ -16,16 +16,16 @@ public class ShooterTeleopCommand extends Command{
     
     @Override
     public void execute (){
-        if(PlayerConfigs.shooterPrimed != prev_PrimeButton){
-            prev_PrimeButton = PlayerConfigs.shooterPrimed;
-            if(PlayerConfigs.shooterPrimed){
+        if(PlayerConfigs.shooterActive != prev_ActiveButton){
+            prev_ActiveButton = PlayerConfigs.shooterActive;
+            if(PlayerConfigs.shooterActive){
                 Robot.shooter.shootingMode = !Robot.shooter.shootingMode;
             }
         }
 
-        if(PlayerConfigs.shooterPrimed == true && PlayerConfigs.shooterArmed == true){
+        if(PlayerConfigs.shooterActive == true && PlayerConfigs.shooterArmed == true){
             Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kArmedRPM);
-        } else if(PlayerConfigs.shooterPrimed == true){
+        } else if(PlayerConfigs.shooterActive == true){
             Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kPrimeRPM);
         } else {
             Robot.shooter.SetFlywheelSpeed(0);

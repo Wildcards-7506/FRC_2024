@@ -22,6 +22,7 @@ import frc.robot.ControlConfigs.Drivers.Ryan;
 import frc.robot.ControlConfigs.Drivers.TestController;
 import frc.robot.commands.ClimberTeleopCommand;
 import frc.robot.commands.DrivetrainTeleopCommand;
+import frc.robot.commands.IntakeTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.commands.LimelightTeleopCommand;
 import frc.robot.commands.ShooterTeleopCommand;
@@ -133,6 +134,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
     driver = driver_chooser.getSelected();
     coDriver = coDriver_chooser.getSelected();
+    Robot.intake.setDefaultCommand(new IntakeTeleopCommand());
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     Robot.climbers.setDefaultCommand(new ClimberTeleopCommand());
     Robot.shooter.setDefaultCommand(new ShooterTeleopCommand());

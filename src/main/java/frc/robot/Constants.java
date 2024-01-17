@@ -179,9 +179,9 @@ public final class Constants {
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
         public static final double kElbowKP = 0.001;
         public static final double kElbowGround = 0.0;
-        public static final double kElbowTrap = 50.0;
+        public static final double kElbowTrap = 40.0;
         public static final double kElbowAmp = 50.0;
-        public static final double kElbowStowed = 10.0;
+        public static final double kElbowStowed = 155.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;

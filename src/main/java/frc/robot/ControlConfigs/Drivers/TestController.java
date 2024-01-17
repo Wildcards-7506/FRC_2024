@@ -30,9 +30,11 @@ public class TestController extends PlayerConfigs {
 
     public void getCoDriverConfig() {
         //Intake
-        PlayerConfigs.intake = Robot.controller1.getRightBumper();
+        PlayerConfigs.intake = Robot.controller1.getAButton();
+        PlayerConfigs.trap = Robot.controller1.getBButton();
+        PlayerConfigs.amp = Robot.controller1.getXButton();
+        PlayerConfigs.stow = Robot.controller1.getYButton();
         PlayerConfigs.release = Robot.controller1.getRightTriggerAxis() > 0.2;
-        PlayerConfigs.trap = Robot.controller1.getAButton();
 
         //Climbers
         PlayerConfigs.climberUp = Robot.controller1.getLeftBumper();

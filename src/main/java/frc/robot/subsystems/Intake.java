@@ -27,6 +27,7 @@ public class Intake extends SubsystemBase {
 
     public double wristSetPoint = 0;
     public double elbowSetPoint = 0;
+    public int intakeState = 0;
 
     public Intake() {
         elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);

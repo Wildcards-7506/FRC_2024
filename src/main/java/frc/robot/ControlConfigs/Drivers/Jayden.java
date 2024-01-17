@@ -31,8 +31,10 @@ public class Jayden extends PlayerConfigs {
     public void getCoDriverConfig() {
         //Intake
         PlayerConfigs.intake = false;
-        PlayerConfigs.release = false;
         PlayerConfigs.trap = false;
+        PlayerConfigs.amp = false;
+        PlayerConfigs.stow = false;
+        PlayerConfigs.release = false;
 
         //Climbers
         PlayerConfigs.climberUp = Robot.controller1.getLeftTriggerAxis () > 0.2;

@@ -40,6 +40,11 @@
         "header": {
           "open": true
         }
+      },
+      "SPARK MAX [1]": {
+        "header": {
+          "open": true
+        }
       }
     }
   },
@@ -92,6 +97,15 @@
       },
       "PathPlanner": {
         "HotReload": {
+          "open": true
+        },
+        "double[]##v_/PathPlanner/currentPose": {
+          "open": true
+        },
+        "double[]##v_/PathPlanner/targetPose": {
+          "open": true
+        },
+        "double[]##v_/PathPlanner/vel": {
           "open": true
         },
         "open": true

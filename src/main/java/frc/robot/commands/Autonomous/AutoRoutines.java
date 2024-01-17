@@ -79,6 +79,7 @@ public final class AutoRoutines {
     autoChooser.addOption("2 Top", AutoBuilder.buildAuto("T2PA"));
     autoChooser.addOption("2 Center", AutoBuilder.buildAuto("C2PA"));
     autoChooser.addOption("2 Bottom", AutoBuilder.buildAuto("B2PA"));
+    autoChooser.addOption("Amp Mid", AutoBuilder.buildAuto("AmpMid"));
     autoChooser.addOption("Troll", AutoBuilder.buildAuto("1+Troll"));
 
     SmartDashboard.putData("Auto Chooser",autoChooser);

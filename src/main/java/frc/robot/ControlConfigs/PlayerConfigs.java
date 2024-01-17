@@ -23,6 +23,7 @@ public class PlayerConfigs {
     public static boolean intake;
     public static boolean release;
     public static boolean trap;
+    public static boolean amp;
 
     //Shooter
     public static boolean shooterArmed;

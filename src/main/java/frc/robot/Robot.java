@@ -115,7 +115,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     Logger.info("SYSTEM","Autonomous Program Started");
     CommandScheduler.getInstance().cancelAll();
-    //Need LED Indicator Here
     autoMode.resetAutoHeading();
     autoMode.getAutonomousCommand().schedule();
   }

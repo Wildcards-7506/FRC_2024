@@ -56,7 +56,7 @@
           "commands": []
         }
       }
-    }
+    },
     {
       "name": "AutoIntake",
       "waypointRelativePos": 0,

@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 1.35,
-        "y": 5.55
+        "x": 0.8,
+        "y": 6.6
       },
       "prevControl": {
-        "x": 1.25,
-        "y": 5.55
+        "x": 1.8,
+        "y": 6.6
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,6 +48,11 @@
     {
       "waypointRelativePos": 0.5,
       "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0,
       "rotateFast": false
     }
   ],
@@ -62,7 +67,7 @@
           "commands": []
         }
       }
-    }
+    },
     {
       "name": "AutoIntake",
       "waypointRelativePos": 0,
@@ -82,7 +87,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 60.0,
     "rotateFast": false
   },
   "reversed": false,

@@ -21,9 +21,9 @@ public class AutoDrivetrainSnap extends Command{
     public void initialize() {
         Logger.info("DSNAP", "Snap Started");
         if(Robot.teamColor.get() == Alliance.Red){
-            angle = location == 0 ? -60 : location == 1 ? 0 : 60;
+            angle = location == 0 ? -60 : location == 1 ? 0 : location == 2 ? 60 : 90;
         } else{
-            angle = location == 0 ? -120 : location == 1 ? 180 : 120;
+            angle = location == 0 ? -120 : location == 1 ? 180 : location == 2 ? 120 : 90;
         }
         Logger.info("DSNAP", "Setpoint: " + Double.toString(angle) + " Degrees");
     }

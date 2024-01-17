@@ -7,9 +7,12 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class AutoDrivetrainAlign extends Command{
+    boolean amp;
+    double pipeline;
 
     /** Creates a new Auto Pitch Correction Command. */
-    public AutoDrivetrainAlign() {
+    public AutoDrivetrainAlign(boolean amp) {
+        this.amp = amp;
     }
 
     // Called when the command is initially scheduled.
@@ -17,10 +20,11 @@ public class AutoDrivetrainAlign extends Command{
     public void initialize() {
         Logger.info("ALIGN","Align Started");
         if(Robot.teamColor.get() == Alliance.Red){
-            Robot.limelight.setPipeline(4.0);
+            pipeline = amp ? 5.0 : 4.0;
         } else {
-            Robot.limelight.setPipeline(7.0);
+            pipeline = amp ? 6.0 : 7.0;
         }
+        Robot.limelight.setPipeline(pipeline);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

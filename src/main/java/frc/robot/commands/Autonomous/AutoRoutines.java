@@ -29,6 +29,7 @@ import frc.robot.Robot;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoAmp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeDown;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeUp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
@@ -70,8 +71,15 @@ public final class AutoRoutines {
     kAutoStartDelaySeconds = SmartDashboard.getNumber("Auto Delay",0.0);
     
     autoChooser.setDefaultOption("Nothing", Commands.none());
-    autoChooser.addOption("Center 4", AutoBuilder.buildAuto("C4PA"));
-    autoChooser.addOption("Top 4", AutoBuilder.buildAuto("T4PA"));
+    autoChooser.addOption("4 Top", AutoBuilder.buildAuto("T4PA"));
+    autoChooser.addOption("4 Center", AutoBuilder.buildAuto("C4PA"));
+    autoChooser.addOption("4 Bottom", AutoBuilder.buildAuto("B4PA"));
+    autoChooser.addOption("3 Top", AutoBuilder.buildAuto("T3PA"));
+    autoChooser.addOption("3 Bottom", AutoBuilder.buildAuto("B3PA"));
+    autoChooser.addOption("2 Top", AutoBuilder.buildAuto("T2PA"));
+    autoChooser.addOption("2 Center", AutoBuilder.buildAuto("C2PA"));
+    autoChooser.addOption("2 Bottom", AutoBuilder.buildAuto("B2PA"));
+    autoChooser.addOption("Troll", AutoBuilder.buildAuto("1+Troll"));
 
     SmartDashboard.putData("Auto Chooser",autoChooser);
   }
@@ -83,17 +91,17 @@ public final class AutoRoutines {
   private HashMap<String, Command> buildEventMap() {
     return new HashMap<>(
         Map.ofEntries(
-            //Map.entry("DoAction", subsystem.DoActionAutoCommand().alongWith(Commands.print("Doing Action"))),
-            Map.entry("Checkpoint 1", Commands.print("Checkpoint 1")),
-            Map.entry("Checkpoint 2", Commands.print("Checkpoint 2")),
-            Map.entry("Checkpoint 3", Commands.print("Checkpoint 3")),
-            Map.entry("AutoShootTop", new AutoShoot(0)),
-            Map.entry("AutoShootCenter", new AutoShoot(1)),
-            Map.entry("AutoShootBottom", new AutoShoot(2)),
-            Map.entry("AutoIntakeDown", new AutoIntakeDown()),
-            Map.entry("AutoIntakeUp", new AutoIntakeUp()),
-            Map.entry("AutoIntake", new AutoIntake_Trigger(5, false))
-            )
+          Map.entry("Checkpoint 1", Commands.print("Checkpoint 1")),
+          Map.entry("Checkpoint 2", Commands.print("Checkpoint 2")),
+          Map.entry("Checkpoint 3", Commands.print("Checkpoint 3")),
+          Map.entry("AutoShootTop", new AutoShoot(0)),
+          Map.entry("AutoShootCenter", new AutoShoot(1)),
+          Map.entry("AutoShootBottom", new AutoShoot(2)),
+          Map.entry("AutoIntakeDown", new AutoIntakeDown()),
+          Map.entry("AutoIntakeUp", new AutoIntakeUp()),
+          Map.entry("AutoIntake", new AutoIntake_Trigger(5, false)),
+          Map.entry("AutoAmp", new AutoAmp())
+        )
     );
   }
 

@@ -33,7 +33,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopTop"
+            "pathName": "BottomBottom"
           }
         },
         {
@@ -43,7 +43,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoShootTop"
+                  "name": "AutoShootBottom"
                 }
               },
               {
@@ -58,7 +58,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopCenter"
+            "pathName": "BottomCenter"
           }
         },
         {
@@ -68,7 +68,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoShootCenter"
+                  "name": "AutoShootBottom"
                 }
               },
               {
@@ -83,7 +83,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopBottom"
+            "pathName": "BottomTop"
           }
         },
         {
@@ -93,7 +93,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoShootCenter"
+                  "name": "AutoShootBottom"
                 }
               }
             ]

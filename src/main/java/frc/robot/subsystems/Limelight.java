@@ -86,6 +86,10 @@ public class Limelight extends SubsystemBase{
         return tid.getDouble(0.0);
     }
 
+    public void setPipeline(double pipeline) {
+        table.getEntry("pipeline").setNumber(pipeline);
+    }
+
     public void limelightLog(){
         Logger.info("LMLGT: ", Double.toString(getPos()) + " Degrees");
         if(limelightRotator.getFaults()!=0){Logger.warn("LMLGT: " + Short.toString(limelightRotator.getFaults()));}

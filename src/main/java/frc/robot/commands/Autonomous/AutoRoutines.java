@@ -29,7 +29,11 @@ import frc.robot.Robot;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
-import frc.robot.commands.Autonomous.Subsystem_Commands.AutoSnap;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeDown;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeUp;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
+import frc.robot.commands.Autonomous.Subsystem_Commands.AutoDrivetrainSnap;
+import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoX;
 import frc.robot.subsystems.Drivetrain;
 
@@ -83,11 +87,12 @@ public final class AutoRoutines {
             Map.entry("Checkpoint 1", Commands.print("Checkpoint 1")),
             Map.entry("Checkpoint 2", Commands.print("Checkpoint 2")),
             Map.entry("Checkpoint 3", Commands.print("Checkpoint 3")),
-            Map.entry("AutoSnap0", new AutoSnap(0)),
-            Map.entry("AutoSnap90", new AutoSnap(90)),
-            Map.entry("AutoSnap180", new AutoSnap(180)),
-            Map.entry("AutoSnap270", new AutoSnap(270)),
-            Map.entry("AutoX", new AutoX())
+            Map.entry("AutoShootTop", new AutoShoot(0)),
+            Map.entry("AutoShootCenter", new AutoShoot(1)),
+            Map.entry("AutoShootBottom", new AutoShoot(2)),
+            Map.entry("AutoIntakeDown", new AutoIntakeDown()),
+            Map.entry("AutoIntakeUp", new AutoIntakeUp()),
+            Map.entry("AutoIntake", new AutoIntake_Trigger(5, false))
             )
     );
   }

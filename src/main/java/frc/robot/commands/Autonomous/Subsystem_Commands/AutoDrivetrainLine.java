@@ -6,7 +6,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class AutoLineDrive extends Command{
+public class AutoDrivetrainLine extends Command{
     
     double setpoint;
     double xspeed;
@@ -14,7 +14,7 @@ public class AutoLineDrive extends Command{
     double prevSpeed = 0;
     
     /** Creates a new Auto Pitch Correction Command. */
-    public AutoLineDrive(double setPoint) {
+    public AutoDrivetrainLine(double setPoint) {
         this.setpoint = setPoint;
         this.xspeed = Math.abs(Robot.drivetrain.getPose().getX() - setpoint)/(Robot.drivetrain.getPose().getX() - setPoint);
     }

@@ -4,42 +4,38 @@ import frc.robot.Robot;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class AutoSnap extends Command{
+public class AutoShooterSpinUp extends Command{
     
-    int angle;
-    double rotation;
+    double speed;
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
-    public AutoSnap(int angle) {
-        this.angle = angle;
+    public AutoShooterSpinUp(double speed) {
+        this.speed = speed;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Logger.info("DSNAP", "Snap Started");
+        Logger.info("SHOOT", "Shooter Spin Up Started");
     }
 
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double rotation = -0.1 * Math.abs(angle-Robot.drivetrain.getHeading())/(angle-Robot.drivetrain.getHeading());
-        Logger.info("DSNAP", Double.toString(angle-Robot.drivetrain.getHeading()) + " Degrees");
-        Robot.drivetrain.drive(0.0, 0.0, rotation, false,false);
+        Logger.info("SHOOT", Double.toString(Robot.shooter.getSpeed()) + " RPM");
+        Robot.shooter.SetFlywheelSpeed(speed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Logger.info("DSNAP", "Snap Complete");
-        Robot.drivetrain.drive(0,0,0,true,false);
-        Robot.drivetrain.resetEncoders();
+        Logger.info("SHOOT", "Shooter Up To Speed");
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  (Math.abs(angle-Robot.drivetrain.getHeading()) < 1);
+        return  speed - Robot.shooter.getSpeed() < 1;
     }
 }

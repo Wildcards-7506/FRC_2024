@@ -54,10 +54,20 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake Up",
+      "name": "AutoIntakeUp",
       "waypointRelativePos": 1.35,
       "command": {
         "type": "sequential",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+    {
+      "name": "AutoIntake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
         "data": {
           "commands": []
         }

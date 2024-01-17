@@ -21,6 +21,7 @@ public class Intake extends SubsystemBase {
     
     private RelativeEncoder elbowEncoder;
     private RelativeEncoder wristEncoder;
+    private RelativeEncoder intakeEncoder;
 
     private SparkPIDController elbowPID;
     private SparkPIDController wristPID;
@@ -28,6 +29,8 @@ public class Intake extends SubsystemBase {
     public double wristSetPoint = 0;
     public double elbowSetPoint = 0;
     public int intakeState = 0;
+    public boolean running = false;
+    public boolean pieceAcquired = false;
 
     public Intake() {
         elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
@@ -38,6 +41,7 @@ public class Intake extends SubsystemBase {
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
         wristEncoder = wristRotator.getEncoder();
+        intakeEncoder = intakeLeader.getEncoder();
 
         elbowPID = elbowRotatorLeader.getPIDController();
         wristPID = wristRotator.getPIDController();
@@ -98,6 +102,10 @@ public class Intake extends SubsystemBase {
 
     public double getIntakeCurrent() {
         return intakeLeader.getOutputCurrent();
+    }
+
+    public double getIntakeSpeed() {
+        return intakeEncoder.getVelocity();
     }
     
     public void setElbowPosition(double setPoint) {

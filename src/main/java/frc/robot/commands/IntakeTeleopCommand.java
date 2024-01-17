@@ -16,6 +16,7 @@ public class IntakeTeleopCommand extends Command{
     public void execute (){
         if(PlayerConfigs.intake){
             Robot.intake.intakeState = 1;
+            Robot.intake.pieceAcquired = false;
         } else if(PlayerConfigs.amp){
             Robot.intake.intakeState = 2;
         } else if(PlayerConfigs.trap){
@@ -70,14 +71,21 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
 
-        if (PlayerConfigs.intake || PlayerConfigs.fire) {
-            Robot.intake.setIntakeVoltage(12);
+        if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || (Robot.intake.intakeState == 0 && PlayerConfigs.fire)) {
+            //Robot.intake.setIntakeVoltage(12);
+            SmartDashboard.putNumber("Intake Setpoint: ",12);
+            Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
+            Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;
         } else {
-            Robot.intake.setIntakeVoltage(0);
+            //Robot.intake.setIntakeVoltage(0);
+            SmartDashboard.putNumber("Intake Setpoint: ",0);
+            Robot.intake.running = false;
         }
 
         SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
         SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
-        SmartDashboard.putNumber("Elbow Error: ",Math.abs(Robot.intake.elbowSetPoint - Robot.intake.getElbowEncoder()));
+        SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
+        SmartDashboard.putBoolean("Running: ", Robot.intake.running);
+        SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
     }
 }

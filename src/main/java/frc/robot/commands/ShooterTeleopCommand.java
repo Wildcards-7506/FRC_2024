@@ -23,9 +23,9 @@ public class ShooterTeleopCommand extends Command{
             }
         }
 
-        if(PlayerConfigs.shooterActive == true && PlayerConfigs.armScoringMechanism == true){
+        if(Robot.shooter.shootingMode == true && PlayerConfigs.armScoringMechanism == true){
             Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kArmedRPM);
-        } else if(PlayerConfigs.shooterActive == true){
+        } else if(Robot.shooter.shootingMode == true){
             Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kPrimeRPM);
         } else {
             Robot.shooter.SetFlywheelSpeed(0);

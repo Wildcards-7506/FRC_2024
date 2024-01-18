@@ -70,6 +70,7 @@
       "/SmartDashboard/Auto Chooser": "String Chooser",
       "/SmartDashboard/Elbow Sim": "Mechanism2d",
       "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/Limelight Sim": "Mechanism2d",
       "/SmartDashboard/SendableChooser[0]": "String Chooser",
       "/SmartDashboard/SendableChooser[1]": "String Chooser",
       "/SmartDashboard/SendableChooser[2]": "String Chooser",
@@ -95,6 +96,11 @@
         },
         "height": 8.013679504394531,
         "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Limelight Sim": {
         "window": {
           "visible": true
         }
@@ -176,7 +182,8 @@
         "open": true
       },
       "open": true
-    }
+    },
+    "visible": true
   },
   "Plot": {
     "Plot <0>": {

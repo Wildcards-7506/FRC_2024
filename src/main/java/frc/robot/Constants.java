@@ -199,7 +199,7 @@ public final class Constants {
         public static final int kShooterCurrentLimit = 50;
         public static final double kArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
-        public static final double kShooterP = 20;
+        public static final double kShooterP = 0.1;
       }
 
       public static final class ClimberConstants {
@@ -211,10 +211,10 @@ public final class Constants {
 
       public static final class LimelightConstants {
         //Limelight Rotator Constants Here
-        public static final double kRotatorKP = 0.007;
+        public static final double kRotatorKP = 1;
         public static final int kRotateCurrentLimit = 30;
-        public static final double kIntakePosition = 180;
-        public static final double kShooterPosition = 0;
+        public static final double kIntakePosition = -240;
+        public static final double kShooterPosition = 60;
       }
 
       public static final class LEDConstants {

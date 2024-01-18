@@ -22,7 +22,6 @@ import frc.robot.ControlConfigs.Drivers.Ryan;
 import frc.robot.ControlConfigs.Drivers.TestController;
 import frc.robot.commands.DrivetrainTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
-import frc.robot.commands.LimelightTeleopCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -128,7 +127,6 @@ public class Robot extends TimedRobot {
     coDriver = coDriver_chooser.getSelected();
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
-    Robot.limelight.setDefaultCommand(new LimelightTeleopCommand());
   }
 
   /** This function is called periodically during operator control. */
@@ -141,6 +139,7 @@ public class Robot extends TimedRobot {
     Robot.intake.teleopCommand();
     Robot.climbers.teleopCommand();
     Robot.shooter.teleopCommand();
+    Robot.limelight.teleopCommand();
   }
 
   /** This function is called once when the robot is disabled. */
@@ -177,5 +176,6 @@ public class Robot extends TimedRobot {
     intake.simulationPeriodic();
     climbers.simulationPeriodic();
     shooter.simulationPeriodic();
+    limelight.simulationPeriodic();
   }
 }

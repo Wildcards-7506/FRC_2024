@@ -36,8 +36,6 @@ public class IntakeTeleopCommand extends Command{
             } else {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
             }
-        } else {
-            Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
         }
 
         if (Robot.intake.intakeState == 1) {

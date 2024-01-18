@@ -26,8 +26,8 @@ public class Intake extends SubsystemBase {
     private SparkPIDController elbowPID;
     private SparkPIDController wristPID;
 
-    public double wristSetPoint = 0;
-    public double elbowSetPoint = 0;
+    public double wristSetPoint  = IntakeConstants.kWristStowed;
+    public double elbowSetPoint  = IntakeConstants.kElbowStowed;
     public int intakeState = 0;
     public boolean running = false;
     public boolean pieceAcquired = false;

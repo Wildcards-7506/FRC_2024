@@ -89,7 +89,7 @@ public class Intake implements AutoCloseable {
 
     private final Mechanism2d m_wristMech2d = new Mechanism2d(60, 60);
   private final MechanismRoot2d m_wristPivot = m_wristMech2d.getRoot("WristPivot", 30, 30);
-  private final MechanismLigament2d m_wristTower =
+private final MechanismLigament2d m_wristTower =
       m_wristPivot.append(new MechanismLigament2d("WristTower", 30, -90));
   private final MechanismLigament2d m_wrist =
       m_wristPivot.append(
@@ -112,7 +112,7 @@ public class Intake implements AutoCloseable {
 
     // Put Mechanism 2d to SmartDashboard
     SmartDashboard.putData("Wrist Sim", m_wristMech2d);
-    m_wristTower.setColor(new Color8Bit(Color.kBlue));
+m_wristTower.setColor(new Color8Bit(Color.kBlue));
   }
 
   /** Update the simulation model. */

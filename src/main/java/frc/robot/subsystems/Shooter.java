@@ -44,7 +44,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void shooterLog(){
-        Logger.info("SHOOT: ", Double.toString(getSpeed()) + " RPM");
+        Logger.info("SHOOT", Double.toString(getSpeed()) + " RPM");
         if(flywheelL.getFaults()!=0){Logger.warn("FWLFT: " + Short.toString(flywheelL.getFaults()));}
         if(flywheelR.getFaults()!=0){Logger.warn("FWRGT: " + Short.toString(flywheelR.getFaults()));}
     }

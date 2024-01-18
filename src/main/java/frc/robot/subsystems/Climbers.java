@@ -52,7 +52,7 @@ public class Climbers extends SubsystemBase{
     }
 
     public void climberLog(){
-        Logger.info("CLIMB: ", Double.toString(getClimberEncoder()) + " Inches");
+        Logger.info("CLIMB", Double.toString(getClimberEncoder()) + " Inches");
         if(climberLeft.getFaults()!=0){Logger.warn("CLBLT: " + Short.toString(climberLeft.getFaults()));}
         if(climberRight.getFaults()!=0){Logger.warn("CLBRT: " + Short.toString(climberRight.getFaults()));}
     }

@@ -91,7 +91,7 @@ public class Limelight extends SubsystemBase{
     }
 
     public void limelightLog(){
-        Logger.info("LMLGT: ", Double.toString(getPos()) + " Degrees");
+        Logger.info("LMLGT", Double.toString(getPos()) + " Degrees");
         if(limelightRotator.getFaults()!=0){Logger.warn("LMLGT: " + Short.toString(limelightRotator.getFaults()));}
     }
 

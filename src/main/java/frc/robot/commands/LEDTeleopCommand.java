@@ -31,13 +31,13 @@ public class LEDTeleopCommand extends Command{
             Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
 
-        if(Robot.intake.pieceAcquired){
-            Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-        } else if(Robot.intake.running){
-            Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.MAGENTA, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-        } else {
-            Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
-        }
+        // if(Robot.intake.pieceAcquired){
+        //     Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+        // } else if(Robot.intake.running){
+        //     Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.MAGENTA, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+        // } else {
+        //     Robot.ledSystem.section(2*LEDConstants.bufferSize/3, LEDConstants.bufferSize-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
+        // }
 
         if(Robot.climbers.getClimberEncoder() > 2){
             if(Robot.climbers.getClimberEncoder() > 22){

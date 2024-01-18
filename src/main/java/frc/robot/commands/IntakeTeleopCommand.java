@@ -9,7 +9,7 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 public class IntakeTeleopCommand extends Command{
     
     public IntakeTeleopCommand(){
-        addRequirements(Robot.intake);
+        //addRequirements(Robot.intake);
     }
     
     @Override
@@ -26,7 +26,7 @@ public class IntakeTeleopCommand extends Command{
         }
 
 
-        if (Robot.intake.getWristEncoder() > 170) {
+        if (Robot.intake.m_wristEncoder.get() > 170) {
             if (Robot.intake.intakeState == 1) {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
             } else if (Robot.intake.intakeState == 2) {
@@ -37,29 +37,29 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
             }
         } else {
-            Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
+            Robot.intake.elbowSetPoint = Robot.intake.m_elbowEncoder.get();
         }
 
         if (Robot.intake.intakeState == 1) {
-            if (Math.abs(IntakeConstants.kElbowGround - Robot.intake.getElbowEncoder()) < 10) {
+            if (Math.abs(IntakeConstants.kElbowGround - Robot.intake.m_elbowEncoder.get()) < 10) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
         } else if (Robot.intake.intakeState == 2){
-            if (Math.abs(IntakeConstants.kElbowAmp  - Robot.intake.getElbowEncoder()) < 10) {
+            if (Math.abs(IntakeConstants.kElbowAmp  - Robot.intake.m_elbowEncoder.get()) < 10) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
         } else if (Robot.intake.intakeState == 3) {
-            if (Math.abs(IntakeConstants.kElbowTrap  - Robot.intake.getElbowEncoder()) < 10 && PlayerConfigs.armScoringMechanism) {
+            if (Math.abs(IntakeConstants.kElbowTrap  - Robot.intake.m_elbowEncoder.get()) < 10 && PlayerConfigs.armScoringMechanism) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
         } else if (PlayerConfigs.armScoringMechanism) {
-            if (Math.abs(IntakeConstants.kElbowStowed  - Robot.intake.getElbowEncoder()) < 10) {
+            if (Math.abs(IntakeConstants.kElbowStowed  - Robot.intake.m_elbowEncoder.get()) < 10) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
@@ -68,26 +68,25 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
         }
 
-        Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
-        Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
+        Robot.intake.reachSetpoint(Robot.intake.elbowSetPoint, Robot.intake.wristSetPoint);
 
-        if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || ((Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3) && PlayerConfigs.fire)) {
-            Robot.intake.setIntakeVoltage(12);
-            Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
-            Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;
-        } else {
-            Robot.intake.setIntakeVoltage(0);
-            Robot.intake.running = false;
-        }
+        // if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || ((Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3) && PlayerConfigs.fire)) {
+        //     Robot.intake.setIntakeVoltage(12);
+        //     Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
+        //     Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;
+        // } else {
+        //     Robot.intake.setIntakeVoltage(0);
+        //     Robot.intake.running = false;
+        // }
 
         SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
         SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
-        SmartDashboard.putNumber("Wrist Position: ", Robot.intake.getWristEncoder());
-        SmartDashboard.putNumber("Elbow Position: ", Robot.intake.getElbowEncoder());
+        SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_elbowEncoder.get());
+        SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_wristEncoder.get());
         SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
         SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
-        SmartDashboard.putNumber("error", Math.abs(Robot.intake.elbowSetPoint - Robot.intake.getElbowEncoder()));
+        SmartDashboard.putNumber("error", Math.abs(Robot.intake.elbowSetPoint - Robot.intake.m_elbowEncoder.get()));
 
-        Robot.intake.intakeLog();
+        //Robot.intake.intakeLog();
     }
 }

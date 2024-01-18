@@ -1,132 +1,177 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkBase.SoftLimitDirection;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkBase;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
+import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
+import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.Constants.CANID;
-import frc.robot.util.Logger;
+import frc.robot.Constants.IntakeConstants;
 
-public class Intake extends SubsystemBase {
-    private CANSparkMax elbowRotatorLeader;
-    private CANSparkMax elbowRotatorFollower;
-    private CANSparkMax wristRotator;
-    private CANSparkMax intakeLeader;
-    private CANSparkMax intakeFollower;
-    
-    private RelativeEncoder elbowEncoder;
-    private RelativeEncoder wristEncoder;
-    private RelativeEncoder intakeEncoder;
+public class Intake implements AutoCloseable {
+    public double elbowSetPoint = IntakeConstants.kElbowStowed;
+    public double wristSetPoint;
+    public double intakeState;
+    public boolean pieceAcquired;
 
-    private SparkPIDController elbowPID;
-    private SparkPIDController wristPID;
+  // The arm gearbox represents a gearbox containing two Vex 775pro motors.
+  private final DCMotor m_elbowGearbox = DCMotor.getNEO(2);
+  private final DCMotor m_wristGearbox = DCMotor.getNEO(1);
 
-    public double wristSetPoint = 0;
-    public double elbowSetPoint = 0;
-    public int intakeState = 0;
-    public boolean running = false;
-    public boolean pieceAcquired = false;
+  // Standard classes for controlling our arm
+  private final PIDController m_elbowController = new PIDController(IntakeConstants.kElbowKP, 0, 0.5);
+  public final Encoder m_elbowEncoder =
+      new Encoder(0, 1);
+  private final PWMSparkMax m_elbowMotor = new PWMSparkMax(CANID.ELBOW_LEFT);
+  private final PIDController m_wristController = new PIDController(IntakeConstants.kWristKP, 0, 0.5);
+  public final Encoder m_wristEncoder =
+      new Encoder(2, 3);
+  private final PWMSparkMax m_wristMotor = new PWMSparkMax(CANID.WRIST);
 
-    public Intake() {
-        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
-        elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
-        wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
-        intakeLeader = new CANSparkMax(CANID.INTAKE_LEFT, MotorType.kBrushless);
-        intakeFollower = new CANSparkMax(CANID.INTAKE_RIGHT, MotorType.kBrushless);
+  // Simulation classes help us simulate what's going on, including gravity.
+  // This arm sim represents an arm that can travel from -75 degrees (rotated down front)
+  // to 255 degrees (rotated down in the back).
+  private final SingleJointedArmSim m_elbowSim =
+      new SingleJointedArmSim(
+          m_elbowGearbox,
+          1.0/125,
+          SingleJointedArmSim.estimateMOI(0.1, 0.1),
+          0.8,
+          -Math.PI/4,
+          155.0/360*2*Math.PI,
+          false,
+          0,
+          VecBuilder.fill(IntakeConstants.kElbowEncoderDistancePerPulse*0.01) // Add noise with a std-dev of 1 tick
+          );
+  private final EncoderSim m_elbowEncoderSim = new EncoderSim(m_elbowEncoder);
 
-        elbowEncoder = elbowRotatorLeader.getEncoder();
-        wristEncoder = wristRotator.getEncoder();
-        intakeEncoder = intakeLeader.getEncoder();
+  private final SingleJointedArmSim m_wristSim =
+      new SingleJointedArmSim(
+          m_wristGearbox,
+          1.0/60,
+          SingleJointedArmSim.estimateMOI(0.1, 0.1),
+          0.35,
+          -90.0/360*Math.PI*2,
+          270.0/360*2*Math.PI,
+          false,
+          0,
+          VecBuilder.fill(IntakeConstants.kWristEncoderDistancePerPulse*0.01) // Add noise with a std-dev of 1 tick
+          );
+  private final EncoderSim m_wristEncoderSim = new EncoderSim(m_wristEncoder);
 
-        elbowPID = elbowRotatorLeader.getPIDController();
-        wristPID = wristRotator.getPIDController();
+  // Create a Mechanism2d display of an Arm with a fixed ArmTower and moving Arm.
+  private final Mechanism2d m_elbowMech2d = new Mechanism2d(60, 60);
+  private final MechanismRoot2d m_elbowPivot = m_elbowMech2d.getRoot("ElbowPivot", 30, 30);
+  private final MechanismLigament2d m_elbowTower =
+      m_elbowPivot.append(new MechanismLigament2d("ElbowTower", 30, -90));
+  private final MechanismLigament2d m_elbow =
+      m_elbowPivot.append(
+          new MechanismLigament2d(
+              "Elbow",
+              30,
+              Units.radiansToDegrees(m_elbowSim.getAngleRads()),
+              6,
+              new Color8Bit(Color.kYellow)));
 
-        elbowRotatorFollower.follow(elbowRotatorLeader, true);
-        intakeFollower.follow(intakeLeader, true);
+    private final Mechanism2d m_wristMech2d = new Mechanism2d(60, 60);
+  private final MechanismRoot2d m_wristPivot = m_wristMech2d.getRoot("WristPivot", 30, 30);
+  private final MechanismLigament2d m_wristTower =
+      m_wristPivot.append(new MechanismLigament2d("WristTower", 30, -90));
+  private final MechanismLigament2d m_wrist =
+      m_wristPivot.append(
+          new MechanismLigament2d(
+              "Wrist",
+              30,
+              Units.radiansToDegrees(m_wristSim.getAngleRads()),
+              6,
+              new Color8Bit(Color.kYellow)));
 
-        elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kForward, true);
-        elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kReverse, true);
-        elbowRotatorFollower.enableSoftLimit(SoftLimitDirection.kForward, true);
-        elbowRotatorFollower.enableSoftLimit(SoftLimitDirection.kReverse, true);
-    
-        wristRotator.enableSoftLimit(SoftLimitDirection.kForward, true);
-        wristRotator.enableSoftLimit(SoftLimitDirection.kReverse, true);
+  /** Subsystem constructor. */
+  public Intake() {
+    m_elbowEncoder.setDistancePerPulse(IntakeConstants.kElbowEncoderDistancePerPulse);
 
-        intakeLeader.enableSoftLimit(SoftLimitDirection.kForward, false);
-        intakeLeader.enableSoftLimit(SoftLimitDirection.kReverse, false);
-        intakeFollower.enableSoftLimit(SoftLimitDirection.kForward, false);
-        intakeFollower.enableSoftLimit(SoftLimitDirection.kReverse, false);
+    // Put Mechanism 2d to SmartDashboard
+    SmartDashboard.putData("Elbow Sim", m_elbowMech2d);
+    m_elbowTower.setColor(new Color8Bit(Color.kBlue));
 
-        // Will need to test these angle parameters when testing
-        elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 160);
-        elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
-        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
-        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, 160);
-        wristRotator.setSoftLimit(SoftLimitDirection.kForward, 190);
-        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, 0);
+    m_wristEncoder.setDistancePerPulse(IntakeConstants.kWristEncoderDistancePerPulse);
 
-        elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
-        elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
-        wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
-        intakeLeader.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-        intakeFollower.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+    // Put Mechanism 2d to SmartDashboard
+    SmartDashboard.putData("Wrist Sim", m_wristMech2d);
+    m_wristTower.setColor(new Color8Bit(Color.kBlue));
+  }
 
-        elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
-        wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
+  /** Update the simulation model. */
+  public void simulationPeriodic() {
+    // In this method, we update our simulation of what our arm is doing
+    // First, we set our "inputs" (voltages)
+    m_elbowSim.setInput(m_elbowMotor.get() * RobotController.getBatteryVoltage());
+    m_wristSim.setInput(m_wristMotor.get() * RobotController.getBatteryVoltage());
 
-        elbowPID.setP(IntakeConstants.kElbowKP);
-        wristPID.setP(IntakeConstants.kWristKP);
+    // Next, we update it. The standard loop time is 20ms.
+    m_elbowSim.update(0.020);
+    m_wristSim.update(0.020);
 
-        elbowPID.setOutputRange(-1, 1);
-        wristPID.setOutputRange(-1, 1);
+    // Finally, we set our simulated encoder's readings and simulated battery voltage
+    m_elbowEncoderSim.setDistance(m_elbowSim.getAngleRads());
+    m_wristEncoderSim.setDistance(m_wristSim.getAngleRads());
+    // SimBattery estimates loaded battery voltages
+    RoboRioSim.setVInVoltage(
+        BatterySim.calculateDefaultBatteryLoadedVoltage(m_elbowSim.getCurrentDrawAmps()));
+    RoboRioSim.setVInVoltage(
+        BatterySim.calculateDefaultBatteryLoadedVoltage(m_wristSim.getCurrentDrawAmps()));
 
-        elbowRotatorLeader.burnFlash();
-        elbowRotatorFollower.burnFlash();
-        wristRotator.burnFlash();
-        intakeLeader.burnFlash();
-        intakeFollower.burnFlash();
-    }
+    // Update the Mechanism Arm angle based on the simulated arm angle
+    m_elbow.setAngle(Units.radiansToDegrees(m_elbowSim.getAngleRads()));
+    m_wrist.setAngle(Units.radiansToDegrees(m_wristSim.getAngleRads()));
+  }
 
-    public double getElbowEncoder() {
-        return elbowEncoder.getPosition();
-    }
+  /** Run the control loop to reach and maintain the setpoint from the preferences. */
+  public void reachSetpoint(double e_setpoint, double w_setpoint) {
+    var e_pidOutput =
+        m_elbowController.calculate(
+            m_elbowEncoder.getDistance(), Units.degreesToRadians(e_setpoint));
+    m_elbowMotor.setVoltage(e_pidOutput);
+    SmartDashboard.putNumber("ElbowPID", e_pidOutput);
 
-    public double getWristEncoder() {
-        return wristEncoder.getPosition();
-    }
+    var w_pidOutput =
+        m_wristController.calculate(
+            m_wristEncoder.getDistance(), Units.degreesToRadians(w_setpoint));
+    m_wristMotor.setVoltage(w_pidOutput);
+    SmartDashboard.putNumber("WristPID", w_pidOutput);
+  }
 
-    public double getIntakeCurrent() {
-        return intakeLeader.getOutputCurrent();
-    }
+  public void stop() {
+    m_elbowMotor.set(0.0);
+    m_wristMotor.set(0.0);
+  }
 
-    public double getIntakeSpeed() {
-        return intakeEncoder.getVelocity();
-    }
-    
-    public void setElbowPosition(double setPoint) {
-        elbowPID.setReference(setPoint, CANSparkBase.ControlType.kPosition);
-    }
+  @Override
+  public void close() {
+    m_elbowMotor.close();
+    m_elbowEncoder.close();
+    m_elbowMech2d.close();
+    m_elbowPivot.close();
+    m_elbowController.close();
+    m_elbow.close();
 
-	public void setWristPosition(double setPoint) {
-        wristPID.setReference(setPoint, CANSparkBase.ControlType.kPosition);
-    }
-
-    public void setIntakeVoltage(double setPoint) {
-        intakeLeader.setVoltage(setPoint);
-    }
-
-    public void intakeLog(){
-        Logger.info("ELBOW", Double.toString(getElbowEncoder()) + " Actual Degrees -> " + Double.toString(elbowSetPoint) + " Target Degrees");
-        Logger.info("WRIST", Double.toString(getWristEncoder()) + " Actual Degrees -> " + Double.toString(wristSetPoint) + " Target Degrees");
-        if(elbowRotatorLeader.getFaults()!=0){Logger.warn("ELBWL: " + Short.toString(elbowRotatorLeader.getFaults()));}
-        if(elbowRotatorFollower.getFaults()!=0){Logger.warn("ELBWF: " + Short.toString(elbowRotatorFollower.getFaults()));}
-        if(wristRotator.getFaults()!=0){Logger.warn("WRIST: " + Short.toString(wristRotator.getFaults()));}
-        if(intakeLeader.getFaults()!=0){Logger.warn("INTKL: " + Short.toString(intakeLeader.getFaults()));}
-        if(intakeFollower.getFaults()!=0){Logger.warn("INTKF: " + Short.toString(intakeFollower.getFaults()));}
-    }
+    m_wristMotor.close();
+    m_wristEncoder.close();
+    m_wristMech2d.close();
+    m_wristPivot.close();
+    m_wristController.close();
+    m_wrist.close();
+  }
 }

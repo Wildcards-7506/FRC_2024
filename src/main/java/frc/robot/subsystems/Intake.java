@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.Constants.CANID;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Robot;
+import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class Intake implements AutoCloseable {
     public double elbowSetPoint = IntakeConstants.kElbowStowed;
@@ -156,6 +158,80 @@ public class Intake implements AutoCloseable {
   public void stop() {
     m_elbowMotor.set(0.0);
     m_wristMotor.set(0.0);
+  }
+
+  public void teleopCommand(){
+    if(PlayerConfigs.intake){
+            Robot.intake.intakeState = 1;
+            Robot.intake.pieceAcquired = false;
+        } else if(PlayerConfigs.amp){
+            Robot.intake.intakeState = 2;
+        } else if(PlayerConfigs.trap){
+            Robot.intake.intakeState = 3;
+        } else if(PlayerConfigs.stow){
+            Robot.intake.intakeState = 0;
+        }
+
+
+        if (Robot.intake.m_wristEncoder.getDistance() > 170.0/360*2*Math.PI) {
+            if (Robot.intake.intakeState == 1) {
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
+            } else if (Robot.intake.intakeState == 2) {
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
+            } else if (Robot.intake.intakeState == 3) {
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
+            } else {
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
+            }
+        }
+
+        if (Robot.intake.intakeState == 1) {
+            if (Math.abs(IntakeConstants.kElbowGround/360*2*Math.PI - Robot.intake.m_elbowEncoder.getDistance()) < 0.1) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            }
+        } else if (Robot.intake.intakeState == 2){
+            if (Math.abs(IntakeConstants.kElbowAmp/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            }
+        } else if (Robot.intake.intakeState == 3) {
+            if (Math.abs(IntakeConstants.kElbowTrap/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1 && PlayerConfigs.armScoringMechanism) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            }
+        } else if (PlayerConfigs.armScoringMechanism) {
+            if (Math.abs(IntakeConstants.kElbowStowed/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            }
+        } else {
+            Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+        }
+
+        Robot.intake.reachSetpoint(Robot.intake.elbowSetPoint, Robot.intake.wristSetPoint);
+
+        // if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || ((Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3) && PlayerConfigs.fire)) {
+        //     Robot.intake.setIntakeVoltage(12);
+        //     Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
+        //     Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;
+        // } else {
+        //     Robot.intake.setIntakeVoltage(0);
+        //     Robot.intake.running = false;
+        // }
+
+        SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
+        SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
+        SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360);
+        SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360);
+        SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
+        SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
+        SmartDashboard.putBoolean("error", Math.abs(IntakeConstants.kElbowTrap/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1);
+        SmartDashboard.putBoolean("Score", PlayerConfigs.armScoringMechanism);
   }
 
   @Override

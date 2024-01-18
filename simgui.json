@@ -56,9 +56,6 @@
       }
     },
     "RoboRIO": {
-      "6V Rail": {
-        "open": true
-      },
       "RoboRIO Input": {
         "open": true
       },
@@ -76,7 +73,8 @@
       "/SmartDashboard/SendableChooser[0]": "String Chooser",
       "/SmartDashboard/SendableChooser[1]": "String Chooser",
       "/SmartDashboard/SendableChooser[2]": "String Chooser",
-      "/SmartDashboard/Wrist Sim": "Mechanism2d"
+      "/SmartDashboard/Wrist Sim": "Mechanism2d",
+      "/SmartDashboard/climber Sim": "Mechanism2d"
     },
     "windows": {
       "/SmartDashboard/Auto Chooser": {
@@ -112,6 +110,11 @@
         }
       },
       "/SmartDashboard/Wrist Sim": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/climber Sim": {
         "window": {
           "visible": true
         }

@@ -15,18 +15,15 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.IntakeConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
 import frc.robot.ControlConfigs.Drivers.Ryan;
 import frc.robot.ControlConfigs.Drivers.TestController;
-import frc.robot.commands.ClimberTeleopCommand;
 import frc.robot.commands.DrivetrainTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.commands.LimelightTeleopCommand;
 import frc.robot.commands.ShooterTeleopCommand;
-import frc.robot.commands.Autonomous.AutoRoutines;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -43,7 +40,6 @@ import frc.robot.util.Logger;
  */
 public class Robot extends TimedRobot {  
   //Modes and people
-  private AutoRoutines autoMode;
   public PlayerConfigs driver;
   public PlayerConfigs coDriver;
 
@@ -115,8 +111,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     Logger.info("SYSTEM","Autonomous Program Started");
     CommandScheduler.getInstance().cancelAll();
-    autoMode.resetAutoHeading();
-    autoMode.getAutonomousCommand().schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -134,7 +128,6 @@ public class Robot extends TimedRobot {
     driver = driver_chooser.getSelected();
     coDriver = coDriver_chooser.getSelected();
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
-    Robot.climbers.setDefaultCommand(new ClimberTeleopCommand());
     Robot.shooter.setDefaultCommand(new ShooterTeleopCommand());
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
     Robot.limelight.setDefaultCommand(new LimelightTeleopCommand());
@@ -147,78 +140,8 @@ public class Robot extends TimedRobot {
     driver.getDriverConfig();
     coDriver.getCoDriverConfig();
 
-    //Intake
-    if(PlayerConfigs.intake){
-            Robot.intake.intakeState = 1;
-            Robot.intake.pieceAcquired = false;
-        } else if(PlayerConfigs.amp){
-            Robot.intake.intakeState = 2;
-        } else if(PlayerConfigs.trap){
-            Robot.intake.intakeState = 3;
-        } else if(PlayerConfigs.stow){
-            Robot.intake.intakeState = 0;
-        }
-
-
-        if (Robot.intake.m_wristEncoder.getDistance() > 170.0/360*2*Math.PI) {
-            if (Robot.intake.intakeState == 1) {
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
-            } else if (Robot.intake.intakeState == 2) {
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
-            } else if (Robot.intake.intakeState == 3) {
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
-            } else {
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
-            }
-        }
-
-        if (Robot.intake.intakeState == 1) {
-            if (Math.abs(IntakeConstants.kElbowGround/360*2*Math.PI - Robot.intake.m_elbowEncoder.getDistance()) < 0.1) {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-            } else {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            }
-        } else if (Robot.intake.intakeState == 2){
-            if (Math.abs(IntakeConstants.kElbowAmp/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1) {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
-            } else {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            }
-        } else if (Robot.intake.intakeState == 3) {
-            if (Math.abs(IntakeConstants.kElbowTrap/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1 && PlayerConfigs.armScoringMechanism) {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
-            } else {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            }
-        } else if (PlayerConfigs.armScoringMechanism) {
-            if (Math.abs(IntakeConstants.kElbowStowed/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1) {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
-            } else {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            }
-        } else {
-            Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-        }
-
-        Robot.intake.reachSetpoint(Robot.intake.elbowSetPoint, Robot.intake.wristSetPoint);
-
-        // if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || ((Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3) && PlayerConfigs.fire)) {
-        //     Robot.intake.setIntakeVoltage(12);
-        //     Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
-        //     Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;
-        // } else {
-        //     Robot.intake.setIntakeVoltage(0);
-        //     Robot.intake.running = false;
-        // }
-
-        SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
-        SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
-        SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360);
-        SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360);
-        SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
-        SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
-        SmartDashboard.putBoolean("error", Math.abs(IntakeConstants.kElbowTrap/360*2*Math.PI  - Robot.intake.m_elbowEncoder.getDistance()) < 0.1);
-        SmartDashboard.putBoolean("Score", PlayerConfigs.armScoringMechanism);
+    Robot.intake.teleopCommand();
+    Robot.climbers.teleopCommand();
   }
 
   /** This function is called once when the robot is disabled. */
@@ -232,15 +155,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     teamColor = DriverStation.getAlliance();
-    if(!teamColor.isEmpty()){
-      if(teamColor.get() == Alliance.Red && autoMode == null && SmartDashboard.getBoolean("Confirm Alliance", false)){
-        autoMode = new AutoRoutines(true);
-      } else if(teamColor.get() == Alliance.Blue && autoMode == null && SmartDashboard.getBoolean("Confirm Alliance", false)){
-        autoMode = new AutoRoutines(false);
-      }
-    }
     ledSystem.rainbow();
-    
   }
 
   /** This function is called once when test mode is enabled. */
@@ -261,5 +176,6 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {
     intake.simulationPeriodic();
+    climbers.simulationPeriodic();
   }
 }

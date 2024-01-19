@@ -69,7 +69,7 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
 
-        if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || ((Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3) && PlayerConfigs.fire)) {
+        if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || (PlayerConfigs.fire)) {
             Robot.intake.setIntakeVoltage(12);
             Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
             Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;

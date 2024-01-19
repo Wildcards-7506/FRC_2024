@@ -115,11 +115,6 @@
           "visible": true
         }
       },
-      "/SmartDashboard/Wrist Sim": {
-        "window": {
-          "visible": true
-        }
-      },
       "/SmartDashboard/climber Sim": {
         "window": {
           "visible": true
@@ -210,6 +205,15 @@
                 1.0
               ],
               "id": "NT:/SmartDashboard/Shooter Speed"
+            },
+            {
+              "color": [
+                0.8666667342185974,
+                0.5176470875740051,
+                0.32156863808631897,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/Intake Speed"
             }
           ]
         }

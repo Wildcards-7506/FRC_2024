@@ -177,7 +177,7 @@ public final class Constants {
       public static final class IntakeConstants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
-        public static final double kElbowKP = 0.001;
+        public static final double kElbowKP = 0.001; //<-Will probably be closer to 0.5, increase until movement is snappy but not overshooting/oscillating
         public static final double kElbowGround = 0.0;
         public static final double kElbowTrap = 40.0;
         public static final double kElbowAmp = 50.0;
@@ -185,7 +185,7 @@ public final class Constants {
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
-        public static final double kWristKP = 0.001;
+        public static final double kWristKP = 0.001; //<-Will probably be closer to 0.1, increase until movement is snappy but not overshooting/oscillating
         public static final double kWristGround = 0.0;
         public static final double kWristTrap = 25.0;
         public static final double kWristAmp = 15.0;
@@ -199,7 +199,7 @@ public final class Constants {
         public static final int kShooterCurrentLimit = 50;
         public static final double kArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
-        public static final double kShooterP = 1;
+        public static final double kShooterP = 1; //<-Will probably be closer to 5, increase until shooter spins up in <3 seconds and is not oscillating
       }
 
       public static final class ClimberConstants {
@@ -211,7 +211,7 @@ public final class Constants {
 
       public static final class LimelightConstants {
         //Limelight Rotator Constants Here
-        public static final double kRotatorKP = 0.007;
+        public static final double kRotatorKP = 0.007; //<-Will probably be near this value, tune as necessary.
         public static final int kRotateCurrentLimit = 30;
         public static final double kIntakePosition = 180;
         public static final double kShooterPosition = 0;

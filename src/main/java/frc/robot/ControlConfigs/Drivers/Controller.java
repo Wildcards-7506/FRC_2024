@@ -3,7 +3,7 @@ package frc.robot.ControlConfigs.Drivers;
 import frc.robot.Robot;
 import frc.robot.ControlConfigs.PlayerConfigs;
 
-public class TestController extends PlayerConfigs {
+public class Controller extends PlayerConfigs {
     public void getDriverConfig() {
         //Constants
         PlayerConfigs.turnSpeed = 0.5;
@@ -24,7 +24,6 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.align = Robot.controller0.getLeftBumper();
 
         //Scoring and grabbing objects
-        PlayerConfigs.shooterActive = Robot.controller0.getRightTriggerAxis() > 0.2;
         PlayerConfigs.fire = Robot.controller0.getRightBumper();
     } 
 
@@ -36,6 +35,7 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.stow = Robot.controller1.getYButton();
 
         //Shooter Spin Up
+        PlayerConfigs.shooterActive = Robot.controller1.getRightBumper();
         PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;
 
         //Climbers

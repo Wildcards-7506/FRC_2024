@@ -12,14 +12,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.ControlConfigs.PlayerConfigs;
-import frc.robot.ControlConfigs.Drivers.Jayden;
-import frc.robot.ControlConfigs.Drivers.Ricardo;
-import frc.robot.ControlConfigs.Drivers.Ryan;
-import frc.robot.ControlConfigs.Drivers.TestController;
+import frc.robot.ControlConfigs.Drivers.Controller;
 import frc.robot.commands.DrivetrainTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.subsystems.Drivetrain;
@@ -41,13 +38,9 @@ public class Robot extends TimedRobot {
   public PlayerConfigs driver;
   public PlayerConfigs coDriver;
 
-  public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
-  public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
+  public static PlayerConfigs controller = new Controller();
 
-  public static PlayerConfigs ryan = new Ryan();
-  public static PlayerConfigs jayden = new Jayden();
-  public static PlayerConfigs ricardo = new Ricardo();
-  public static PlayerConfigs test = new TestController();
+  public static final Mechanism2d m_Mech2d = new Mechanism2d(60, 40);
   
   //Subsystem Declarations
   public static final Drivetrain drivetrain = new Drivetrain();
@@ -72,25 +65,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Driver choosers
-    driver_chooser.setDefaultOption("Ricardo", ricardo);
-    driver_chooser.addOption("Jayden", jayden);
-    driver_chooser.addOption("Ryan", ryan);  
-    driver_chooser.addOption("Test", test);       
-
-    // Co-Driver choosers
-    coDriver_chooser.setDefaultOption("Jayden", jayden);
-    coDriver_chooser.addOption("Ricardo", ricardo);
-    coDriver_chooser.addOption("Ryan", ryan);    
-    coDriver_chooser.addOption("Test", test);  
-
-    // Put the choosers on the dashboard
-    SmartDashboard.putData(driver_chooser);
-    SmartDashboard.putData(coDriver_chooser);
-    SmartDashboard.putBoolean("Confirm Alliance", false);
-    SmartDashboard.putData(m_field);
-
     Logger.info("SYSTEM","Robot Started");
+    SmartDashboard.putData("Motion Sim", m_Mech2d);
   }
 
   /**
@@ -123,8 +99,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     Logger.info("SYSTEM","Teleop Started");
     CommandScheduler.getInstance().cancelAll();
-    driver = driver_chooser.getSelected();
-    coDriver = coDriver_chooser.getSelected();
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
   }
@@ -133,8 +107,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
-    driver.getDriverConfig();
-    coDriver.getCoDriverConfig();
+    controller.getDriverConfig();
+    controller.getCoDriverConfig();
 
     Robot.intake.teleopCommand();
     Robot.climbers.teleopCommand();

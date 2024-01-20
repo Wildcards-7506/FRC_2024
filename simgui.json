@@ -1,6 +1,9 @@
 {
   "HALProvider": {
     "Addressable LEDs": {
+      "0": {
+        "columns": 30
+      },
       "window": {
         "visible": true
       }
@@ -62,6 +65,11 @@
       "window": {
         "visible": true
       }
+    },
+    "Timing": {
+      "window": {
+        "visible": false
+      }
     }
   },
   "NTProvider": {
@@ -71,6 +79,7 @@
       "/SmartDashboard/Elbow Sim": "Mechanism2d",
       "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/Limelight Sim": "Mechanism2d",
+      "/SmartDashboard/Motion Sim": "Mechanism2d",
       "/SmartDashboard/SendableChooser[0]": "String Chooser",
       "/SmartDashboard/SendableChooser[1]": "String Chooser",
       "/SmartDashboard/SendableChooser[2]": "String Chooser",
@@ -78,15 +87,8 @@
       "/SmartDashboard/climber Sim": "Mechanism2d"
     },
     "windows": {
-      "/SmartDashboard/Auto Chooser": {
-        "window": {
-          "visible": true
-        }
-      },
       "/SmartDashboard/Elbow Sim": {
-        "window": {
-          "visible": true
-        }
+        "image": "/Users/homecomputer/Desktop/Screenshot 2024-01-19 at 5.01.34 PM.png"
       },
       "/SmartDashboard/Field": {
         "Robot": {
@@ -100,22 +102,8 @@
           "visible": true
         }
       },
-      "/SmartDashboard/Limelight Sim": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/SendableChooser[0]": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/SendableChooser[1]": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/climber Sim": {
+      "/SmartDashboard/Motion Sim": {
+        "image": "/Users/homecomputer/Desktop/Screenshot 2024-01-19 at 5.01.34 PM.png",
         "window": {
           "visible": true
         }
@@ -218,6 +206,38 @@
           ]
         }
       ]
+    },
+    "Plot <1>": {
+      "plots": [
+        {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 555,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "FMS:MatchTime"
+            }
+          ]
+        }
+      ],
+      "window": {
+        "visible": false
+      }
     }
   }
 }

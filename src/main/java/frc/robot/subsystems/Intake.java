@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.PWMSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -91,10 +90,8 @@ public class Intake implements AutoCloseable {
     private final PWMSim m_intakeMotorSim = new PWMSim(m_intakeMotor);
 
   // Create a Mechanism2d display of an Arm with a fixed ArmTower and moving Arm.
-  private final Mechanism2d m_elbowMech2d = new Mechanism2d(60, 40);
-  private final MechanismRoot2d m_elbowPivot = m_elbowMech2d.getRoot("ElbowPivot", 30, 11);
-  private final MechanismLigament2d m_elbowTower =
-      m_elbowPivot.append(new MechanismLigament2d("ElbowTower", 12, -90));
+  
+  private final MechanismRoot2d m_elbowPivot = Robot.m_Mech2d.getRoot("ElbowPivot", 35.5, 18);
   private final MechanismLigament2d m_elbow =
       m_elbowPivot.append(
           new MechanismLigament2d(
@@ -102,8 +99,8 @@ public class Intake implements AutoCloseable {
               20,
               Units.radiansToDegrees(m_elbowSim.getAngleRads()),
               6,
-              new Color8Bit(Color.kAqua)));
-    private final MechanismRoot2d m_wristPivot = m_elbowMech2d.getRoot("WristPivot", 30+12 * Math.cos(m_elbowSim.getAngleRads()), 11+12 * Math.sin(m_elbowSim.getAngleRads()));
+              new Color8Bit(Color.kBlue)));
+    private final MechanismRoot2d m_wristPivot = Robot.m_Mech2d.getRoot("WristPivot", 35.5+14 * Math.cos(m_elbowSim.getAngleRads()), 18+14 * Math.sin(m_elbowSim.getAngleRads()));
     private final MechanismLigament2d m_wrist =
       m_wristPivot.append(
           new MechanismLigament2d(
@@ -118,8 +115,6 @@ public class Intake implements AutoCloseable {
     m_elbowEncoder.setDistancePerPulse(IntakeConstants.kElbowEncoderDistancePerPulse);
 
     // Put Mechanism 2d to SmartDashboard
-    SmartDashboard.putData("Elbow Sim", m_elbowMech2d);
-    m_elbowTower.setColor(new Color8Bit(Color.kBlue));
     m_wristEncoder.setDistancePerPulse(IntakeConstants.kWristEncoderDistancePerPulse);
     m_intakeEncoder.setDistancePerPulse(1.0);
     time.reset();
@@ -149,7 +144,7 @@ public class Intake implements AutoCloseable {
     // Update the Mechanism Arm angle based on the simulated arm angle
     m_elbow.setAngle(Units.radiansToDegrees(m_elbowSim.getAngleRads()));
     m_wrist.setAngle(Units.radiansToDegrees(m_wristSim.getAngleRads()));
-    m_wristPivot.setPosition(30+12 * Math.cos(m_elbowSim.getAngleRads()), 11+12 * Math.sin(m_elbowSim.getAngleRads()));
+    m_wristPivot.setPosition(35.5+14 * Math.cos(m_elbowSim.getAngleRads()), 18+14 * Math.sin(m_elbowSim.getAngleRads()));
   
     // In this method, we update our simulation of what our elevator is doing
         // First, we set our "inputs" (voltages)
@@ -274,7 +269,6 @@ public class Intake implements AutoCloseable {
   public void close() {
     m_elbowMotor.close();
     m_elbowEncoder.close();
-    m_elbowMech2d.close();
     m_elbowPivot.close();
     m_elbowController.close();
     m_elbow.close();

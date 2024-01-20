@@ -213,8 +213,8 @@ public final class Constants {
         //Limelight Rotator Constants Here
         public static final double kRotatorKP = 1;
         public static final int kRotateCurrentLimit = 30;
-        public static final double kIntakePosition = -240;
-        public static final double kShooterPosition = 60;
+        public static final double kIntakePosition = -140;
+        public static final double kShooterPosition = -50;
       }
 
       public static final class LEDConstants {

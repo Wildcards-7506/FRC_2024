@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -52,17 +51,14 @@ public class Limelight implements AutoCloseable{
             );
     private final EncoderSim m_limelightEncoderSim = new EncoderSim(m_limelightEncoder);
 
-    private final Mechanism2d m_limelightMech2d = new Mechanism2d(20, 20);
-  private final MechanismRoot2d m_limelightPivot = m_limelightMech2d.getRoot("limelightPivot", 10, 10);
-  private final MechanismLigament2d m_limelightTower =
-      m_limelightPivot.append(new MechanismLigament2d("limelightTower", 10, 90));
+  private final MechanismRoot2d m_limelightPivot = Robot.m_Mech2d.getRoot("limelightPivot", 24, 10);
   private final MechanismLigament2d m_limelight =
       m_limelightPivot.append(
           new MechanismLigament2d(
               "limelight",
-              10,
+              3,
               Units.radiansToDegrees(m_limelightSim.getAngleRads()),
-              6,
+              12,
               new Color8Bit(Color.kRed)));
     
     public double distance;
@@ -77,9 +73,6 @@ public class Limelight implements AutoCloseable{
 
     public Limelight () {
         m_limelightEncoder.setDistancePerPulse(1.0/15);
-        // Put Mechanism 2d to SmartDashboard
-        SmartDashboard.putData("Limelight Sim", m_limelightMech2d);
-        m_limelightTower.setColor(new Color8Bit(Color.kBlue));
     }
 
         /** Update the simulation model. */
@@ -182,7 +175,6 @@ public class Limelight implements AutoCloseable{
     public void close() {
       m_limelightMotor.close();
       m_limelightEncoder.close();
-      m_limelightMech2d.close();
       m_limelightPivot.close();
       m_limelightController.close();
       m_limelight.close();

@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.simulation.PWMSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
-import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,10 +36,10 @@ public class Climbers implements AutoCloseable {
      new ElevatorSim(
         m_climberGearbox,
         1.0/8,
-        0.1,
+        1,
         0.1,
         0,
-        26,
+        28,
         false,
         0,
         VecBuilder.fill(0.01));
@@ -49,8 +48,7 @@ public class Climbers implements AutoCloseable {
   private final PWMSim m_climberMotorSim = new PWMSim(m_climberMotor);
 
   // Create a Mechanism2d visualization of the elevator
-  private final Mechanism2d m_mech2d = new Mechanism2d(20, 30);
-  private final MechanismRoot2d m_mech2dRoot = m_mech2d.getRoot("Climber Root", 10, 0);
+  private final MechanismRoot2d m_mech2dRoot = Robot.m_Mech2d.getRoot("Climber Root", 7, 6);
   private final MechanismLigament2d m_climberMech2d =
       m_mech2dRoot.append(
           new MechanismLigament2d("Climber", m_climberSim.getPositionMeters(), 90));
@@ -58,9 +56,6 @@ public class Climbers implements AutoCloseable {
   /** Subsystem constructor. */
   public Climbers() {
     m_climberEncoder.setDistancePerPulse(ClimberConstants.kClimberEncoderDistancePerPulse);
-
-    // Put Mechanism 2d to SmartDashboard
-    SmartDashboard.putData("climber Sim", m_mech2d);
   }
 
   /** Update the simulation model. */
@@ -92,7 +87,7 @@ public class Climbers implements AutoCloseable {
     /** Update telemetry, including the mechanism visualization. */
     public void updateTelemetry() {
         // Update elevator visualization with position
-        m_climberMech2d.setLength(26-m_climberEncoder.getDistance());
+        m_climberMech2d.setLength(28-m_climberEncoder.getDistance());
       }
 
     public double getClimberEncoder() {
@@ -104,7 +99,7 @@ public class Climbers implements AutoCloseable {
     }
 
     public void teleopCommand(){
-        if(!Robot.shooter.shootingMode && m_climberEncoder.getDistance() >= 0 && m_climberEncoder.getDistance() <= 26){
+        if(!Robot.shooter.shootingMode && m_climberEncoder.getDistance() >= 0 && m_climberEncoder.getDistance() <= 28){
             if (PlayerConfigs.climberDown) {
                 reachSetpoint(-12);
             } else if (PlayerConfigs.climberUp) {

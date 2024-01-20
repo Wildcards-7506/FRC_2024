@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SerialPort;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -46,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
       DriveConstants.kBackRightChassisAngularOffset);
 
   // The gyro sensor
-  public AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  public AHRS m_gyro = new AHRS(SerialPort.Port.kUSB);
 
   // Slew rate filter variables for controlling lateral acceleration
   private double m_currentRotation = 0.0;

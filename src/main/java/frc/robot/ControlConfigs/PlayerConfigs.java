@@ -12,10 +12,10 @@ public class PlayerConfigs {
     public static double yMovement;
     public static double turnMovement;
     public static boolean fineControlToggle;
-    public static boolean snapZero;
-    public static boolean snap90;
-    public static boolean snap180;
-    public static boolean snap270;
+    public static boolean snapUp;
+    public static boolean snapRight;
+    public static boolean snapDown;
+    public static boolean snapLeft;
     public static boolean align;
 
     //Intake

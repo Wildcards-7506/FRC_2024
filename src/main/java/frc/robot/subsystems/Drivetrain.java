@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SerialPort;
 
+import java.util.HashMap;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -69,8 +71,12 @@ public class Drivetrain extends SubsystemBase {
           m_rearRight.getPosition()
       });
 
+  private HashMap<Double, Double> AprilTagMap;
+
   /** Creates a new DriveSubsystem. */
-  public Drivetrain() {}
+  public Drivetrain() {
+    buildAprilTagMap();
+  }
 
   @Override
   public void periodic() {
@@ -215,30 +221,35 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void snap(double angle){
-    if(Math.abs(getHeading() % 360 - angle) > DriveConstants.kSnapRange){
-        double rotation = Math.abs((getHeading() % 360 - angle))/(getHeading() % 360 - angle) * DriveConstants.kSnapSpeed;
-        drive(0, 0, rotation, true, true);
+    double output = getHeading() - angle > 360 - (getHeading() - angle) ? (getHeading() - angle) * DriveConstants.kSnapSpeed : (getHeading() - angle - 360) * DriveConstants.kSnapSpeed;
+    if(Math.abs(output) > DriveConstants.kSnapRange){
+        drive(0, 0, output, true, true);
     } else {
         drive(0, 0, 0, true,false);
     }
-}
+  }
 
-public void align(double distance){
-    double rotation = 0.0;
+  private void buildAprilTagMap() {
+    AprilTagMap.put(5.0,90.0);
+    AprilTagMap.put(6.0,90.0);
+    AprilTagMap.put(11.0,120.0);
+    AprilTagMap.put(12.0,-120.0);
+    AprilTagMap.put(13.0,0.0);
+    AprilTagMap.put(14.0,180.0);
+    AprilTagMap.put(15.0,-60.0);
+    AprilTagMap.put(16.0,60.0);
+  }
+
+  public void align(double distance, double id){
     double strafe = 0.0;
-    double linear = 0.0;
-    if(Math.abs(getHeading() % 360) > DriveConstants.kSnapRange){
-        rotation = (getHeading() % 360) * DriveConstants.kSnapSpeed;
+    boolean inRange = Math.min(getHeading() - AprilTagMap.get(id), 360 - (getHeading() - AprilTagMap.get(id))) < DriveConstants.kSnapRange;
+    if(AprilTagMap.get(id) != null && inRange){
+      snap(AprilTagMap.get(id));
+    } else {
+      strafe = -distance * DriveConstants.kAlignKP;
+      drive(0.0, strafe, 0.0, false,true);
     }
-    if(Math.abs(distance) > 2){
-        strafe = -distance * DriveConstants.kAlignKP;
-    }
-    if(Math.abs(distance) < 2 & Math.abs(getHeading() % 360) < DriveConstants.kSnapRange){
-        linear = 0.1;
-    }
-    
-    drive(linear, strafe, rotation, true,true);
-}
+  }
 
   /**
    * Sets the swerve ModuleStates.

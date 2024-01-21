@@ -1,5 +1,6 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Robot;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -9,7 +10,7 @@ public class AutoDrivetrainSnap extends Command{
     
     double location;
     double angle;
-    double appliedOutput;
+    double output;
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
     public AutoDrivetrainSnap(int location) {
@@ -32,9 +33,11 @@ public class AutoDrivetrainSnap extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double appliedOutput = -0.1 * Math.abs(angle-Robot.drivetrain.getHeading())/(angle-Robot.drivetrain.getHeading());
-        Logger.info("DSNAP", Double.toString(angle-Robot.drivetrain.getHeading()) + " Degrees");
-        Robot.drivetrain.drive(0.0, 0.0, appliedOutput, false,false);
+        output = Robot.drivetrain.getHeading() - angle > 360 - (Robot.drivetrain.getHeading() - angle) ? 
+                (Robot.drivetrain.getHeading() - angle) * DriveConstants.kSnapSpeed : 
+                (Robot.drivetrain.getHeading() - angle - 360) * DriveConstants.kSnapSpeed;
+        Logger.info("DSNAP", Double.toString(output/DriveConstants.kSnapSpeed) + " Degrees");
+        Robot.drivetrain.drive(0.0, 0.0, output, false,false);
     }
 
     // Called once the command ends or is interrupted.
@@ -48,6 +51,6 @@ public class AutoDrivetrainSnap extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  (Math.abs(angle-Robot.drivetrain.getHeading()) < 1);
+        return  (Math.abs(output) < 1);
     }
 }

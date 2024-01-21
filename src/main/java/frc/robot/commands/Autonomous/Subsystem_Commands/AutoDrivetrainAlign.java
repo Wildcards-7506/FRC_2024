@@ -1,7 +1,6 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
 import frc.robot.Robot;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,7 +30,7 @@ public class AutoDrivetrainAlign extends Command{
     @Override
     public void execute() {    
         Robot.limelight.updateData();    
-        Robot.drivetrain.drive(0, Robot.limelight.getTX() * DriveConstants.kAlignKP, 0, false,true);
+        Robot.drivetrain.align(Robot.limelight.getTX(), Robot.limelight.getID());
         Logger.info("ALIGN",Double.toString(Robot.limelight.getTX()) + " Degrees");
     }
 

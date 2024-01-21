@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import java.text.DecimalFormat;
 
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.Robot;
@@ -18,6 +19,7 @@ public class DrivetrainTeleopCommand extends Command{
 
     @Override
     public void execute(){
+        //Joystick Inputs
         xInputSpeed = PlayerConfigs.fineControlToggle ? 
             PlayerConfigs.fineDriveSpeed * PlayerConfigs.xMovement :
             PlayerConfigs.driveSpeed * PlayerConfigs.xMovement;
@@ -28,23 +30,28 @@ public class DrivetrainTeleopCommand extends Command{
             PlayerConfigs.fineTurnSpeed * PlayerConfigs.turnMovement : 
             PlayerConfigs.turnSpeed * PlayerConfigs.turnMovement;
 
-        //Snap if needed, otherwise set drive motors
-        if(PlayerConfigs.snapZero){
-            Robot.drivetrain.snap(0);
-        } else if(PlayerConfigs.snap90) {
-            Robot.drivetrain.snap(90);
-        } else if(PlayerConfigs.snap180) {
-            Robot.drivetrain.snap(180);
-        } else if(PlayerConfigs.snap270){
-            Robot.drivetrain.snap(270);
+        //Snap or align if needed, set drive if joystick inputs available, otherwise X
+        if(PlayerConfigs.snapUp){
+            double angle = Robot.teamColor.get() == Alliance.Red ? 180 : 0;
+            Robot.drivetrain.snap(angle);
+        } else if(PlayerConfigs.snapRight) {
+            double angle = Robot.teamColor.get() == Alliance.Red ? 90 : -90;
+            Robot.drivetrain.snap(angle);
+        } else if(PlayerConfigs.snapDown) {
+            double angle = Robot.teamColor.get() == Alliance.Red ? 0 : 90;
+            Robot.drivetrain.snap(angle);
+        } else if(PlayerConfigs.snapLeft){
+            double angle = Robot.teamColor.get() == Alliance.Red ? -90 : 90;
+            Robot.drivetrain.snap(angle);
         } else if((PlayerConfigs.align)){
-            Robot.drivetrain.align(Robot.limelight.getTX());
+            Robot.drivetrain.align(Robot.limelight.getTX(), Robot.limelight.getID());
         } else if (Math.abs(PlayerConfigs.xMovement) > 0.05 || Math.abs(PlayerConfigs.yMovement) > 0.05 || Math.abs(PlayerConfigs.turnMovement) > 0.05) {
             Robot.drivetrain.drive(yInputSpeed, xInputSpeed, inputRot, true, true);
         } else {
             Robot.drivetrain.setX();
         }
 
+        //Report Joysticks to Logger
         payload = df.format(yInputSpeed)
         + " " + df.format(xInputSpeed)
         + " " + df.format(inputRot)

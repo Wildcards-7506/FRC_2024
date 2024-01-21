@@ -35,7 +35,6 @@ import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeUp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoDrivetrainSnap;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
-import frc.robot.commands.Autonomous.Subsystem_Commands.AutoX;
 import frc.robot.subsystems.Drivetrain;
 
 @SuppressWarnings("unused")

@@ -9,6 +9,7 @@ public class AutoIntakeUp extends SequentialCommandGroup{
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
     public AutoIntakeUp() {
+        //sets intake to stow, lifts elbow to stow
         addCommands(
             new AutoIntakeWristSet(IntakeConstants.kWristStowed),
             new AutoIntakeElbowSet(IntakeConstants.kElbowStowed)

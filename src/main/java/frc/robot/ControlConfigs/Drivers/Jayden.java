@@ -16,10 +16,10 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.yMovement = Robot.controller0.getLeftY();
         PlayerConfigs.turnMovement = Robot.controller0.getRightX();
         PlayerConfigs.fineControlToggle = Robot.controller0.getRightBumper();
-        PlayerConfigs.snapZero = Robot.controller0.getPOV() == 0;
-        PlayerConfigs.snap90 = Robot.controller0.getPOV() == 90;
-        PlayerConfigs.snap180 = Robot.controller0.getPOV() == 180;
-        PlayerConfigs.snap270 = Robot.controller0.getPOV() == 270;
+        PlayerConfigs.snapUp = Robot.controller0.getPOV() == 0;
+        PlayerConfigs.snapRight = Robot.controller0.getPOV() == 90;
+        PlayerConfigs.snapDown = Robot.controller0.getPOV() == 180;
+        PlayerConfigs.snapLeft = Robot.controller0.getPOV() == 270;
         PlayerConfigs.align = Robot.controller0.getLeftBumper();
 
         //Scoring and grabbing objects

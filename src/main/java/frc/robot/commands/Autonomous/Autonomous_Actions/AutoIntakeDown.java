@@ -9,6 +9,7 @@ public class AutoIntakeDown extends SequentialCommandGroup{
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
     public AutoIntakeDown() {
+        //Sets intake at stow, moves elbow to ground, drops intake to ground
         addCommands(
             new AutoIntakeWristSet(IntakeConstants.kWristStowed),
             new AutoIntakeElbowSet(IntakeConstants.kElbowGround),

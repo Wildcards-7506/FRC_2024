@@ -15,31 +15,30 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.xMovement = Robot.controller0.getLeftX();
         PlayerConfigs.yMovement = Robot.controller0.getLeftY();
         PlayerConfigs.turnMovement = Robot.controller0.getRightX();
-        PlayerConfigs.fineControlToggle = Robot.controller0.getLeftTriggerAxis() > 0.2;
-        PlayerConfigs.xToggle = Robot.controller0.getAButton();
-        PlayerConfigs.snapZero = false;
-        PlayerConfigs.snap90 = false;
-        PlayerConfigs.snap180 = false;
-        PlayerConfigs.snap270 = false;
+        PlayerConfigs.fineControlToggle = Robot.controller0.getRightBumper();
+        PlayerConfigs.snapZero = Robot.controller0.getPOV() == 0;
+        PlayerConfigs.snap90 = Robot.controller0.getPOV() == 90;
+        PlayerConfigs.snap180 = Robot.controller0.getPOV() == 180;
+        PlayerConfigs.snap270 = Robot.controller0.getPOV() == 270;
         PlayerConfigs.align = Robot.controller0.getLeftBumper();
 
         //Scoring and grabbing objects
-        PlayerConfigs.shooterActive = Robot.controller0.getRightTriggerAxis() > 0.2;
-        PlayerConfigs.fire = Robot.controller0.getRightBumper();
+        PlayerConfigs.fire = Robot.controller0.getRightTriggerAxis() > 0.2;
     } 
 
     public void getCoDriverConfig() {
         //Intake
-        PlayerConfigs.intake = Robot.controller1.getAButton();
-        PlayerConfigs.trap = Robot.controller1.getBButton();
-        PlayerConfigs.amp = Robot.controller1.getXButton();
-        PlayerConfigs.stow = Robot.controller1.getYButton();
+        PlayerConfigs.intake = Robot.controller1.getLeftTriggerAxis()>0.2;
+        PlayerConfigs.trap = Robot.controller1.getXButton();
+        PlayerConfigs.amp = Robot.controller1.getBButton();
+        PlayerConfigs.stow = Robot.controller1.getLeftBumper();
 
-        //Shooter Spin Up
+        //Shooter Spin up
         PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;
-
+        PlayerConfigs.shooterActive = Robot.controller1.getRightBumper();
+        
         //Climbers
-        PlayerConfigs.climberUp = Robot.controller1.getLeftBumper();
-        PlayerConfigs.climberDown = Robot.controller1.getLeftTriggerAxis() > 0.2; 
+        PlayerConfigs.climberUp = Robot.controller1.getPOV() == 180;
+        PlayerConfigs.climberDown = Robot.controller1.getPOV() == 0;
     }
 }

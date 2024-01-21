@@ -15,31 +15,30 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.xMovement = Robot.controller0.getLeftX();
         PlayerConfigs.yMovement = Robot.controller0.getLeftY();
         PlayerConfigs.turnMovement = Robot.controller0.getRightX();
-        PlayerConfigs.fineControlToggle = false;
-        PlayerConfigs.xToggle = false;
-        PlayerConfigs.snapZero = false;
-        PlayerConfigs.snap90 = false;
-        PlayerConfigs.snap180 = false;
-        PlayerConfigs.snap270 = false;
-        PlayerConfigs.align = false;
+        PlayerConfigs.fineControlToggle = Robot.controller0.getRightBumper();
+        PlayerConfigs.snapZero = Robot.controller0.getPOV() == 0;
+        PlayerConfigs.snap90 = Robot.controller0.getPOV() == 90;
+        PlayerConfigs.snap180 = Robot.controller0.getPOV() == 180;
+        PlayerConfigs.snap270 = Robot.controller0.getPOV() == 270;
+        PlayerConfigs.align = Robot.controller0.getLeftBumper();
 
         //Scoring and grabbing objects
-        PlayerConfigs.shooterActive = false;
-        PlayerConfigs.fire = false;
+        PlayerConfigs.fire = Robot.controller0.getRightTriggerAxis() > 0.2;
     } 
 
     public void getCoDriverConfig() {
         //Intake
-        PlayerConfigs.intake = false;
-        PlayerConfigs.trap = false;
-        PlayerConfigs.amp = false;
-        PlayerConfigs.stow = false;
+        PlayerConfigs.intake = Robot.controller1.getLeftTriggerAxis()>0.2;
+        PlayerConfigs.trap = Robot.controller1.getXButton();
+        PlayerConfigs.amp = Robot.controller1.getBButton();
+        PlayerConfigs.stow = Robot.controller1.getLeftBumper();
 
         //Shooter Spin up
-        PlayerConfigs.armScoringMechanism = false;
+        PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;
+        PlayerConfigs.shooterActive = Robot.controller1.getRightBumper();
         
         //Climbers
-        PlayerConfigs.climberUp = Robot.controller1.getLeftTriggerAxis () > 0.2;
-        PlayerConfigs.climberDown = Robot.controller1.getRightTriggerAxis() > 0.2; 
+        PlayerConfigs.climberUp = Robot.controller1.getPOV() == 180;
+        PlayerConfigs.climberDown = Robot.controller1.getPOV() == 0;
     }
 }

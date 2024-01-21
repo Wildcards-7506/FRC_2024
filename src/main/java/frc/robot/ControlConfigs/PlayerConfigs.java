@@ -12,7 +12,6 @@ public class PlayerConfigs {
     public static double yMovement;
     public static double turnMovement;
     public static boolean fineControlToggle;
-    public static boolean xToggle;
     public static boolean snapZero;
     public static boolean snap90;
     public static boolean snap180;

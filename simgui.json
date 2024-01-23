@@ -87,9 +87,6 @@
       "/SmartDashboard/climber Sim": "Mechanism2d"
     },
     "windows": {
-      "/SmartDashboard/Elbow Sim": {
-        "image": "/Users/homecomputer/Desktop/Screenshot 2024-01-19 at 5.01.34 PM.png"
-      },
       "/SmartDashboard/Field": {
         "Robot": {
           "length": 0.5,
@@ -97,10 +94,7 @@
           "width": 0.5
         },
         "height": 8.013679504394531,
-        "width": 16.541748046875,
-        "window": {
-          "visible": true
-        }
+        "width": 16.541748046875
       },
       "/SmartDashboard/Motion Sim": {
         "image": "/Users/homecomputer/Desktop/Screenshot 2024-01-19 at 5.01.34 PM.png",
@@ -165,8 +159,7 @@
         "open": true
       },
       "open": true
-    },
-    "visible": true
+    }
   },
   "Plot": {
     "Plot <0>": {
@@ -183,7 +176,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 401,
+          "height": 370,
           "series": [
             {
               "color": [

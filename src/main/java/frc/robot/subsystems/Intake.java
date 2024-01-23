@@ -99,7 +99,7 @@ public class Intake implements AutoCloseable {
               20,
               Units.radiansToDegrees(m_elbowSim.getAngleRads()),
               6,
-              new Color8Bit(Color.kBlue)));
+              new Color8Bit(Color.kDimGray)));
     private final MechanismRoot2d m_wristPivot = Robot.m_Mech2d.getRoot("WristPivot", 35.5+14 * Math.cos(m_elbowSim.getAngleRads()), 18+14 * Math.sin(m_elbowSim.getAngleRads()));
     private final MechanismLigament2d m_wrist =
       m_wristPivot.append(
@@ -108,7 +108,7 @@ public class Intake implements AutoCloseable {
               10,
               Units.radiansToDegrees(m_wristSim.getAngleRads()),
               6,
-              new Color8Bit(Color.kYellow)));
+              new Color8Bit(Color.kDarkRed)));
 
   /** Subsystem constructor. */
   public Intake() {

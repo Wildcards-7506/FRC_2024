@@ -59,7 +59,7 @@ public class Limelight implements AutoCloseable{
               3,
               Units.radiansToDegrees(m_limelightSim.getAngleRads()),
               12,
-              new Color8Bit(Color.kRed)));
+              new Color8Bit(Color.kLimeGreen)));
     
     public double distance;
     public double offset;

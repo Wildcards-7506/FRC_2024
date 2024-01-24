@@ -232,7 +232,7 @@ public class Intake implements AutoCloseable {
             Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
         }
 
-        if (Robot.intake.m_wristEncoder.getDistance() + Robot.intake.m_elbowEncoder.getDistance() > 57.0/360*2*Math.PI) {
+        if (Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360 - Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 62 > 170) {
             if (Robot.intake.intakeState == 1) {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
             } else if (Robot.intake.intakeState == 2) {
@@ -255,10 +255,10 @@ public class Intake implements AutoCloseable {
             Robot.intake.running = false;
         }
 
-        SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint + Robot.intake.elbowSetPoint);
-        SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
-        SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360);
-        SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360);
+        SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint + 62);
+        SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint + 28);
+        SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360 - Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 62);
+        SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 28);
         SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
         SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
         SmartDashboard.putNumber("Intake Speed", m_intakeEncoder.getRate());

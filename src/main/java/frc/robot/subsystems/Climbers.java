@@ -35,7 +35,7 @@ public class Climbers implements AutoCloseable {
   private final ElevatorSim m_climberSim =
      new ElevatorSim(
         m_climberGearbox,
-        24,
+        9,
         0.1,
         0.1,
         0,

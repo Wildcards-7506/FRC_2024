@@ -14,43 +14,54 @@ import frc.robot.util.Logger;
 
 public class Shooter extends SubsystemBase{
 
-    private final CANSparkMax flywheelL;
-    private final CANSparkMax flywheelR;
-    private final RelativeEncoder flywheelEncoder;
-    private final SparkPIDController flywheelPID;
+    private final CANSparkMax shooterL;
+    private final CANSparkMax shooterR;
+    private final RelativeEncoder shooterLEncoder;
+    private final SparkPIDController shooterLPID;
+    private final RelativeEncoder shooterREncoder;
+    private final SparkPIDController shooterRPID;
     public boolean shootingMode;
 
     public Shooter () {
-        flywheelL = new CANSparkMax(CANID.FLYWHEEL_LEFT, MotorType.kBrushless);
-        flywheelR = new CANSparkMax(CANID.FLYWHEEL_RIGHT, MotorType.kBrushless);
-        flywheelEncoder = flywheelL.getEncoder();
-        flywheelPID = flywheelL.getPIDController();
+        shooterL = new CANSparkMax(CANID.shooter_LEFT, MotorType.kBrushless);
+        shooterR = new CANSparkMax(CANID.shooter_RIGHT, MotorType.kBrushless);
 
-        flywheelR.follow(flywheelL,true);
+        shooterLEncoder = shooterL.getEncoder();
+        shooterLPID = shooterL.getPIDController();
+        shooterREncoder = shooterL.getEncoder();
+        shooterRPID = shooterL.getPIDController();
 
-        flywheelPID.setP(ShooterConstants.kShooterP);
+        shooterL.setInverted(true);
 
-        flywheelL.setIdleMode(IdleMode.kCoast);
-        flywheelR.setIdleMode(IdleMode.kCoast);
+        shooterLPID.setP(ShooterConstants.kShooterP);
+        shooterRPID.setP(ShooterConstants.kShooterP);
 
-        flywheelL.burnFlash();
-        flywheelR.burnFlash();
+        shooterL.setIdleMode(IdleMode.kCoast);
+        shooterR.setIdleMode(IdleMode.kCoast);
+
+        shooterL.burnFlash();
+        shooterR.burnFlash();
 
         shootingMode = true;
     }
 
-    public double getSpeed(){
-            return flywheelEncoder.getVelocity();
+    public double getRSpeed(){
+            return shooterREncoder.getVelocity();
     }
 
-    public void SetFlywheelSpeed(double speed) {
-        flywheelPID.setReference(speed, ControlType.kVelocity);
+    public double getLSpeed(){
+            return shooterLEncoder.getVelocity();
+    }
+
+    public void SetshooterSpeed(double lSpeed, double rSpeed) {
+        shooterLPID.setReference(lSpeed, ControlType.kVelocity);
+        shooterRPID.setReference(rSpeed, ControlType.kVelocity);
     }
 
     public void shooterLog(){
-        Logger.info("SHOOT", Double.toString(getSpeed()) + " RPM");
-        if(flywheelL.getFaults()!=0){Logger.warn("FWLFT: " + Short.toString(flywheelL.getFaults()));}
-        if(flywheelR.getFaults()!=0){Logger.warn("FWRGT: " + Short.toString(flywheelR.getFaults()));}
+        Logger.info("SHOOT", "Right: " + Double.toString(getRSpeed()) + " RPM, " + "Left: " + Double.toString(getLSpeed()) + " RPM");
+        if(shooterL.getFaults()!=0){Logger.warn("FWLFT: " + Short.toString(shooterL.getFaults()));}
+        if(shooterR.getFaults()!=0){Logger.warn("FWRGT: " + Short.toString(shooterR.getFaults()));}
     }
 
 }

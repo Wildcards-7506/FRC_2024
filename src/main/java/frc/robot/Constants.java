@@ -26,8 +26,8 @@ public final class Constants {
         public static final int INTAKE_LEFT = 12;
         public static final int INTAKE_RIGHT = 13;
         
-        public static final int FLYWHEEL_LEFT = 14;
-        public static final int FLYWHEEL_RIGHT = 15;
+        public static final int shooter_LEFT = 14;
+        public static final int shooter_RIGHT = 15;
 
         public static final int CLIMBER_LEFT = 16;
         public static final int CLIMBER_RIGHT = 17;
@@ -197,7 +197,8 @@ public final class Constants {
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static final double kArmedRPM = 3000;
+        public static final double kLArmedRPM = 2700;
+        public static final double kRArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
         public static final double kShooterP = 1; //<-Will probably be closer to 5, increase until shooter spins up in <3 seconds and is not oscillating
       }

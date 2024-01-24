@@ -6,11 +6,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class AutoShooterSpinUp extends Command{
     
-    double speed;
+    double lSpeed;
+    double rSpeed;
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
-    public AutoShooterSpinUp(double speed) {
-        this.speed = speed;
+    public AutoShooterSpinUp(double lSpeed, double rSpeed) {
+        this.lSpeed = lSpeed;
+        this.rSpeed = rSpeed;
     }
 
     // Called when the command is initially scheduled.
@@ -23,8 +25,8 @@ public class AutoShooterSpinUp extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Logger.info("SHOOT", Double.toString(Robot.shooter.getSpeed()) + " RPM");
-        Robot.shooter.SetFlywheelSpeed(speed);
+        Logger.info("SHOOT", "Right: " + Double.toString(Robot.shooter.getRSpeed()) + " RPM, " + "Left: " + Double.toString(Robot.shooter.getLSpeed()) + " RPM");
+        Robot.shooter.SetshooterSpeed(lSpeed,rSpeed);
     }
 
     // Called once the command ends or is interrupted.
@@ -36,6 +38,6 @@ public class AutoShooterSpinUp extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  speed - Robot.shooter.getSpeed() < 1;
+        return  lSpeed - Robot.shooter.getLSpeed() < 1 && rSpeed - Robot.shooter.getRSpeed() < 1;
     }
 }

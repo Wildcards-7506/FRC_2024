@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.Robot;
 import frc.robot.ControlConfigs.PlayerConfigs;
 
@@ -24,14 +24,14 @@ public class ShooterTeleopCommand extends Command{
         }
 
         if(Robot.shooter.shootingMode == true && PlayerConfigs.armScoringMechanism == true){
-            Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kArmedRPM);
+            Robot.shooter.SetshooterSpeed(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM);
         } else if(Robot.shooter.shootingMode == true){
-            Robot.shooter.SetFlywheelSpeed(Constants.ShooterConstants.kPrimeRPM);
+            Robot.shooter.SetshooterSpeed(ShooterConstants.kPrimeRPM, ShooterConstants.kPrimeRPM);
         } else {
-            Robot.shooter.SetFlywheelSpeed(0);
+            Robot.shooter.SetshooterSpeed(0,0);
         }
 
-        SmartDashboard.putNumber("Shooter Speed", Robot.shooter.getSpeed());
+        SmartDashboard.putNumber("Shooter Speed", Robot.shooter.getRSpeed());
         SmartDashboard.putBoolean("Shooter Mode", Robot.shooter.shootingMode);
         Robot.shooter.shooterLog();
     } 

@@ -23,9 +23,9 @@ public class LEDTeleopCommand extends Command{
             Robot.ledSystem.section(0, LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);
         }
 
-        if(Robot.shooter.getSpeed() > 2800){
+        if(Robot.shooter.getRSpeed() > 2800){
             Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
-        } else if(Robot.shooter.getSpeed() > 150){
+        } else if(Robot.shooter.getRSpeed() > 150){
             Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         } else{
             Robot.ledSystem.section(LEDConstants.bufferSize/3, 2*LEDConstants.bufferSize/3-1, LEDConstants.RED, LEDConstants.SV_OFF, LEDConstants.SV_OFF);

@@ -16,16 +16,10 @@
           "data": {
             "name": "AutoShootBottom"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Troll"
-          }
         }
       ]
     }
   },
-  "folder": "Aux",
+  "folder": "Meme",
   "choreoAuto": false
 }

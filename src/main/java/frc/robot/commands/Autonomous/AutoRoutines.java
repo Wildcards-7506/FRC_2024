@@ -73,16 +73,15 @@ public final class AutoRoutines {
     autoChooser.setDefaultOption("Nothing", Commands.none());
     autoChooser.addOption("Meter Calibration", AutoBuilder.buildAuto("MeterCalibration"));
     autoChooser.addOption("SpinBox", AutoBuilder.buildAuto("SpinBox"));
-    // autoChooser.addOption("4 Top", AutoBuilder.buildAuto("T4PA"));
-    // autoChooser.addOption("4 Center", AutoBuilder.buildAuto("C4PA"));
-    // autoChooser.addOption("4 Bottom", AutoBuilder.buildAuto("B4PA"));
-    // autoChooser.addOption("3 Top", AutoBuilder.buildAuto("T3PA"));
-    // autoChooser.addOption("3 Bottom", AutoBuilder.buildAuto("B3PA"));
-    // autoChooser.addOption("2 Top", AutoBuilder.buildAuto("T2PA"));
-    // autoChooser.addOption("2 Center", AutoBuilder.buildAuto("C2PA"));
-    // autoChooser.addOption("2 Bottom", AutoBuilder.buildAuto("B2PA"));
-    // autoChooser.addOption("Amp Mid", AutoBuilder.buildAuto("AmpMid"));
-    // autoChooser.addOption("Troll", AutoBuilder.buildAuto("1+Troll"));
+    // autoChooser.addOption("Trident", AutoBuilder.buildAuto("Trident"));
+    // autoChooser.addOption("Jaguar Down", AutoBuilder.buildAuto("Jaguar Down"));
+    // autoChooser.addOption("Jaguar Up", AutoBuilder.buildAuto("Jaguar Up"));
+    // autoChooser.addOption("Boogie", AutoBuilder.buildAuto("Boogie"));
+    // autoChooser.addOption("5150", AutoBuilder.buildAuto("5150"));
+    // autoChooser.addOption("Explorer", AutoBuilder.buildAuto("Explorer"));
+    // autoChooser.addOption("Flying V", AutoBuilder.buildAuto("Flying V"));
+    // autoChooser.addOption("Warlock Amp", AutoBuilder.buildAuto("Warlock Amp"));
+    // autoChooser.addOption("Warlock Bridge", AutoBuilder.buildAuto("Warlock Bridge"));
 
     SmartDashboard.putData("Auto Chooser",autoChooser);
   }

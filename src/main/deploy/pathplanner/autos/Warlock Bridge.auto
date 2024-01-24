@@ -18,26 +18,14 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AutoIntakeDown"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "BottomBottom"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShootBottom"
+            "pathName": "Troll"
           }
         }
       ]
     }
   },
-  "folder": "2",
+  "folder": "Meme",
   "choreoAuto": false
 }

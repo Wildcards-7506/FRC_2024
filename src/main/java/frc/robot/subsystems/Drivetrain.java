@@ -71,7 +71,7 @@ public class Drivetrain extends SubsystemBase {
           m_rearRight.getPosition()
       });
 
-  private HashMap<Double, Double> AprilTagMap;
+  private HashMap<Double, Double> AprilTagMap = new HashMap<>();
 
   /** Creates a new DriveSubsystem. */
   public Drivetrain() {

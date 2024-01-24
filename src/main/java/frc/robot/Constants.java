@@ -203,7 +203,7 @@ public final class Constants {
       }
 
       public static final class ClimberConstants {
-        public static final double kClimberEncoderDistancePerPulse = 0.125;
+        public static final double kClimberEncoderDistancePerPulse = 1.0/3 * 0.125;
         public static final int kClimberCurrentLimit = 50;
         public static final int downLimit = 24;
         public static final int upLimit = 0;
@@ -211,6 +211,7 @@ public final class Constants {
 
       public static final class LimelightConstants {
         //Limelight Rotator Constants Here
+        public static final double kRotatorEncoderDistancePerPulse = 1.0/3 * 360;
         public static final double kRotatorKP = 0.007; //<-Will probably be near this value, tune as necessary.
         public static final int kRotateCurrentLimit = 30;
         public static final double kIntakePosition = 180;

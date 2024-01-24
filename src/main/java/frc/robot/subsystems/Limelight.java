@@ -33,6 +33,7 @@ public class Limelight extends SubsystemBase{
         limelightRotator = new CANSparkMax(CANID.LIMELIGHT, MotorType.kBrushless);
 
         limelightEncoder = limelightRotator.getEncoder();
+        limelightEncoder.setPositionConversionFactor(LimelightConstants.kRotatorEncoderDistancePerPulse);
 
         limelightPIDController = limelightRotator.getPIDController();
         limelightPIDController.setOutputRange(-1, 1);

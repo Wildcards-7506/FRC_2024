@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import java.util.HashMap;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -294,6 +295,13 @@ public class Drivetrain extends SubsystemBase {
    */
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  public void idleSwerve(IdleMode idlemode){
+    m_frontLeft.idleModule(idlemode);
+    m_frontRight.idleModule(idlemode);
+    m_rearLeft.idleModule(idlemode);
+    m_rearRight.idleModule(idlemode);
   }
 
   public void driveLog(String payload){

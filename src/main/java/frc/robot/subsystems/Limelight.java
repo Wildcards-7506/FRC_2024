@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -39,6 +40,8 @@ public class Limelight extends SubsystemBase{
         limelightPIDController.setOutputRange(-1, 1);
         limelightRotator.setSmartCurrentLimit(LimelightConstants.kRotateCurrentLimit);
         limelightPIDController.setP(LimelightConstants.kRotatorKP);
+
+        limelightRotator.setIdleMode(IdleMode.kBrake);
 
         limelightRotator.burnFlash();
     }

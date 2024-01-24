@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.Optional;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -117,6 +119,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
     autoMode.resetAutoHeading();
     autoMode.getAutonomousCommand().schedule();
+    Robot.drivetrain.idleSwerve(IdleMode.kBrake);
   }
 
   /** This function is called periodically during autonomous. */
@@ -139,6 +142,7 @@ public class Robot extends TimedRobot {
     Robot.shooter.setDefaultCommand(new ShooterTeleopCommand());
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
     Robot.limelight.setDefaultCommand(new LimelightTeleopCommand());
+    Robot.drivetrain.idleSwerve(IdleMode.kBrake);
   }
 
   /** This function is called periodically during operator control. */
@@ -154,6 +158,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     Logger.info("SYSTEM", "Robot Disabled");
     CommandScheduler.getInstance().cancelAll();
+    Robot.drivetrain.idleSwerve(IdleMode.kCoast);
   }
 
   /** This function is called periodically when disabled. */

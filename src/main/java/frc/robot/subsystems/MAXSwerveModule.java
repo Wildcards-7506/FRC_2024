@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
@@ -166,5 +167,10 @@ public class MAXSwerveModule {
   public void errorCheck(String indicatorDrive, String indicatorTurn){
     if(m_drivingSparkMax.getFaults()!=0){Logger.warn(indicatorDrive + Short.toString(m_drivingSparkMax.getFaults()));}
     if(m_turningSparkMax.getFaults()!=0){Logger.warn(indicatorTurn + Short.toString(m_turningSparkMax.getFaults()));}
+  }
+
+  public void idleModule(IdleMode idlemode){
+    m_drivingSparkMax.setIdleMode(idlemode);
+    m_turningSparkMax.setIdleMode(idlemode);
   }
 }

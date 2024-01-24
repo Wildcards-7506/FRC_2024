@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -38,6 +39,12 @@ public class Intake extends SubsystemBase {
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
         intakeLeader = new CANSparkMax(CANID.INTAKE_LEFT, MotorType.kBrushless);
         intakeFollower = new CANSparkMax(CANID.INTAKE_RIGHT, MotorType.kBrushless);
+
+        elbowRotatorLeader.setIdleMode(IdleMode.kBrake);
+        elbowRotatorFollower.setIdleMode(IdleMode.kBrake);
+        wristRotator.setIdleMode(IdleMode.kBrake);
+        intakeLeader.setIdleMode(IdleMode.kBrake);
+        intakeFollower.setIdleMode(IdleMode.kBrake);
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
         wristEncoder = wristRotator.getEncoder();

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -37,6 +38,9 @@ public class Climbers extends SubsystemBase{
 
         climberLeft.setOpenLoopRampRate(1);
         climberRight.setOpenLoopRampRate(1);
+
+        climberLeft.setIdleMode(IdleMode.kBrake);
+        climberRight.setIdleMode(IdleMode.kBrake);
 
         climberLeft.burnFlash();
         climberRight.burnFlash();

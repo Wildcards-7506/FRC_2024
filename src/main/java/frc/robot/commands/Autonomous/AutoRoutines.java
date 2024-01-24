@@ -34,6 +34,7 @@ import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeDown;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeUp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoDrivetrainSnap;
+import frc.robot.commands.Autonomous.Subsystem_Commands.AutoDrivetrainX;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
 import frc.robot.subsystems.Drivetrain;
 
@@ -59,8 +60,8 @@ public final class AutoRoutines {
       new HolonomicPathFollowerConfig(
         new PIDConstants(AutoConstants.kPXController,0,0),
         new PIDConstants(AutoConstants.kPThetaController,0,0),
-        4.8, // max speed in m/s
-        Units.inchesToMeters(Math.sqrt(Math.pow(20.0, 2)+Math.pow(20.0,2))/2), // Radius in meters of 28.5 x 18.5 inch robot using a^2 +b^2 = c^2
+        4.5, // max speed in m/s
+        Units.inchesToMeters(Math.sqrt(Math.pow(20.0, 2)+Math.pow(20.0,2))/2),
         new ReplanningConfig()
       ),
       ()->flip, Robot.drivetrain
@@ -70,16 +71,18 @@ public final class AutoRoutines {
     kAutoStartDelaySeconds = SmartDashboard.getNumber("Auto Delay",0.0);
     
     autoChooser.setDefaultOption("Nothing", Commands.none());
-    autoChooser.addOption("4 Top", AutoBuilder.buildAuto("T4PA"));
-    autoChooser.addOption("4 Center", AutoBuilder.buildAuto("C4PA"));
-    autoChooser.addOption("4 Bottom", AutoBuilder.buildAuto("B4PA"));
-    autoChooser.addOption("3 Top", AutoBuilder.buildAuto("T3PA"));
-    autoChooser.addOption("3 Bottom", AutoBuilder.buildAuto("B3PA"));
-    autoChooser.addOption("2 Top", AutoBuilder.buildAuto("T2PA"));
-    autoChooser.addOption("2 Center", AutoBuilder.buildAuto("C2PA"));
-    autoChooser.addOption("2 Bottom", AutoBuilder.buildAuto("B2PA"));
-    autoChooser.addOption("Amp Mid", AutoBuilder.buildAuto("AmpMid"));
-    autoChooser.addOption("Troll", AutoBuilder.buildAuto("1+Troll"));
+    autoChooser.addOption("Meter Calibration", AutoBuilder.buildAuto("MeterCalibration"));
+    autoChooser.addOption("SpinBox", AutoBuilder.buildAuto("SpinBox"));
+    // autoChooser.addOption("4 Top", AutoBuilder.buildAuto("T4PA"));
+    // autoChooser.addOption("4 Center", AutoBuilder.buildAuto("C4PA"));
+    // autoChooser.addOption("4 Bottom", AutoBuilder.buildAuto("B4PA"));
+    // autoChooser.addOption("3 Top", AutoBuilder.buildAuto("T3PA"));
+    // autoChooser.addOption("3 Bottom", AutoBuilder.buildAuto("B3PA"));
+    // autoChooser.addOption("2 Top", AutoBuilder.buildAuto("T2PA"));
+    // autoChooser.addOption("2 Center", AutoBuilder.buildAuto("C2PA"));
+    // autoChooser.addOption("2 Bottom", AutoBuilder.buildAuto("B2PA"));
+    // autoChooser.addOption("Amp Mid", AutoBuilder.buildAuto("AmpMid"));
+    // autoChooser.addOption("Troll", AutoBuilder.buildAuto("1+Troll"));
 
     SmartDashboard.putData("Auto Chooser",autoChooser);
   }
@@ -113,7 +116,8 @@ public final class AutoRoutines {
   public Command getAutonomousCommand() {
     return Commands.sequence(
       Commands.waitSeconds(kAutoStartDelaySeconds),
-      autoChooser.getSelected());
+      autoChooser.getSelected(),
+      new AutoDrivetrainX());
   }
 
   public void resetAutoHeading() {

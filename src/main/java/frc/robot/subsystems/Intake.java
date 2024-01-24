@@ -38,11 +38,11 @@ public class Intake implements AutoCloseable {
   private final DCMotor m_intakeGearbox = DCMotor.getNeo550(1);
 
   // Standard classes for controlling our arm
-  private final PIDController m_elbowController = new PIDController(IntakeConstants.kElbowKP, 0, 0.5);
+  private final PIDController m_elbowController = new PIDController(IntakeConstants.kElbowKP, 0, 0.0);
   public final Encoder m_elbowEncoder =
       new Encoder(0, 1);
   private final PWMSparkMax m_elbowMotor = new PWMSparkMax(CANID.ELBOW_LEFT);
-  private final PIDController m_wristController = new PIDController(IntakeConstants.kWristKP, 0, 0.5);
+  private final PIDController m_wristController = new PIDController(IntakeConstants.kWristKP, 0, 0.0);
   public final Encoder m_wristEncoder =
       new Encoder(2, 3);
   private final PWMSparkMax m_wristMotor = new PWMSparkMax(CANID.WRIST);
@@ -56,12 +56,12 @@ public class Intake implements AutoCloseable {
   private final SingleJointedArmSim m_elbowSim =
       new SingleJointedArmSim(
           m_elbowGearbox,
-          1.0/125,
-          SingleJointedArmSim.estimateMOI(0.1, 0.1),
+          125,
+          SingleJointedArmSim.estimateMOI(0.8, 4.5),
           0.8,
           -Math.PI/4,
           155.0/360*2*Math.PI,
-          false,
+          true,
           0,
           VecBuilder.fill(IntakeConstants.kElbowEncoderDistancePerPulse*0.01) // Add noise with a std-dev of 1 tick
           );
@@ -70,12 +70,12 @@ public class Intake implements AutoCloseable {
   private final SingleJointedArmSim m_wristSim =
       new SingleJointedArmSim(
           m_wristGearbox,
-          1.0/60,
-          SingleJointedArmSim.estimateMOI(0.1, 0.1),
+          125,
+          SingleJointedArmSim.estimateMOI(0.35, 1),
           0.35,
           -Math.PI*2,
           2*Math.PI,
-          false,
+          true,
           0,
           VecBuilder.fill(IntakeConstants.kWristEncoderDistancePerPulse*0.01) // Add noise with a std-dev of 1 tick
           );

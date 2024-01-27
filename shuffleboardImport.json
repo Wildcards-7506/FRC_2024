@@ -161,19 +161,6 @@
               "Colors/path": "#FFFFFFFF"
             }
           },
-          "2,3": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto Chooser",
-              "_title": "Auto Chooser",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "5,4": {
             "size": [
               2,
@@ -206,7 +193,7 @@
             ],
             "content": {
               "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_source0": "network_table:///SmartDashboard/Driver",
               "_title": "Driver",
               "_glyph": 148,
               "_showGlyph": false
@@ -219,8 +206,21 @@
             ],
             "content": {
               "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/SendableChooser[1]",
-              "_title": "CoDriver",
+              "_source0": "network_table:///SmartDashboard/Operator",
+              "_title": "Operator",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Chooser",
+              "_title": "/SmartDashboard/Auto Chooser",
               "_glyph": 148,
               "_showGlyph": false
             }

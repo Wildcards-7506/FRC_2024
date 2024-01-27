@@ -35,5 +35,5 @@ public class PlayerConfigs {
 
     public void getDriverConfig(){}
 
-    public void getCoDriverConfig(){}
+    public void getoperatorConfig(){}
 }

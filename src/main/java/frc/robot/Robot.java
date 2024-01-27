@@ -47,11 +47,11 @@ public class Robot extends TimedRobot {
   //Modes and people
   private AutoRoutines autoMode;
   public PlayerConfigs driver;
-  public PlayerConfigs coDriver;
+  public PlayerConfigs operator;
   public static boolean skipNonPath;
 
   public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
-  public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
+  public static SendableChooser<PlayerConfigs> operator_chooser = new SendableChooser<>();
 
   public static PlayerConfigs ryan = new Ryan();
   public static PlayerConfigs jayden = new Jayden();
@@ -90,15 +90,15 @@ public class Robot extends TimedRobot {
     driver_chooser.addOption("Ryan", ryan);  
     driver_chooser.addOption("Test", test);       
 
-    // Co-Driver choosers
-    coDriver_chooser.setDefaultOption("Jayden", jayden);
-    coDriver_chooser.addOption("Ricardo", ricardo);
-    coDriver_chooser.addOption("Ryan", ryan);    
-    coDriver_chooser.addOption("Test", test);  
+    // Operator choosers
+    operator_chooser.setDefaultOption("Jayden", jayden);
+    operator_chooser.addOption("Ricardo", ricardo);
+    operator_chooser.addOption("Ryan", ryan);    
+    operator_chooser.addOption("Test", test);  
 
     // Put the choosers on the dashboard
-    SmartDashboard.putData(driver_chooser);
-    SmartDashboard.putData(coDriver_chooser);
+    SmartDashboard.putData("Driver",driver_chooser);
+    SmartDashboard.putData("Operator",operator_chooser);
     SmartDashboard.putBoolean("Skip Non-Path Commands", false);
     SmartDashboard.putData(m_field);
 
@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
     Logger.info("SYSTEM","Teleop Started");
     CommandScheduler.getInstance().cancelAll();
     driver = driver_chooser.getSelected();
-    coDriver = coDriver_chooser.getSelected();
+    operator = operator_chooser.getSelected();
     teamColor = DriverStation.getAlliance();
     Robot.intake.setDefaultCommand(new IntakeTeleopCommand());
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
@@ -156,7 +156,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
     driver.getDriverConfig();
-    coDriver.getCoDriverConfig();
+    operator.getoperatorConfig();
   }
 
   /** This function is called once when the robot is disabled. */

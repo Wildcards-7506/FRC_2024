@@ -26,7 +26,7 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.fire = Robot.controller0.getRightTriggerAxis() > 0.2;
     } 
 
-    public void getCoDriverConfig() {
+    public void getoperatorConfig() {
         //Intake
         PlayerConfigs.intake = Robot.controller1.getLeftTriggerAxis()>0.2;
         PlayerConfigs.trap = Robot.controller1.getXButton();

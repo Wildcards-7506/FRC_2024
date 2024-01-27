@@ -50,6 +50,7 @@ public class Robot extends TimedRobot {
   public PlayerConfigs coDriver;
   public static boolean skipNonPath;
 
+  public static SendableChooser<AutoRoutines> auto_chooser = new SendableChooser<>();
   public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
   public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
 
@@ -84,6 +85,9 @@ public class Robot extends TimedRobot {
     //Auto Chooser
     autoMode = new AutoRoutines();
 
+    // Auto choosers
+    auto_chooser.setDefaultOption("One Piece", autoMode);
+
     // Driver choosers
     driver_chooser.setDefaultOption("Ricardo", ricardo);
     driver_chooser.addOption("Jayden", jayden);
@@ -101,6 +105,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(coDriver_chooser);
     SmartDashboard.putBoolean("Skip Non-Path Commands", false);
     SmartDashboard.putData(m_field);
+
+    // SmartDashboard.putData();
 
     Logger.info("SYSTEM","Robot Started");
   }

@@ -99,7 +99,6 @@ public class Robot extends TimedRobot {
     // Put the choosers on the dashboard
     SmartDashboard.putData(driver_chooser);
     SmartDashboard.putData(coDriver_chooser);
-    SmartDashboard.putBoolean("Confirm Alliance", false);
     SmartDashboard.putBoolean("Skip Non-Path Commands", false);
     SmartDashboard.putData(m_field);
 
@@ -115,8 +114,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
-    skipNonPath = SmartDashboard.getBoolean("Skip Non-Path Commands", false);
+    // SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
   }
 
   @Override
@@ -126,6 +124,7 @@ public class Robot extends TimedRobot {
     autoMode.resetAutoHeading();
     autoMode.getAutonomousCommand().schedule();
     Robot.drivetrain.idleSwerve(IdleMode.kBrake);
+    skipNonPath = SmartDashboard.getBoolean("Skip Non-Path Commands", false);
   }
 
   /** This function is called periodically during autonomous. */
@@ -142,6 +141,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
     driver = driver_chooser.getSelected();
     coDriver = coDriver_chooser.getSelected();
+    teamColor = DriverStation.getAlliance();
     Robot.intake.setDefaultCommand(new IntakeTeleopCommand());
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     Robot.climbers.setDefaultCommand(new ClimberTeleopCommand());
@@ -170,7 +170,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
-    teamColor = DriverStation.getAlliance();
     ledSystem.rainbow();
   }
 

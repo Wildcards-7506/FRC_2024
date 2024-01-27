@@ -11,20 +11,7 @@
         "vgap": 16.0,
         "titleType": 1,
         "tiles": {
-          "6,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/SendableChooser[1]",
-              "_title": "Driver",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "0,0": {
+          "5,0": {
             "size": [
               6,
               4
@@ -44,83 +31,6 @@
               "imageHeight": -1
             }
           },
-          "10,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Number Slider",
-              "_title": "Auto Delay",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Slider Settings/Min": 0.0,
-              "Slider Settings/Max": 10.0,
-              "Slider Settings/Block increment": 1.0,
-              "Visuals/Display value": true
-            }
-          },
-          "8,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
-              "_title": "CoDriver",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "0,4": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/Confirm Alliance",
-              "_title": "Confirm Alliance",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,0": {
-            "size": [
-              4,
-              3
-            ],
-            "content": {
-              "_type": "Field",
-              "_source0": "network_table:///SmartDashboard/Field",
-              "_title": "Field",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Game/Game": "k2024Crescendo",
-              "Visuals/Robot Icon Size": 20.0,
-              "Visuals/Show Outside Circles": false
-            }
-          },
-          "10,2": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Number Bar",
-              "_source0": "network_table:///SmartDashboard/Match Time",
-              "_title": "Match Time",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Range/Min": -1.0,
-              "Range/Max": 1.0,
-              "Range/Center": 0.0,
-              "Visuals/Num tick marks": 5,
-              "Visuals/Show text": true,
-              "Visuals/Orientation": "HORIZONTAL"
-            }
-          },
           "13,0": {
             "size": [
               3,
@@ -137,10 +47,10 @@
               "Visuals/Show value": true
             }
           },
-          "13,2": {
+          "11,0": {
             "size": [
-              3,
-              1
+              2,
+              2
             ],
             "content": {
               "_type": "Boolean Box",
@@ -152,43 +62,165 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "13,3": {
+          "11,2": {
             "size": [
-              3,
-              1
+              5,
+              3
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Climber Position",
-              "_title": "Climber Position",
-              "_glyph": 148,
-              "_showGlyph": false
+              "_type": "Grid Layout",
+              "_title": "Grid Layout",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Wrist Setpoint: ",
+                  "_title": "Wrist Setpoint: ",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "2,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Intake State: ",
+                  "_title": "Intake State: ",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Wrist Position: ",
+                  "_title": "Wrist Position: ",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elbow Setpoint: ",
+                  "_title": "Elbow Setpoint: ",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "1,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Elbow Position: ",
+                  "_title": "Elbow Position: ",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "1,2": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/error",
+                  "_title": "error",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "2,1": {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/Piece Acquired: ",
+                  "_title": "Piece Acquired: ",
+                  "_glyph": 148,
+                  "_showGlyph": false,
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                "0,2": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Limelight Position",
+                  "_title": "Limelight Position",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                "2,2": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber Position",
+                  "_title": "Climber Position",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                }
+              }
             }
           },
-          "3,4": {
+          "0,0": {
             "size": [
-              3,
-              1
+              5,
+              3
             ],
             "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Skip Non-Path Commands",
-              "_title": "Skip Non-Path Commands",
+              "_type": "Field",
+              "_source0": "network_table:///SmartDashboard/Field",
+              "_title": "Field",
               "_glyph": 148,
               "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "Game/Game": "k2024Crescendo",
+              "Visuals/Robot Icon Size": 20.0,
+              "Visuals/Show Outside Circles": false,
+              "Colors/path": "#FFFFFFFF"
             }
           },
-          "6,4": {
+          "2,3": {
             "size": [
-              4,
+              3,
               1
             ],
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auto Chooser",
               "_title": "Auto Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_title": "Auto Delay",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,4": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Skip Non-Path Commands",
+              "_title": "Skip Non-Path Commands",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "Driver",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[1]",
+              "_title": "CoDriver",
               "_glyph": 148,
               "_showGlyph": false
             }

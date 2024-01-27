@@ -28,8 +28,8 @@ public class Shooter extends SubsystemBase{
 
         shooterLEncoder = shooterL.getEncoder();
         shooterLPID = shooterL.getPIDController();
-        shooterREncoder = shooterL.getEncoder();
-        shooterRPID = shooterL.getPIDController();
+        shooterREncoder = shooterR.getEncoder();
+        shooterRPID = shooterR.getPIDController();
 
         shooterL.setInverted(true);
 
@@ -58,6 +58,11 @@ public class Shooter extends SubsystemBase{
         shooterRPID.setReference(rSpeed, ControlType.kVelocity);
     }
 
+    public void cease () {
+        shooterL.stopMotor();
+        shooterR.stopMotor();
+    }
+    
     public void shooterLog(){
         Logger.info("SHOOT", "Right: " + Double.toString(getRSpeed()) + " RPM, " + "Left: " + Double.toString(getLSpeed()) + " RPM");
         if(shooterL.getFaults()!=0){Logger.warn("FWLFT: " + Short.toString(shooterL.getFaults()));}

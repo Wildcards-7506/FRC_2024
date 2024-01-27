@@ -51,6 +51,6 @@ public class AutoIntake_Trigger extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  time.get() > 3 || (time.get() > 0.5 && shooting)|| (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20);
+        return  Robot.skipNonPath || time.get() > 3 || (time.get() > 0.5 && shooting)|| (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20);
     }
 }

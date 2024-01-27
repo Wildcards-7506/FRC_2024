@@ -38,6 +38,6 @@ public class AutoShooterSpinUp extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  lSpeed - Robot.shooter.getLSpeed() < 1 && rSpeed - Robot.shooter.getRSpeed() < 1;
+        return  Robot.skipNonPath || lSpeed - Robot.shooter.getLSpeed() < 1 && rSpeed - Robot.shooter.getRSpeed() < 1;
     }
 }

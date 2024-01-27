@@ -11,7 +11,7 @@
         "vgap": 16.0,
         "titleType": 1,
         "tiles": {
-          "6,4": {
+          "6,3": {
             "size": [
               2,
               1
@@ -27,7 +27,7 @@
           "0,0": {
             "size": [
               6,
-              5
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -44,7 +44,7 @@
               "imageHeight": -1
             }
           },
-          "2,5": {
+          "10,0": {
             "size": [
               3,
               2
@@ -60,7 +60,7 @@
               "Visuals/Display value": true
             }
           },
-          "8,4": {
+          "8,3": {
             "size": [
               2,
               1
@@ -73,7 +73,7 @@
               "_showGlyph": false
             }
           },
-          "13,4": {
+          "0,4": {
             "size": [
               3,
               1
@@ -88,8 +88,8 @@
           },
           "6,0": {
             "size": [
-              7,
-              4
+              4,
+              3
             ],
             "content": {
               "_type": "Field",
@@ -102,20 +102,23 @@
               "Visuals/Show Outside Circles": false
             }
           },
-          "0,5": {
+          "10,2": {
             "size": [
-              2,
+              3,
               2
             ],
             "content": {
-              "_type": "Simple Dial",
+              "_type": "Number Bar",
               "_source0": "network_table:///SmartDashboard/Match Time",
               "_title": "Match Time",
               "_glyph": 148,
               "_showGlyph": false,
-              "Range/Min": 0.0,
-              "Range/Max": 100.0,
-              "Visuals/Show value": true
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "HORIZONTAL"
             }
           },
           "13,0": {
@@ -162,15 +165,30 @@
               "_showGlyph": false
             }
           },
-          "10,4": {
+          "3,4": {
             "size": [
               3,
               1
             ],
             "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Skip Non-Path Commands",
+              "_title": "Skip Non-Path Commands",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "6,4": {
+            "size": [
+              4,
+              1
+            ],
+            "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auto Chooser",
-              "_title": "SmartDashboard/Auto Chooser",
+              "_title": "Auto Chooser",
               "_glyph": 148,
               "_showGlyph": false
             }

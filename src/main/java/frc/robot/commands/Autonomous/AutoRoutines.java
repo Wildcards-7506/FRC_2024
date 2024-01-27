@@ -13,11 +13,13 @@ import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -45,10 +47,10 @@ public final class AutoRoutines {
   private final AutoBuilder autoBuilder = new AutoBuilder();
 
   // Autonomous selector on dashboard
-  private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+  private final SendableChooser<Command> autoChooser;
   private double kAutoStartDelaySeconds;
   
-  public AutoRoutines(boolean flip) {
+  public AutoRoutines() {
     eventMap = new HashMap<>();
     setMarkers();
 
@@ -64,26 +66,28 @@ public final class AutoRoutines {
         Units.inchesToMeters(Math.sqrt(Math.pow(20.0, 2)+Math.pow(20.0,2))/2),
         new ReplanningConfig()
       ),
-      ()->flip, Robot.drivetrain
+      () -> {
+          // Boolean supplier that controls when the path will be mirrored for the red alliance
+          // This will flip the path being followed to the red side of the field.
+          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+              return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+      }, Robot.drivetrain
     );
 
     // Autonomous selector options
     kAutoStartDelaySeconds = SmartDashboard.getNumber("Auto Delay",0.0);
     
-    autoChooser.setDefaultOption("Nothing", Commands.none());
-    autoChooser.addOption("Meter Calibration", AutoBuilder.buildAuto("MeterCalibration"));
-    autoChooser.addOption("SpinBox", AutoBuilder.buildAuto("SpinBox"));
-    // autoChooser.addOption("Trident", AutoBuilder.buildAuto("Trident"));
-    // autoChooser.addOption("Jaguar Down", AutoBuilder.buildAuto("Jaguar Down"));
-    // autoChooser.addOption("Jaguar Up", AutoBuilder.buildAuto("Jaguar Up"));
-    // autoChooser.addOption("Boogie", AutoBuilder.buildAuto("Boogie"));
-    // autoChooser.addOption("5150", AutoBuilder.buildAuto("5150"));
-    // autoChooser.addOption("Explorer", AutoBuilder.buildAuto("Explorer"));
-    // autoChooser.addOption("Flying V", AutoBuilder.buildAuto("Flying V"));
-    // autoChooser.addOption("Warlock Amp", AutoBuilder.buildAuto("Warlock Amp"));
-    // autoChooser.addOption("Warlock Bridge", AutoBuilder.buildAuto("Warlock Bridge"));
-
+    autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser",autoChooser);
+
+    // Set up custom logging to add the current path to a field 2d widget
+    PathPlannerLogging.setLogActivePathCallback((poses) 
+    -> Robot.m_field.getObject("path").setPoses(poses));
   }
 
   private void setMarkers() {

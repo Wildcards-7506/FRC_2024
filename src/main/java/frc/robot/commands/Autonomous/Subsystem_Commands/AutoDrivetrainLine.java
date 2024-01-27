@@ -46,6 +46,6 @@ public class AutoDrivetrainLine extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(Robot.drivetrain.getPose().getX() - setpoint) < 0.1;
+        return Robot.skipNonPath || Math.abs(Robot.drivetrain.getPose().getX() - setpoint) < 0.1;
     }
 }

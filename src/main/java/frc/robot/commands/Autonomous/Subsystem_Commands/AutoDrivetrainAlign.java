@@ -44,6 +44,6 @@ public class AutoDrivetrainAlign extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(Robot.limelight.getTX()) < 1;
+        return Robot.skipNonPath || Math.abs(Robot.limelight.getTX()) < 1;
     }
 }

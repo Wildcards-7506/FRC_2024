@@ -36,6 +36,6 @@ public class AutoIntakeWristSet extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  Math.abs(setpoint - Robot.intake.getWristEncoder()) < 5;
+        return  Robot.skipNonPath || Math.abs(setpoint - Robot.intake.getWristEncoder()) < 5;
     }
 }

@@ -51,6 +51,6 @@ public class AutoDrivetrainSnap extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  (Math.abs(output) < 1);
+        return  Robot.skipNonPath || Math.abs(output) < 1;
     }
 }

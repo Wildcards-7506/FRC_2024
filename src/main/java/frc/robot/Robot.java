@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
   private AutoRoutines autoMode;
   public PlayerConfigs driver;
   public PlayerConfigs coDriver;
+  public static boolean skipNonPath;
 
   public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
   public static SendableChooser<PlayerConfigs> coDriver_chooser = new SendableChooser<>();
@@ -80,6 +81,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //Auto Chooser
+    autoMode = new AutoRoutines();
+
     // Driver choosers
     driver_chooser.setDefaultOption("Ricardo", ricardo);
     driver_chooser.addOption("Jayden", jayden);
@@ -96,6 +100,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(driver_chooser);
     SmartDashboard.putData(coDriver_chooser);
     SmartDashboard.putBoolean("Confirm Alliance", false);
+    SmartDashboard.putBoolean("Skip Non-Path Commands", false);
     SmartDashboard.putData(m_field);
 
     Logger.info("SYSTEM","Robot Started");
@@ -111,6 +116,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
+    skipNonPath = SmartDashboard.getBoolean("Skip Non-Path Commands", false);
   }
 
   @Override
@@ -165,15 +171,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     teamColor = DriverStation.getAlliance();
-    if(!teamColor.isEmpty()){
-      if(teamColor.get() == Alliance.Red && autoMode == null && SmartDashboard.getBoolean("Confirm Alliance", false)){
-        autoMode = new AutoRoutines(true);
-      } else if(teamColor.get() == Alliance.Blue && autoMode == null && SmartDashboard.getBoolean("Confirm Alliance", false)){
-        autoMode = new AutoRoutines(false);
-      }
-    }
     ledSystem.rainbow();
-    
   }
 
   /** This function is called once when test mode is enabled. */

@@ -23,10 +23,13 @@ public class ShooterTeleopCommand extends Command{
             }
         }
 
-        if(Robot.shooter.shootingMode == true && PlayerConfigs.armScoringMechanism == true){
-            Robot.shooter.SetshooterSpeed(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM);
-        } else if(PlayerConfigs.shooterActive == Robot.shooter.shootingMode){
-            Robot.shooter.SetshooterSpeed(ShooterConstants.kPrimeRPM, ShooterConstants.kPrimeRPM);
+        //If in shooting mode and intake is in shooting position, high speed
+        if(Robot.shooter.shootingMode && PlayerConfigs.armScoringMechanism){
+            Robot.shooter.setShooterSpeed(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM);
+        //If in shooting mode but not actively shooting, idle speed
+        } else if(Robot.shooter.shootingMode){
+            Robot.shooter.setShooterSpeed(ShooterConstants.kPrimeRPM, ShooterConstants.kPrimeRPM);
+        //If climbing, shooter stops
         } else {
             Robot.shooter.cease();
         }

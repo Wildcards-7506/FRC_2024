@@ -31,10 +31,10 @@ public class Climbers extends SubsystemBase{
         climberLeft.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
         climberRight.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
 
-        climberLeft.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
-        climberLeft.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
-        climberRight.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
-        climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
+        climberLeft.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.upLimit);
+        climberLeft.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.downLimit);
+        climberRight.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.upLimit);
+        climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.downLimit);
 
         climberRight.follow(climberLeft);
 

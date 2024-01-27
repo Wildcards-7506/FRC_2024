@@ -13,11 +13,12 @@ public class ClimberTeleopCommand extends Command{
     
     @Override
     public void execute (){
+        //VERIFY DIRECTION
         if(!Robot.shooter.shootingMode){
             if (PlayerConfigs.climberDown) {
-                Robot.climbers.setClimbers(12);
-            } else if (PlayerConfigs.climberUp) {
                 Robot.climbers.setClimbers(-12);
+            } else if (PlayerConfigs.climberUp) {
+                Robot.climbers.setClimbers(12);
             } else {
                 Robot.climbers.setClimbers(0);
             }

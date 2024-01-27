@@ -53,12 +53,12 @@ public class Shooter extends SubsystemBase{
             return shooterLEncoder.getVelocity();
     }
 
-    public void SetshooterSpeed(double lSpeed, double rSpeed) {
+    public void setShooterSpeed(double lSpeed, double rSpeed) {
         shooterLPID.setReference(lSpeed, ControlType.kVelocity);
         shooterRPID.setReference(rSpeed, ControlType.kVelocity);
     }
 
-    public void cease () {
+    public void cease() {
         shooterL.stopMotor();
         shooterR.stopMotor();
     }

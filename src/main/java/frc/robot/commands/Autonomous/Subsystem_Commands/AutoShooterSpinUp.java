@@ -26,7 +26,7 @@ public class AutoShooterSpinUp extends Command{
     @Override
     public void execute() {
         Logger.info("SHOOT", "Right: " + Double.toString(Robot.shooter.getRSpeed()) + " RPM, " + "Left: " + Double.toString(Robot.shooter.getLSpeed()) + " RPM");
-        Robot.shooter.SetshooterSpeed(lSpeed,rSpeed);
+        Robot.shooter.setShooterSpeed(lSpeed,rSpeed);
     }
 
     // Called once the command ends or is interrupted.

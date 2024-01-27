@@ -36,6 +36,8 @@ public class Climbers extends SubsystemBase{
         climberRight.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
         climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
 
+        climberRight.follow(climberLeft);
+
         climberLeft.setOpenLoopRampRate(1);
         climberRight.setOpenLoopRampRate(1);
 

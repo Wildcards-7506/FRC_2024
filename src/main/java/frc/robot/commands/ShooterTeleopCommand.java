@@ -25,10 +25,10 @@ public class ShooterTeleopCommand extends Command{
 
         if(Robot.shooter.shootingMode == true && PlayerConfigs.armScoringMechanism == true){
             Robot.shooter.SetshooterSpeed(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM);
-        } else if(Robot.shooter.shootingMode == true){
+        } else if(PlayerConfigs.shooterActive == Robot.shooter.shootingMode){
             Robot.shooter.SetshooterSpeed(ShooterConstants.kPrimeRPM, ShooterConstants.kPrimeRPM);
         } else {
-            Robot.shooter.SetshooterSpeed(0,0);
+            Robot.shooter.cease();
         }
 
         SmartDashboard.putNumber("Shooter Speed", Robot.shooter.getRSpeed());

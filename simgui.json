@@ -61,9 +61,6 @@
     "RoboRIO": {
       "RoboRIO Input": {
         "open": true
-      },
-      "window": {
-        "visible": true
       }
     },
     "Timing": {
@@ -87,6 +84,11 @@
       "/SmartDashboard/climber Sim": "Mechanism2d"
     },
     "windows": {
+      "/SmartDashboard/Auto Chooser": {
+        "window": {
+          "visible": true
+        }
+      },
       "/SmartDashboard/Field": {
         "Robot": {
           "length": 0.5,
@@ -94,10 +96,12 @@
           "width": 0.5
         },
         "height": 8.013679504394531,
-        "width": 16.541748046875
+        "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
       },
       "/SmartDashboard/Motion Sim": {
-        "image": "/Users/homecomputer/Desktop/Screenshot 2024-01-19 at 5.01.34 PM.png",
         "window": {
           "visible": true
         }
@@ -105,6 +109,11 @@
     }
   },
   "NetworkTables": {
+    "retained": {
+      "SmartDashboard": {
+        "open": true
+      }
+    },
     "transitory": {
       "LiveWindow": {
         ".status": {
@@ -159,7 +168,8 @@
         "open": true
       },
       "open": true
-    }
+    },
+    "visible": true
   },
   "Plot": {
     "Plot <0>": {
@@ -176,7 +186,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 370,
+          "height": 245,
           "series": [
             {
               "color": [
@@ -214,7 +224,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 555,
+          "height": 335,
           "series": [
             {
               "color": [

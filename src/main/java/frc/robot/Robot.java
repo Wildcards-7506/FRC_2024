@@ -19,6 +19,7 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Controller;
 import frc.robot.commands.DrivetrainTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
+import frc.robot.commands.Autonomous.AutoRoutines;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -37,6 +38,8 @@ public class Robot extends TimedRobot {
   //Modes and people
   public PlayerConfigs driver;
   public PlayerConfigs coDriver;
+  public static boolean skipNonPath;
+  private AutoRoutines autoMode;
 
   public static PlayerConfigs controller = new Controller();
 
@@ -67,6 +70,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     Logger.info("SYSTEM","Robot Started");
     SmartDashboard.putData("Motion Sim", m_Mech2d);
+    SmartDashboard.putBoolean("Skip Non-Path Commands", false);
+    SmartDashboard.putData(m_field);
+    autoMode = new AutoRoutines();
   }
 
   /**
@@ -79,12 +85,25 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
+    SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint + 62);
+    SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint + 28);
+    SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360 - Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 62);
+    SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 28);
+    SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
+    SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
+    SmartDashboard.putNumber("Intake Speed", Robot.intake.m_intakeEncoder.getRate());
+    SmartDashboard.putBoolean("Intake Running", Robot.intake.running);
+    SmartDashboard.putNumber("Shooter Speed", Robot.shooter.m_flywheelEncoder.getRate());
+    SmartDashboard.putBoolean("Shooter Mode", Robot.shooter.shootingMode);
   }
 
   @Override
   public void autonomousInit() {
     Logger.info("SYSTEM","Autonomous Program Started");
     CommandScheduler.getInstance().cancelAll();
+    teamColor = DriverStation.getAlliance();
+    autoMode.getAutonomousCommand().schedule();
+    skipNonPath = SmartDashboard.getBoolean("Skip Non-Path Commands", false);
   }
 
   /** This function is called periodically during autonomous. */
@@ -92,6 +111,9 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
     ledSystem.rainbow();
+    Robot.intake.reachElbowSetpoint(Robot.intake.elbowSetPoint);
+    Robot.intake.reachWristSetpoint(Robot.intake.wristSetPoint + Robot.intake.elbowSetPoint);
+    Robot.limelight.reachSetpoint(Robot.limelight.limelightSetpoint);
   }
 
   /** This function is called once when teleop is enabled. */

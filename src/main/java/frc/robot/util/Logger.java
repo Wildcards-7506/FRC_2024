@@ -1,6 +1,5 @@
 package frc.robot.util;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -24,30 +23,10 @@ public class Logger{
     private static Logger instance = new Logger();
 
     private FileWriter writer;
-    private int id = 100000;
-    private boolean empty = true;
     private boolean flushed = true;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private Logger(){
-        try{    
-            // "/U" is the default directory for RoboRIO flash drives
-            File logFile = new File("U/logs/" + id + ".txt");
-
-            // If there is already a log file at the specified id, rename it
-            // to its id before creating a new one.
-            while(logFile.exists()){
-                id++;
-                File saved = new File("U/logs/" + id + ".txt");
-                logFile.renameTo(saved);
-            }
-
-            logFile.createNewFile();
-            
-            writer = new FileWriter(logFile);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -55,14 +34,7 @@ public class Logger{
      * @param tag Message importance tag
      * @param message Message to be logged
      */
-    private void log(String tag, String message){
-        try{
-            // Write the log id to the first line of the file.
-            if(empty){
-                empty = false;
-                writer.write(++id + "\r\n");
-            }
-            
+    private void log(String tag, String message){            
             // Use StringBuilder for efficiency.
             StringBuilder msgBuilder = new StringBuilder(64);
             msgBuilder.append("[")
@@ -73,22 +45,7 @@ public class Logger{
                 .append(message)
                 .append("\r\n");
 
-            writer.write(msgBuilder.toString());
-            flushed = false;
-        }catch(IOException e){
-            e.printStackTrace();
-        }catch(NullPointerException e){
-            try{
-                // If the file does not exist (aka there is no USB drive),
-                // use the roboRIO's file system instead.
-                File logFile = new File("/home/lvuser/latest.txt");
-                logFile.createNewFile();
-                
-                writer = new FileWriter(logFile);
-            }catch(IOException e1){
-                e.printStackTrace();
-            }
-        }
+            System.out.println(msgBuilder.toString());     
     }
 
     /**

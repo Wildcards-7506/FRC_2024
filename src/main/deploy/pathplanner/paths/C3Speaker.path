@@ -1,0 +1,92 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.85,
+        "y": 7.65
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.85,
+        "y": 7.65
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.299436504086279,
+        "y": 4.075468245723221
+      },
+      "prevControl": {
+        "x": 7.171144579255982,
+        "y": 5.865172678212653
+      },
+      "nextControl": {
+        "x": 8.431018776642324,
+        "y": 3.8667515375308747
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.8,
+        "y": 6.6
+      },
+      "prevControl": {
+        "x": 6.198479126816075,
+        "y": 7.95640340095846
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": -60.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "AutoIntakeUp",
+      "waypointRelativePos": 1.2000000000000002,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntakeUp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 60.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Amp",
+  "previewStartingState": {
+    "rotation": 90.0,
+    "velocity": 0.0
+  },
+  "useDefaultConstraints": false
+}

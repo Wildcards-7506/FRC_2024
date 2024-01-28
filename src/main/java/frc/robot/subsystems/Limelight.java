@@ -63,6 +63,7 @@ public class Limelight implements AutoCloseable{
     
     public double distance;
     public double offset;
+    public double limelightSetpoint;
 
     public NetworkTable table;
     private NetworkTableEntry tx;
@@ -108,21 +109,22 @@ public class Limelight implements AutoCloseable{
     }
 
     public double getPos() {
-        return m_limelightEncoder.getDistance();
+        return m_limelightEncoder.getDistance()/(2*Math.PI)*360;
     }
 
     public void teleopCommand(){
         updateData();
         if(Robot.shooter.shootingMode){
-            reachSetpoint(LimelightConstants.kShooterPosition);
-                    SmartDashboard.putNumber("Limelight Setpoint", LimelightConstants.kShooterPosition);
+            limelightSetpoint = LimelightConstants.kShooterPosition;
+            SmartDashboard.putNumber("Limelight Setpoint", LimelightConstants.kShooterPosition);
 
         } else {
-            reachSetpoint(LimelightConstants.kIntakePosition);
+            limelightSetpoint = LimelightConstants.kIntakePosition;
             SmartDashboard.putNumber("Limelight Setpoint", LimelightConstants.kIntakePosition);
         }
 
-        SmartDashboard.putNumber("Limelight Position", Robot.limelight.getPos()/(2*Math.PI)*360);
+        reachSetpoint(LimelightConstants.kIntakePosition);
+        SmartDashboard.putNumber("Limelight Position", Robot.limelight.getPos());
         limelightLog();
     }
 

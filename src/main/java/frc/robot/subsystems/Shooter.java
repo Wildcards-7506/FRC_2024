@@ -102,9 +102,6 @@ public class Shooter implements AutoCloseable {
         } else {
             Robot.shooter.reachSetpoint(0);
         }
-
-        SmartDashboard.putNumber("Shooter Speed", m_flywheelEncoder.getRate());
-        SmartDashboard.putBoolean("Shooter Mode", shootingMode);
         Robot.shooter.shooterLog();
     }
 

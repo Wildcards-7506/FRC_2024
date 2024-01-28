@@ -119,6 +119,9 @@ public class Intake implements AutoCloseable {
     m_intakeEncoder.setDistancePerPulse(1.0);
     time.reset();
     time.start();
+
+    m_wristSim.setState((IntakeConstants.kWristStowed+IntakeConstants.kElbowStowed)/360*2*Math.PI,0.0);
+    m_elbowSim.setState(IntakeConstants.kElbowStowed/360*2*Math.PI,0.0);
   }
 
   /** Update the simulation model. */
@@ -161,13 +164,15 @@ public class Intake implements AutoCloseable {
 }
 
   /** Run the control loop to reach and maintain the setpoint from the preferences. */
-  public void reachSetpoint(double e_setpoint, double w_setpoint) {
+  public void reachElbowSetpoint(double e_setpoint) {
     var e_pidOutput =
         m_elbowController.calculate(
             m_elbowEncoder.getDistance(), Units.degreesToRadians(e_setpoint));
     m_elbowMotor.setVoltage(e_pidOutput);
     SmartDashboard.putNumber("ElbowPID", e_pidOutput);
+  }
 
+  public void reachWristSetpoint(double w_setpoint) {
     var w_pidOutput =
         m_wristController.calculate(
             m_wristEncoder.getDistance(), Units.degreesToRadians(w_setpoint));
@@ -188,7 +193,15 @@ public class Intake implements AutoCloseable {
 
   public double getSpeed(){
     return m_intakeEncoder.getRate();
-}
+  }
+
+    public double getElbowEncoder(){
+        return m_elbowEncoder.getDistance()/(2*Math.PI)*360;
+    }
+
+    public double getWristEncoder(){
+        return m_wristEncoder.getDistance()/(2*Math.PI)*360;
+    }
 
   public void teleopCommand(){
     if(PlayerConfigs.intake){
@@ -244,7 +257,8 @@ public class Intake implements AutoCloseable {
             }
         }
 
-        Robot.intake.reachSetpoint(Robot.intake.elbowSetPoint, Robot.intake.elbowSetPoint + Robot.intake.wristSetPoint);
+        reachElbowSetpoint(Robot.intake.elbowSetPoint);
+        reachWristSetpoint(Robot.intake.elbowSetPoint + Robot.intake.wristSetPoint);
 
         if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || (PlayerConfigs.fire)) {
             Robot.intake.setIntakeVoltage(12);
@@ -254,15 +268,6 @@ public class Intake implements AutoCloseable {
             Robot.intake.setIntakeVoltage(0);
             Robot.intake.running = false;
         }
-
-        SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint + 62);
-        SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint + 28);
-        SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360 - Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 62);
-        SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 28);
-        SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
-        SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
-        SmartDashboard.putNumber("Intake Speed", m_intakeEncoder.getRate());
-        SmartDashboard.putBoolean("Intake Running", running);
   }
 
   @Override

@@ -109,6 +109,17 @@ public class Intake implements AutoCloseable {
               Units.radiansToDegrees(m_wristSim.getAngleRads()),
               6,
               new Color8Bit(Color.kDarkRed)));
+    private final MechanismRoot2d m_intakePivot = Robot.m_Mech2d.getRoot("IntakePivot", 
+    35.5+14 * Math.cos(m_elbowSim.getAngleRads()) + 10 * Math.cos(m_wristSim.getAngleRads()), 
+    18+14 * Math.sin(m_elbowSim.getAngleRads()) + 10 * Math.sin(m_wristSim.getAngleRads()));
+    private final MechanismLigament2d m_intake =
+      m_intakePivot.append(
+          new MechanismLigament2d(
+              "Intake",
+              9,
+              Units.radiansToDegrees(m_wristSim.getAngleRads() + Math.PI/2),
+              15,
+              new Color8Bit(Color.kDarkRed)));
 
   /** Subsystem constructor. */
   public Intake() {
@@ -147,7 +158,12 @@ public class Intake implements AutoCloseable {
     // Update the Mechanism Arm angle based on the simulated arm angle
     m_elbow.setAngle(Units.radiansToDegrees(m_elbowSim.getAngleRads()));
     m_wrist.setAngle(Units.radiansToDegrees(m_wristSim.getAngleRads()));
+    m_intake.setAngle(Units.radiansToDegrees(m_wristSim.getAngleRads()) + 90);
     m_wristPivot.setPosition(35.5+14 * Math.cos(m_elbowSim.getAngleRads()), 18+14 * Math.sin(m_elbowSim.getAngleRads()));
+    m_intakePivot.setPosition(
+        35.5+14 * Math.cos(m_elbowSim.getAngleRads()) + 10 * Math.cos(m_wristSim.getAngleRads()), 
+        18+14 * Math.sin(m_elbowSim.getAngleRads()) + 10 * Math.sin(m_wristSim.getAngleRads())
+    );
   
     // In this method, we update our simulation of what our elevator is doing
         // First, we set our "inputs" (voltages)

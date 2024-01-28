@@ -26,7 +26,7 @@ public class AutoShooterSpinUp extends Command{
     public void execute() {
         if(!Robot.skipNonPath){  
             Logger.info("SHOOT", Double.toString(Robot.shooter.getSpeed()));
-            Robot.shooter.reachSetpoint(lSpeed);
+            Robot.shooter.setpoint = lSpeed;
         }
     }
 

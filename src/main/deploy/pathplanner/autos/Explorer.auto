@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoIntakeDown"
+            "name": "AutoIntakeStowToGround"
           }
         },
         {
@@ -38,7 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoIntakeDown"
+            "name": "AutoIntakeStowToGround"
           }
         },
         {

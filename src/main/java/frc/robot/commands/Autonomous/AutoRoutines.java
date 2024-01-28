@@ -32,11 +32,15 @@ import frc.robot.Robot;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoAmp;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeDown;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeUp;
+import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoAmpSet;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeAmpToGround;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToAmp;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToGround;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToStow;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
+import frc.robot.commands.Autonomous.Subsystem_Commands.AutoShooterSpinUp;
 import frc.robot.subsystems.Drivetrain;
 
 @SuppressWarnings("unused")
@@ -96,13 +100,17 @@ public final class AutoRoutines {
     NamedCommands.registerCommand("Checkpoint 1", Commands.print("Checkpoint 1"));
     NamedCommands.registerCommand("Checkpoint 2", Commands.print("Checkpoint 2"));
     NamedCommands.registerCommand("Checkpoint 3", Commands.print("Checkpoint 3"));
+    NamedCommands.registerCommand("AutoShooterSpinup", new AutoShooterSpinUp(ShooterConstants.kArmedRPM));
     NamedCommands.registerCommand("AutoShootTop", new AutoShoot(0));
     NamedCommands.registerCommand("AutoShootCenter", new AutoShoot(1));
     NamedCommands.registerCommand("AutoShootBottom", new AutoShoot(2));
-    NamedCommands.registerCommand("AutoIntakeDown", new AutoIntakeDown());
-    NamedCommands.registerCommand("AutoIntakeUp", new AutoIntakeUp());
+    NamedCommands.registerCommand("AutoIntakeStowToGround", new AutoIntakeStowToGround());
+    NamedCommands.registerCommand("AutoIntakeGroundToStow", new AutoIntakeGroundToStow());
+    NamedCommands.registerCommand("AutoIntakeGroundToAmp", new AutoIntakeGroundToAmp());
+    NamedCommands.registerCommand("AutoIntakeAmpToGround", new AutoIntakeAmpToGround());
     NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false));
-    NamedCommands.registerCommand("AutoAmp", new AutoAmp());
+    NamedCommands.registerCommand("AutoAmpSet", new AutoAmpSet());
+    NamedCommands.registerCommand("AutoAmpScore", new AutoIntake_Trigger(0.5, true));
   }
 
       /**

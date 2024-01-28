@@ -12,22 +12,9 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootTop"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              }
-            ]
+            "name": "AutoShootBottom"
           }
         },
         {
@@ -37,22 +24,9 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootBottom"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              }
-            ]
+            "name": "AutoShootBottom"
           }
         },
         {
@@ -62,22 +36,9 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootBottom"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              }
-            ]
+            "name": "AutoShootBottom"
           }
         },
         {
@@ -87,16 +48,9 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootBottom"
-                }
-              }
-            ]
+            "name": "AutoShootBottom"
           }
         }
       ]

@@ -4,27 +4,21 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeElbowSet;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeWristSet;
-import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoLimelightRotate;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class AutoAmp extends SequentialCommandGroup{
+public class AutoAmpSet extends SequentialCommandGroup{
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
-    public AutoAmp() {
+    public AutoAmpSet() {
         addCommands(
             //Rotate elbow and bot to amp scoring position
             new ParallelCommandGroup(
                 new AutoLimelightRotate(LimelightConstants.kIntakePosition),
-                new AutoIntakeElbowSet(IntakeConstants.kElbowAmp)
-            ),
-            //Align to amp, drop arm into amp
-            new ParallelCommandGroup(
+                new AutoIntakeElbowSet(IntakeConstants.kElbowAmp),
                 new AutoIntakeWristSet(IntakeConstants.kWristAmp)
-            ),
-            //Score
-            new AutoIntake_Trigger(0.5,true)
+            )
         );
     }
 }

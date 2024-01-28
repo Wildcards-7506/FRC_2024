@@ -6,16 +6,17 @@ import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeWristSet;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class AutoIntakeDown extends SequentialCommandGroup{
+public class AutoIntakeAmpToGround extends SequentialCommandGroup{
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
-    public AutoIntakeDown() {
+    public AutoIntakeAmpToGround() {
         //Sets intake at stow, moves elbow to ground, drops intake to ground
         addCommands(
+            new AutoIntakeWristSet(IntakeConstants.kWristGround - 75),
             new ParallelCommandGroup(
-                new AutoIntakeWristSet(IntakeConstants.kWristStowed),
-                new AutoIntakeElbowSet(IntakeConstants.kElbowGround)),
-            new AutoIntakeWristSet(IntakeConstants.kWristGround)
+                new AutoIntakeElbowSet(IntakeConstants.kElbowGround),
+                new AutoIntakeWristSet(IntakeConstants.kWristGround)
+            )
         );
     }
 }

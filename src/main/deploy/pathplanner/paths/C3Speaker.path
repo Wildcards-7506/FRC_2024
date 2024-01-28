@@ -54,7 +54,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutoIntakeUp",
+      "name": "AutoIntakeGroundToStow",
       "waypointRelativePos": 1.2000000000000002,
       "command": {
         "type": "sequential",
@@ -63,7 +63,41 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoIntakeUp"
+                "name": "AutoIntakeGroundToStow"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "AutoIntakeAmpToGround",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntakeAmpToGround"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "AutoShooterSpinup",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoShooterSpinup"
               }
             }
           ]

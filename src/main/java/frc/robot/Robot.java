@@ -114,6 +114,7 @@ public class Robot extends TimedRobot {
     Robot.intake.reachElbowSetpoint(Robot.intake.elbowSetPoint);
     Robot.intake.reachWristSetpoint(Robot.intake.wristSetPoint + Robot.intake.elbowSetPoint);
     Robot.limelight.reachSetpoint(Robot.limelight.limelightSetpoint);
+    Robot.shooter.reachSetpoint(Robot.shooter.setpoint);
   }
 
   /** This function is called once when teleop is enabled. */

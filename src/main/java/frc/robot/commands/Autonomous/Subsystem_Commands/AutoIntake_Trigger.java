@@ -39,7 +39,7 @@ public class AutoIntake_Trigger extends Command{
     @Override
     public void end(boolean interrupted) {
         if(!Robot.skipNonPath){  
-            if(time.get() > 3){
+            if(time.get() > 0.6){
                 Logger.info("INTKE", "Piece Missed");
             } else if(time.get()>0.5 && shooting){
                 Logger.info("INTKE", "Shot Fired");
@@ -54,6 +54,6 @@ public class AutoIntake_Trigger extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  Robot.skipNonPath || time.get() > 3 || (time.get() > 0.5 && shooting);
+        return  Robot.skipNonPath || time.get() > 0.5 || (time.get() > 0.5 && shooting);
     }
 }

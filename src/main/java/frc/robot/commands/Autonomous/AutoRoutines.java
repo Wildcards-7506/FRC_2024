@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.BooleanSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -51,7 +52,6 @@ public final class AutoRoutines {
   private double kAutoStartDelaySeconds;
   
   public AutoRoutines() {
-    eventMap = new HashMap<>();
     setMarkers();
 
     AutoBuilder.configureHolonomic(
@@ -91,24 +91,20 @@ public final class AutoRoutines {
   }
 
   private void setMarkers() {
-    eventMap = buildEventMap();
+    buildEventMap();
   }
 
-  private HashMap<String, Command> buildEventMap() {
-    return new HashMap<>(
-        Map.ofEntries(
-          Map.entry("Checkpoint 1", Commands.print("Checkpoint 1")),
-          Map.entry("Checkpoint 2", Commands.print("Checkpoint 2")),
-          Map.entry("Checkpoint 3", Commands.print("Checkpoint 3")),
-          Map.entry("AutoShootTop", new AutoShoot(0)),
-          Map.entry("AutoShootCenter", new AutoShoot(1)),
-          Map.entry("AutoShootBottom", new AutoShoot(2)),
-          Map.entry("AutoIntakeDown", new AutoIntakeDown()),
-          Map.entry("AutoIntakeUp", new AutoIntakeUp()),
-          Map.entry("AutoIntake", new AutoIntake_Trigger(5, false)),
-          Map.entry("AutoAmp", new AutoAmp())
-        )
-    );
+  private void buildEventMap() {
+    NamedCommands.registerCommand("Checkpoint 1", Commands.print("Checkpoint 1"));
+    NamedCommands.registerCommand("Checkpoint 2", Commands.print("Checkpoint 2"));
+    NamedCommands.registerCommand("Checkpoint 3", Commands.print("Checkpoint 3"));
+    NamedCommands.registerCommand("AutoShootTop", new AutoShoot(0));
+    NamedCommands.registerCommand("AutoShootCenter", new AutoShoot(1));
+    NamedCommands.registerCommand("AutoShootBottom", new AutoShoot(2));
+    NamedCommands.registerCommand("AutoIntakeDown", new AutoIntakeDown());
+    NamedCommands.registerCommand("AutoIntakeUp", new AutoIntakeUp());
+    NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false));
+    NamedCommands.registerCommand("AutoAmp", new AutoAmp());
   }
 
       /**

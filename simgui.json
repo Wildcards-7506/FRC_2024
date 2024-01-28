@@ -75,6 +75,11 @@
           "visible": true
         }
       },
+      "/SmartDashboard/Driver": {
+        "window": {
+          "visible": true
+        }
+      },
       "/SmartDashboard/Field": {
         "Robot": {
           "length": 0.5,
@@ -91,12 +96,7 @@
           "visible": true
         }
       },
-      "/SmartDashboard/SendableChooser[0]": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/SendableChooser[1]": {
+      "/SmartDashboard/Operator": {
         "window": {
           "visible": true
         }

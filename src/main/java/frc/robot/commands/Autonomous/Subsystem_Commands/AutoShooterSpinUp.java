@@ -25,8 +25,10 @@ public class AutoShooterSpinUp extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Logger.info("SHOOT", "Right: " + Double.toString(Robot.shooter.getRSpeed()) + " RPM, " + "Left: " + Double.toString(Robot.shooter.getLSpeed()) + " RPM");
-        Robot.shooter.setShooterSpeed(lSpeed,rSpeed);
+        if(!Robot.skipNonPath){  
+            Logger.info("SHOOT", "Right: " + Double.toString(Robot.shooter.getRSpeed()) + " RPM, " + "Left: " + Double.toString(Robot.shooter.getLSpeed()) + " RPM");
+            Robot.shooter.setShooterSpeed(lSpeed,rSpeed);
+        }
     }
 
     // Called once the command ends or is interrupted.

@@ -23,8 +23,10 @@ public class AutoIntakeWristSet extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Logger.info("WRIST", Double.toString(Robot.intake.getWristEncoder()) + " Degrees");
-        Robot.intake.setWristPosition(setpoint);
+        if(!Robot.skipNonPath){  
+            Logger.info("WRIST", Double.toString(Robot.intake.getWristEncoder()) + " Degrees");
+            Robot.intake.setWristPosition(setpoint);
+        }
     }
 
     // Called once the command ends or is interrupted.

@@ -23,8 +23,10 @@ public class AutoLimelightRotate extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Logger.info("LLROT", Double.toString(Robot.limelight.getPos()) + " Degrees");
-        Robot.limelight.setLimelightPosition(setpoint);
+        if(!Robot.skipNonPath){
+            Logger.info("LLROT", Double.toString(Robot.limelight.getPos()) + " Degrees");
+            Robot.limelight.setLimelightPosition(setpoint);
+        }
     }
 
     // Called once the command ends or is interrupted.

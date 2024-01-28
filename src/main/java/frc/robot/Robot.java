@@ -121,6 +121,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     Logger.info("SYSTEM","Autonomous Program Started");
     CommandScheduler.getInstance().cancelAll();
+    teamColor = DriverStation.getAlliance();
     autoMode.resetAutoHeading();
     autoMode.getAutonomousCommand().schedule();
     Robot.drivetrain.idleSwerve(IdleMode.kBrake);

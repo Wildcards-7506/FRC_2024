@@ -18,6 +18,7 @@ public class AutoDrivetrainAlign extends Command{
     @Override
     public void initialize() {
         Logger.info("ALIGN","Align Started");
+        Robot.limelight.updateData(); 
         if(Robot.teamColor.get() == Alliance.Red){
             pipeline = amp ? 5.0 : 4.0;
         } else {
@@ -28,10 +29,12 @@ public class AutoDrivetrainAlign extends Command{
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {    
-        Robot.limelight.updateData();    
-        Robot.drivetrain.align(Robot.limelight.getTX(), Robot.limelight.getID());
-        Logger.info("ALIGN",Double.toString(Robot.limelight.getTX()) + " Degrees");
+    public void execute() {  
+        if(!Robot.skipNonPath){  
+            Robot.limelight.updateData();    
+            Robot.drivetrain.align(Robot.limelight.getTX(), Robot.limelight.getID());
+            Logger.info("ALIGN",Double.toString(Robot.limelight.getTX()) + " Degrees");
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -44,6 +47,6 @@ public class AutoDrivetrainAlign extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Robot.skipNonPath || Math.abs(Robot.limelight.getTX()) < 1;
+        return Robot.skipNonPath || (Math.abs(Robot.limelight.getTX()) < 1);
     }
 }

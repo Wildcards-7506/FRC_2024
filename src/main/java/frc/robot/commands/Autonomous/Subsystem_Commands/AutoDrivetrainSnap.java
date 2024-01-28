@@ -26,18 +26,20 @@ public class AutoDrivetrainSnap extends Command{
         } else{
             angle = location == 0 ? -120 : location == 1 ? 180 : location == 2 ? 120 : 90;
         }
-        Logger.info("DSNAP", "Setpoint: " + Double.toString(angle) + " Degrees");
+        if(!Robot.skipNonPath){Logger.info("DSNAP", "Setpoint: " + Double.toString(angle) + " Degrees");}
     }
 
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        output = Robot.drivetrain.getHeading() - angle > 360 - (Robot.drivetrain.getHeading() - angle) ? 
-                (Robot.drivetrain.getHeading() - angle) * DriveConstants.kSnapSpeed : 
-                (Robot.drivetrain.getHeading() - angle - 360) * DriveConstants.kSnapSpeed;
-        Logger.info("DSNAP", Double.toString(output/DriveConstants.kSnapSpeed) + " Degrees");
-        Robot.drivetrain.drive(0.0, 0.0, output, false,false);
+        if(!Robot.skipNonPath){  
+            output = Robot.drivetrain.getHeading() - angle > 360 - (Robot.drivetrain.getHeading() - angle) ? 
+                    (Robot.drivetrain.getHeading() - angle) * DriveConstants.kSnapSpeed : 
+                    (Robot.drivetrain.getHeading() - angle - 360) * DriveConstants.kSnapSpeed;
+            Logger.info("DSNAP", Double.toString(output/DriveConstants.kSnapSpeed) + " Degrees");
+            Robot.drivetrain.drive(0.0, 0.0, output, false,false);
+        }
     }
 
     // Called once the command ends or is interrupted.

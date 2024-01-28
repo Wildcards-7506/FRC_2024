@@ -29,23 +29,27 @@ public class AutoIntake_Trigger extends Command{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Logger.info("INTKE", Double.toString(Robot.intake.getIntakeCurrent()) + " Amps");
-        Robot.intake.setIntakeVoltage(12);
-        Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
+        if(!Robot.skipNonPath){  
+            Logger.info("INTKE", Double.toString(Robot.intake.getIntakeCurrent()) + " Amps");
+            Robot.intake.setIntakeVoltage(12);
+            Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
+        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        if(time.get() > 3){
-            Logger.info("INTKE", "Piece Missed");
-        } else if(time.get()>0.5 && shooting){
-            Logger.info("INTKE", "Shot Fired");
-        } else {
-            Logger.info("INTKE", "Piece Acquired");
+        if(!Robot.skipNonPath){  
+            if(time.get() > 3){
+                Logger.info("INTKE", "Piece Missed");
+            } else if(time.get()>0.5 && shooting){
+                Logger.info("INTKE", "Shot Fired");
+            } else {
+                Logger.info("INTKE", "Piece Acquired");
+            }
+            Robot.intake.setIntakeVoltage(0);
+            Robot.intake.running = false;
         }
-        Robot.intake.setIntakeVoltage(0);
-        Robot.intake.running = false;
     }
 
     // Returns true when the command should end.

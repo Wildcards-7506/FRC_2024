@@ -243,9 +243,10 @@ public class Drivetrain extends SubsystemBase {
 
   public void align(double distance, double id){
     double strafe = 0.0;
-    boolean inRange = Math.min(getHeading() - AprilTagMap.get(id), 360 - (getHeading() - AprilTagMap.get(id))) < DriveConstants.kSnapRange;
-    if(AprilTagMap.get(id) != null && inRange){
-      snap(AprilTagMap.get(id));
+    boolean inRange; 
+    if(AprilTagMap.get(id) != null){
+      inRange = Math.min(getHeading() - AprilTagMap.get(id), 360 - (getHeading() - AprilTagMap.get(id))) < DriveConstants.kSnapRange;
+      if(inRange){snap(AprilTagMap.get(id));}
     } else {
       strafe = -distance * DriveConstants.kAlignKP;
       drive(0.0, strafe, 0.0, false,true);

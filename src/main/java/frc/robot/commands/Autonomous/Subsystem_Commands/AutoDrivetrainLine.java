@@ -29,11 +29,13 @@ public class AutoDrivetrainLine extends Command{
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {      
-        Robot.drivetrain.drive(0.6, 0, 0, true,true);
-        Logger.info("DLINE", 
-            Double.toString(Math.abs(Robot.drivetrain.getPose().getX() - setpoint)) + " Meters"
-        );
+    public void execute() {    
+        if(!Robot.skipNonPath){    
+            Robot.drivetrain.drive(0.6, 0, 0, true,true);
+            Logger.info("DLINE", 
+                Double.toString(Math.abs(Robot.drivetrain.getPose().getX() - setpoint)) + " Meters"
+            );
+        }
     }
 
     // Called once the command ends or is interrupted.

@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 0.8,
-      "y": 6.6
+      "y": 4.45
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShootTop"
+            "name": "AutoShootBottom"
           }
         },
         {
@@ -26,13 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopTop"
+            "pathName": "BottomBottom"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoShootTop"
+            "name": "AutoShootBottom"
           }
         },
         {
@@ -44,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopCenter"
+            "pathName": "BottomC4"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoShootTop"
+            "name": "AutoShootBottom"
           }
         }
       ]

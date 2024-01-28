@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "C1Amp"
+                  "pathName": "C2Amp"
                 }
               }
             ]
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "C2Speaker"
+                  "pathName": "C3Speaker"
                 }
               },
               {

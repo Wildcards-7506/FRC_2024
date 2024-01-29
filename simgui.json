@@ -3,9 +3,6 @@
     "Addressable LEDs": {
       "0": {
         "columns": 30
-      },
-      "window": {
-        "visible": true
       }
     },
     "Other Devices": {
@@ -102,7 +99,6 @@
         }
       },
       "/SmartDashboard/Motion Sim": {
-        "image": "/Users/homecomputer/Desktop/Screenshot 2024-01-19 at 5.01.34 PM.png",
         "window": {
           "visible": true
         }
@@ -172,6 +168,9 @@
     },
     "visible": true
   },
+  "NetworkTables View": {
+    "visible": false
+  },
   "Plot": {
     "Plot <0>": {
       "plots": [
@@ -187,7 +186,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 193,
+          "height": 245,
           "series": [
             {
               "color": [
@@ -225,7 +224,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 190,
+          "height": 335,
           "series": [
             {
               "color": [

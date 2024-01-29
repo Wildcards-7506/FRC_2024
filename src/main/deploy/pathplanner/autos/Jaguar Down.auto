@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeStowToGround"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "BottomBottom"
@@ -30,6 +36,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeStowToGround"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "BottomCenter"
@@ -39,6 +51,12 @@
           "type": "named",
           "data": {
             "name": "AutoShootBottom"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeStowToGround"
           }
         },
         {

@@ -14,7 +14,7 @@ public class AutoIntakeAmpToGround extends SequentialCommandGroup{
         addCommands(
             new AutoIntakeWristSet(IntakeConstants.kWristGround - 75, 20),
             new ParallelCommandGroup(
-                new AutoIntakeElbowSet(IntakeConstants.kElbowGround),
+                new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 50),
                 new AutoIntakeWristSet(IntakeConstants.kWristGround, 20)
             )
         );

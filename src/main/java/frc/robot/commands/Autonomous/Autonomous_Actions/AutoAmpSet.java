@@ -16,7 +16,7 @@ public class AutoAmpSet extends SequentialCommandGroup{
             //Rotate elbow and bot to amp scoring position
             new ParallelCommandGroup(
                 new AutoLimelightRotate(LimelightConstants.kIntakePosition),
-                new AutoIntakeElbowSet(IntakeConstants.kElbowAmp),
+                new AutoIntakeElbowSet(IntakeConstants.kElbowAmp, 50),
                 new AutoIntakeWristSet(IntakeConstants.kWristAmp, 5)
             )
         );

@@ -14,7 +14,7 @@ public class AutoIntakeStowToGround extends SequentialCommandGroup{
         addCommands(
             new ParallelCommandGroup(
                 new AutoIntakeWristSet(IntakeConstants.kWristStowed,50),
-                new AutoIntakeElbowSet(IntakeConstants.kElbowGround)),
+                new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 100)),
             new AutoIntakeWristSet(IntakeConstants.kWristGround,50)
         );
     }

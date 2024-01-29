@@ -95,6 +95,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Intake Running", Robot.intake.running);
     SmartDashboard.putNumber("Shooter Speed", Robot.shooter.m_flywheelEncoder.getRate());
     SmartDashboard.putBoolean("Shooter Mode", Robot.shooter.shootingMode);
+
+    SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
   @Override

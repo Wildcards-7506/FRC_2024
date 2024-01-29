@@ -36,12 +36,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AutoIntakeStowToGround"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "BottomC4"

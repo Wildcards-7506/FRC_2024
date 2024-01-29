@@ -22,12 +22,6 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeStowToGround"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "BottomC4"
@@ -46,12 +40,6 @@
           "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeStowToGround"
-                }
-              },
               {
                 "type": "path",
                 "data": {

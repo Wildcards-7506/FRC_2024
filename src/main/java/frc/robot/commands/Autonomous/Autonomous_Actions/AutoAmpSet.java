@@ -17,7 +17,7 @@ public class AutoAmpSet extends SequentialCommandGroup{
             new ParallelCommandGroup(
                 new AutoLimelightRotate(LimelightConstants.kIntakePosition),
                 new AutoIntakeElbowSet(IntakeConstants.kElbowAmp),
-                new AutoIntakeWristSet(IntakeConstants.kWristAmp)
+                new AutoIntakeWristSet(IntakeConstants.kWristAmp, 5)
             )
         );
     }

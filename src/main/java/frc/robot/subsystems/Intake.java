@@ -235,22 +235,21 @@ public class Intake implements AutoCloseable {
 
                 //Ground State
                 if (Robot.intake.intakeState == 1) {
-                    if (Robot.intake.getElbowEncoder() < 40) {
+                    if (Robot.intake.getElbowEncoder() < 12) {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
                     } else if (Robot.intake.getElbowEncoder() < 140){
                         Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
                     } else {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
                     }
-        
-                    if (Robot.intake.getWristEncoder() > 170){
-                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowConstraint;
-                    } else {
+                    if ((Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder()) < -45){
                         Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
+                    } else {
+                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowConstraint;
                     }  
                 //Amp State
                 } else if (Robot.intake.intakeState == 2) {
-                    if (Robot.intake.getElbowEncoder() < 120) {
+                    if (Robot.intake.getElbowEncoder() > 140) {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
                     } else if (Robot.intake.getElbowEncoder() < 100){
                         Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
@@ -262,18 +261,26 @@ public class Intake implements AutoCloseable {
                 //Trap State
                 } else if (Robot.intake.intakeState == 3) {
                     Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
-                    if (Math.abs(IntakeConstants.kElbowTrap - Robot.intake.getElbowEncoder()) < 10 && PlayerConfigs.armScoringMechanism) {
+                    if (Math.abs(IntakeConstants.kElbowTrap - Robot.intake.getElbowEncoder() - 28) < 10 && PlayerConfigs.armScoringMechanism) {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
                     } else {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
                     }
                 } else {
-                    Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
-                    if (Math.abs(IntakeConstants.kElbowStowed  - Robot.intake.getElbowEncoder()) < 10) {
+                    if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder()) < 10) && PlayerConfigs.armScoringMechanism) {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
-                    } else {
+                    } else if(Robot.intake.getElbowEncoder() > 80){
                         Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+                    } else {
+                        Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
                     }
+
+                    if (Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() > 0){
+                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowConstraint;
+                    } else{
+                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
+                    }
+                        
                 }
 
         reachElbowSetpoint(Robot.intake.elbowSetPoint);

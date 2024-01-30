@@ -3,7 +3,6 @@ package frc.robot.commands.Autonomous.Autonomous_Actions;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeElbowSet;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeWristSet;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class AutoIntakeStowToGround extends SequentialCommandGroup{
@@ -12,10 +11,10 @@ public class AutoIntakeStowToGround extends SequentialCommandGroup{
     public AutoIntakeStowToGround() {
         //Sets intake at stow, moves elbow to ground, drops intake to ground
         addCommands(
-            new ParallelCommandGroup(
-                new AutoIntakeWristSet(IntakeConstants.kWristStowed,50),
-                new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 100)),
-            new AutoIntakeWristSet(IntakeConstants.kWristGround,50)
+            new AutoIntakeElbowSet(IntakeConstants.kElbowConstraint, 50),
+            new AutoIntakeWristSet(IntakeConstants.kWristConstraint,10),
+            new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 40),
+            new AutoIntakeWristSet(IntakeConstants.kWristGround,5)
         );
     }
 }

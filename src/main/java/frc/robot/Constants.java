@@ -178,19 +178,22 @@ public final class Constants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 2*Math.PI;
         public static final double kElbowKP = 12;
-        public static final double kElbowGround = 0.0-28;
-        public static final double kElbowTrap = 110-28;
-        public static final double kElbowAmp = 120-28;
-        public static final double kElbowStowed = 155.0-28;
+        public static final double kElbowGround = 0.0;
+        public static final double kElbowDownConstraint = 40.0;
+        public static final double kElbowConstraint = 118.0;
+        public static final double kElbowTrap = 110;
+        public static final double kElbowAmp = 120;
+        public static final double kElbowStowed = 155.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 2*Math.PI;
         public static final double kWristKP = 12;
-        public static final double kWristGround = 0-62;
-        public static final double kWristTrap = 40-62;
-        public static final double kWristAmp = -10.0-62;
-        public static final double kWristShooting = 155-62;
-        public static final double kWristStowed = 180-62;
+        public static final double kWristConstraint = -75;
+        public static final double kWristGround = 0;
+        public static final double kWristTrap = 40;
+        public static final double kWristAmp = -10.0;
+        public static final double kWristShooting = 155;
+        public static final double kWristStowed = 180;
 
         public static final int kIntakeCurrentLimit = 20;
       }

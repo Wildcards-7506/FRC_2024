@@ -20,6 +20,8 @@ import frc.robot.ControlConfigs.Drivers.Controller;
 import frc.robot.commands.DrivetrainTeleopCommand;
 import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.commands.Autonomous.AutoRoutines;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToStow;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToGround;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -85,8 +87,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
-    SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint + 62);
-    SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint + 28);
+    SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
+    SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
     SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360 - Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 62);
     SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 28);
     SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
@@ -158,6 +160,8 @@ public class Robot extends TimedRobot {
   /** This function is called once when test mode is enabled. */
   @Override
   public void testInit() {
+    new AutoIntakeStowToGround().schedule();
+    new AutoIntakeGroundToStow().schedule();
   }
 
   /** This function is called periodically during test mode. */

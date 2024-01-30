@@ -131,8 +131,8 @@ public class Intake implements AutoCloseable {
     time.reset();
     time.start();
 
-    m_wristSim.setState((IntakeConstants.kWristStowed+IntakeConstants.kElbowStowed)/360*2*Math.PI,0.0);
-    m_elbowSim.setState(IntakeConstants.kElbowStowed/360*2*Math.PI,0.0);
+    m_wristSim.setState((IntakeConstants.kWristStowed - 62 +IntakeConstants.kElbowStowed - 28)/360*2*Math.PI,0.0);
+    m_elbowSim.setState((IntakeConstants.kElbowStowed-28)/360*2*Math.PI,0.0);
   }
 
   /** Update the simulation model. */
@@ -183,7 +183,7 @@ public class Intake implements AutoCloseable {
   public void reachElbowSetpoint(double e_setpoint) {
     var e_pidOutput =
         m_elbowController.calculate(
-            m_elbowEncoder.getDistance(), Units.degreesToRadians(e_setpoint));
+            m_elbowEncoder.getDistance(), Units.degreesToRadians(e_setpoint - 28));
     m_elbowMotor.setVoltage(e_pidOutput);
     SmartDashboard.putNumber("ElbowPID", e_pidOutput);
   }
@@ -191,7 +191,7 @@ public class Intake implements AutoCloseable {
   public void reachWristSetpoint(double w_setpoint) {
     var w_pidOutput =
         m_wristController.calculate(
-            m_wristEncoder.getDistance(), Units.degreesToRadians(w_setpoint));
+            m_wristEncoder.getDistance(), Units.degreesToRadians(w_setpoint - 90));
     m_wristMotor.setVoltage(w_pidOutput);
     SmartDashboard.putNumber("WristPID", w_pidOutput);
   }
@@ -234,8 +234,9 @@ public class Intake implements AutoCloseable {
         }
 
         if (Robot.intake.intakeState == 1) {
-            if (Math.abs(IntakeConstants.kElbowGround/360*2*Math.PI - Robot.intake.m_elbowEncoder.getDistance()) < 0.1) {
+            if (Robot.intake.m_elbowEncoder.getDistance() < IntakeConstants.kElbowDownConstraint) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
+            } else if (Robot.intake.m_elbowEncoder.getDistance() < 118.0) {
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }

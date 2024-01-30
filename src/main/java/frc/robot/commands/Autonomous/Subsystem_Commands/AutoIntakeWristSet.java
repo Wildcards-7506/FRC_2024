@@ -27,7 +27,7 @@ public class AutoIntakeWristSet extends Command{
     public void execute() {
         if(!Robot.skipNonPath){  
             Robot.intake.wristSetPoint = setpoint;
-            Logger.info("WRIST", Double.toString(Robot.intake.wristSetPoint) + Double.toString(Robot.intake.getWristEncoder()));
+            Logger.info("WRIST", Double.toString(Robot.intake.wristSetPoint) + " " + Double.toString(Robot.intake.getWristEncoder()-Robot.intake.getElbowEncoder()+62));
         }
     }
 
@@ -40,6 +40,6 @@ public class AutoIntakeWristSet extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  Robot.skipNonPath || Math.abs(setpoint + Robot.intake.elbowSetPoint - Robot.intake.getWristEncoder()) < range;
+        return  Robot.skipNonPath || Math.abs(setpoint - (Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62)) < range;
     }
 }

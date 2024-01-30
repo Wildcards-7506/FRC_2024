@@ -191,7 +191,7 @@ public final class Constants {
         public static final double kWristConstraint = -75;
         public static final double kWristGround = 0;
         public static final double kWristTrap = 40;
-        public static final double kWristAmp = -10.0;
+        public static final double kWristAmp = 10.0;
         public static final double kWristShooting = 155;
         public static final double kWristStowed = 180;
 

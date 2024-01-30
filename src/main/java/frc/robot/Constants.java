@@ -188,7 +188,7 @@ public final class Constants {
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
         public static final double kWristKP = 0.001; //<-Will probably be closer to 0.1, increase until movement is snappy but not overshooting/oscillating
-        public static final double kWristConstraint = -55.0;
+        public static final double kWristConstraint = -75.0;
         public static final double kWristAmp = -10.0;
         public static final double kWristGround = 0.0;
         public static final double kWristTrap = 15.0;

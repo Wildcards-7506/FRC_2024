@@ -70,7 +70,7 @@ public class Intake implements AutoCloseable {
   private final SingleJointedArmSim m_wristSim =
       new SingleJointedArmSim(
           m_wristGearbox,
-          125,
+          75,
           SingleJointedArmSim.estimateMOI(0.35, 1),
           0.35,
           -Math.PI*2,

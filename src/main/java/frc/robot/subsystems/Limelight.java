@@ -116,14 +116,14 @@ public class Limelight implements AutoCloseable{
         updateData();
         if(Robot.shooter.shootingMode){
             limelightSetpoint = LimelightConstants.kShooterPosition;
-            SmartDashboard.putNumber("Limelight Setpoint", LimelightConstants.kShooterPosition);
 
         } else {
             limelightSetpoint = LimelightConstants.kIntakePosition;
-            SmartDashboard.putNumber("Limelight Setpoint", LimelightConstants.kIntakePosition);
+            
         }
 
-        reachSetpoint(LimelightConstants.kIntakePosition);
+        SmartDashboard.putNumber("Limelight Setpoint", limelightSetpoint);
+        reachSetpoint(limelightSetpoint);
         SmartDashboard.putNumber("Limelight Position", Robot.limelight.getPos());
         limelightLog();
     }

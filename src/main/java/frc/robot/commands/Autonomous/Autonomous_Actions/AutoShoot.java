@@ -3,8 +3,7 @@ package frc.robot.commands.Autonomous.Autonomous_Actions;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.commands.Autonomous.Subsystem_Commands.AutoDrivetrainAlign;
-import frc.robot.commands.Autonomous.Subsystem_Commands.AutoDrivetrainSnap;
+import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeElbowSet;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeWristSet;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoLimelightRotate;
@@ -19,11 +18,10 @@ public class AutoShoot extends SequentialCommandGroup{
         addCommands(
             new ParallelCommandGroup(
                 new AutoLimelightRotate(LimelightConstants.kShooterPosition),
-                new AutoIntakeWristSet(IntakeConstants.kWristShooting),
-                new AutoShooterSpinUp(ShooterConstants.kLArmedRPM,ShooterConstants.kRArmedRPM),
-                new AutoDrivetrainSnap(location)
+                new AutoIntakeElbowSet(IntakeConstants.kElbowStowed, 50),
+                new AutoIntakeWristSet(IntakeConstants.kWristShooting, 5),
+                new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM)
             ),
-            new AutoDrivetrainAlign(false),
             new AutoIntake_Trigger(0.5,true)
         );
     }

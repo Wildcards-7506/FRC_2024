@@ -48,7 +48,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutoIntakeUp",
+      "name": "AutoIntakeGroundToStow",
       "waypointRelativePos": 1.35,
       "command": {
         "type": "sequential",
@@ -57,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoIntakeUp"
+                "name": "AutoIntakeGroundToStow"
               }
             }
           ]
@@ -68,7 +68,7 @@
       "name": "AutoIntake",
       "waypointRelativePos": 0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -83,8 +83,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -99,5 +99,5 @@
     "rotation": 0.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

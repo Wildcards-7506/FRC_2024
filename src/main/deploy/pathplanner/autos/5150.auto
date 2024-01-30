@@ -12,59 +12,52 @@
     "data": {
       "commands": [
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Corner Amp"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAmpSet"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAmpScore"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Corner Amp"
+            "pathName": "C2Amp"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoAmp"
+            "name": "AutoAmpScore"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "C2Amp"
-                }
-              }
-            ]
+            "pathName": "C3Speaker"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoAmp"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "C3Speaker"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              }
-            ]
+            "name": "AutoShootTop"
           }
         }
       ]

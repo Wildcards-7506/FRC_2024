@@ -7,10 +7,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class AutoIntakeElbowSet extends Command{
     
     double setpoint;
+    double range;
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
-    public AutoIntakeElbowSet(double setpoint) {
+    public AutoIntakeElbowSet(double setpoint, double range) {
         this.setpoint = setpoint;
+        this.range = range;
     }
 
     // Called when the command is initially scheduled.
@@ -38,6 +40,6 @@ public class AutoIntakeElbowSet extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  Robot.skipNonPath || Math.abs(setpoint - Robot.intake.getElbowEncoder()) < 5;
+        return  Robot.skipNonPath || Math.abs(setpoint - Robot.intake.getElbowEncoder()) < range;
     }
 }

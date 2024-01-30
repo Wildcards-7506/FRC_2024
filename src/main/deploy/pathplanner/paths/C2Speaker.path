@@ -48,13 +48,13 @@
     {
       "waypointRelativePos": 1.0,
       "rotationDegrees": -30.0,
-      "rotateFast": false
+      "rotateFast": true
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutoIntakeUp",
+      "name": "AutoIntakeGroundToStow",
       "waypointRelativePos": 1.2,
       "command": {
         "type": "sequential",
@@ -63,7 +63,41 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoIntakeUp"
+                "name": "AutoIntakeGroundToStow"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "AutoIntakeAmpToGround",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntakeAmpToGround"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "AutoShooterSpinup",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoShooterSpinup"
               }
             }
           ]
@@ -72,15 +106,15 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0.0,
     "rotation": 60.0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "Amp",
@@ -88,5 +122,5 @@
     "rotation": 90.0,
     "velocity": 0.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

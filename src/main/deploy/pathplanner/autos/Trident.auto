@@ -12,47 +12,15 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootCenter"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              }
-            ]
+            "name": "AutoShootCenter"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "CenterCenter"
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootCenter"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              }
-            ]
+            "name": "AutoIntakeStowToGround"
           }
         },
         {
@@ -62,22 +30,15 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootCenter"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoIntakeDown"
-                }
-              }
-            ]
+            "name": "AutoShootCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeStowToGround"
           }
         },
         {
@@ -87,16 +48,27 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoShootCenter"
-                }
-              }
-            ]
+            "name": "AutoShootCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeStowToGround"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CenterCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShootCenter"
           }
         }
       ]

@@ -18,15 +18,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "AutoIntakeDown"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BottomC4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BottomC4"
+                }
+              }
+            ]
           }
         },
         {
@@ -36,15 +37,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "AutoIntakeDown"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BottomC5"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BottomC5"
+                }
+              }
+            ]
           }
         },
         {

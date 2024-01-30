@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.894741011131508,
-        "y": 5.55
+        "x": 2.8385416169328583,
+        "y": 5.4008529069689715
       },
       "prevControl": {
-        "x": 1.894741011131508,
-        "y": 5.55
+        "x": 1.8393096662013213,
+        "y": 5.440038473664326
       },
       "nextControl": {
-        "x": 3.894741011131508,
-        "y": 5.55
+        "x": 3.8878501817154008,
+        "y": 5.359703551487303
       },
       "isLocked": false,
       "linkedName": null
@@ -46,20 +46,15 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0.0,
-      "rotateFast": false
-    },
-    {
       "waypointRelativePos": 1,
-      "rotationDegrees": 0.0,
+      "rotationDegrees": 45.0,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutoIntakeUp",
+      "name": "AutoIntakeGroundToStow",
       "waypointRelativePos": 1.35,
       "command": {
         "type": "sequential",
@@ -68,24 +63,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoIntakeUp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "AutoIntake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoIntake"
+                "name": "AutoIntakeGroundToStow"
               }
             }
           ]
@@ -94,8 +72,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -110,5 +88,5 @@
     "rotation": -60.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

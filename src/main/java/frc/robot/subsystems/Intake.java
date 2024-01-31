@@ -88,8 +88,6 @@ public class Intake extends SubsystemBase {
 
         elbowPIDF.setP(IntakeConstants.kPElbow);
         wristPIDF.setP(IntakeConstants.kPWrist);
-        elbowPIDF.setFF(IntakeConstants.kFFElbow);
-        wristPIDF.setFF(IntakeConstants.kFFWrist);
 
         elbowPIDF.setOutputRange(-1, 1);
         wristPIDF.setOutputRange(-1, 1);

@@ -11,25 +11,9 @@
         "vgap": 16.0,
         "titleType": 1,
         "tiles": {
-          "13,0": {
+          "11,1": {
             "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Simple Dial",
-              "_source0": "network_table:///SmartDashboard/Shooter Speed",
-              "_title": "Shooter Speed",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Range/Min": 0.0,
-              "Range/Max": 100.0,
-              "Visuals/Show value": true
-            }
-          },
-          "11,0": {
-            "size": [
-              2,
+              4,
               1
             ],
             "content": {
@@ -140,7 +124,7 @@
               "Visuals/Show Outside Circles": false
             }
           },
-          "11,1": {
+          "0,5": {
             "size": [
               2,
               1
@@ -329,6 +313,32 @@
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auto Chooser",
               "_title": "Auto Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "13,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Shooter Speed",
+              "_title": "Right Shooter Speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Shooter Speed",
+              "_title": "Left Shooter Speed",
               "_glyph": 148,
               "_showGlyph": false
             }

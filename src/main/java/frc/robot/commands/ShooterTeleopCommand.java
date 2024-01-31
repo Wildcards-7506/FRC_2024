@@ -31,10 +31,11 @@ public class ShooterTeleopCommand extends Command{
             Robot.shooter.setShooterSpeed(ShooterConstants.kPrimeRPM, ShooterConstants.kPrimeRPM);
         //If climbing, shooter stops
         } else {
-            Robot.shooter.cease();
+            Robot.shooter.setShooterSpeed(0,0);
         }
 
-        SmartDashboard.putNumber("Shooter Speed", Robot.shooter.getRSpeed());
+        SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.getRSpeed());
+        SmartDashboard.putNumber("Left Shooter Speed", Robot.shooter.getLSpeed());
         SmartDashboard.putBoolean("Shooter Mode", Robot.shooter.shootingMode);
         Robot.shooter.shooterLog();
     } 

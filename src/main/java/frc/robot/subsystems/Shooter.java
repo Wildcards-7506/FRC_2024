@@ -57,11 +57,6 @@ public class Shooter extends SubsystemBase{
         shooterLPID.setReference(lSpeed, ControlType.kVelocity);
         shooterRPID.setReference(rSpeed, ControlType.kVelocity);
     }
-
-    public void cease() {
-        shooterL.stopMotor();
-        shooterR.stopMotor();
-    }
     
     public void shooterLog(){
         Logger.info("SHOOT", "Right: " + Double.toString(getRSpeed()) + " RPM, " + "Left: " + Double.toString(getLSpeed()) + " RPM");

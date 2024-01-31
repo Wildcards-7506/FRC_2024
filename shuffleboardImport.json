@@ -302,7 +302,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Driver",
-              "_title": "SmartDashboard/Driver",
+              "_title": "Driver",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -315,7 +315,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Operator",
-              "_title": "SmartDashboard/Operator",
+              "_title": "Operator",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -328,7 +328,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auto Chooser",
-              "_title": "SmartDashboard/Auto Chooser",
+              "_title": "Auto Chooser",
               "_glyph": 148,
               "_showGlyph": false
             }

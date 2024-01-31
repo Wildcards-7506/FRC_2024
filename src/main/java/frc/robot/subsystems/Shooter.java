@@ -17,9 +17,9 @@ public class Shooter extends SubsystemBase{
     private final CANSparkMax shooterL;
     private final CANSparkMax shooterR;
     private final RelativeEncoder shooterLEncoder;
-    private final SparkPIDController shooterLPID;
+    public final SparkPIDController shooterLPID;
     private final RelativeEncoder shooterREncoder;
-    private final SparkPIDController shooterRPID;
+    public final SparkPIDController shooterRPID;
     public boolean shootingMode;
 
     public Shooter () {
@@ -33,8 +33,11 @@ public class Shooter extends SubsystemBase{
 
         shooterL.setInverted(true);
 
-        shooterLPID.setP(ShooterConstants.kShooterP);
-        shooterRPID.setP(ShooterConstants.kShooterP);
+        shooterLPID.setP(ShooterConstants.kPShooter);
+        shooterRPID.setP(ShooterConstants.kPShooter);
+
+        shooterLPID.setFF(ShooterConstants.kFFShooter);
+        shooterRPID.setFF(ShooterConstants.kFFShooter);
 
         shooterL.setIdleMode(IdleMode.kCoast);
         shooterR.setIdleMode(IdleMode.kCoast);

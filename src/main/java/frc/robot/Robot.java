@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
@@ -103,6 +105,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(m_field);
 
     Logger.info("SYSTEM","Robot Started");
+
+    //SmartDashboard PID Tuning Setup
+    SmartDashboard.putNumber("Shooter P Gain", ShooterConstants.kPShooter);
+    SmartDashboard.putNumber("Elbow P Gain", IntakeConstants.kPElbow);
+    SmartDashboard.putNumber("Wrist P Gain", IntakeConstants.kPWrist);
   }
 
   /**
@@ -115,6 +122,23 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     // SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
+    //Update PID Values
+    // read PID coefficients from SmartDashboard
+    double kPS = SmartDashboard.getNumber("Shooter P Gain", ShooterConstants.kPShooter);
+    double kPE = SmartDashboard.getNumber("Elbow P Gain", IntakeConstants.kPElbow);
+    double kPW = SmartDashboard.getNumber("Wrist P Gain", IntakeConstants.kPWrist);
+
+    // if PID coefficients on SmartDashboard have changed, write new values to controller
+    if((kPS != ShooterConstants.kPShooter)) {
+      shooter.shooterLPID.setP(kPS); 
+      shooter.shooterRPID.setP(kPS); 
+      ShooterConstants.kPShooter = kPS; }
+    if((kPE != IntakeConstants.kPElbow)) {
+      intake.elbowPID.setP(kPE); 
+      IntakeConstants.kPElbow = kPE; }
+    if((kPW != IntakeConstants.kPWrist)) {
+      intake.wristPID.setP(kPW); 
+      IntakeConstants.kPWrist = kPW; }
   }
 
   @Override

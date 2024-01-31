@@ -17,7 +17,7 @@ public class AutoShoot extends SequentialCommandGroup{
     public AutoShoot(int location) {
         addCommands(
             new ParallelCommandGroup(
-                new AutoLimelightRotate(LimelightConstants.kShooterPosition),
+                new AutoLimelightRotate(LimelightConstants.kPShooterosition),
                 new AutoIntakeElbowSet(IntakeConstants.kElbowStowed, 50),
                 new AutoIntakeWristSet(IntakeConstants.kWristShooting, 5),
                 new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM)

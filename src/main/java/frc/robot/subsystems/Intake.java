@@ -24,8 +24,8 @@ public class Intake extends SubsystemBase {
     private RelativeEncoder wristEncoder;
     private RelativeEncoder intakeEncoder;
 
-    private SparkPIDController elbowPID;
-    private SparkPIDController wristPID;
+    public SparkPIDController elbowPID;
+    public SparkPIDController wristPID;
 
     public double wristSetPoint  = IntakeConstants.kWristStowed;
     public double elbowSetPoint  = IntakeConstants.kElbowStowed;
@@ -86,8 +86,8 @@ public class Intake extends SubsystemBase {
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
 
-        elbowPID.setP(IntakeConstants.kElbowKP);
-        wristPID.setP(IntakeConstants.kWristKP);
+        elbowPID.setP(IntakeConstants.kPElbow);
+        wristPID.setP(IntakeConstants.kPWrist);
 
         elbowPID.setOutputRange(-1, 1);
         wristPID.setOutputRange(-1, 1);

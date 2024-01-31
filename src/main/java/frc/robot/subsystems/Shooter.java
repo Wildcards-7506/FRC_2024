@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
@@ -26,6 +27,7 @@ public class Shooter implements AutoCloseable {
     private final DCMotor m_flywheelGearbox = DCMotor.getNEO(1);
 
     // Standard classes for controlling our arm
+    SimpleMotorFeedforward m_shooterFeedforward = new SimpleMotorFeedforward(0.0, ShooterConstants.kShooterFF, 0.0);
     private final PIDController m_flywheelController = new PIDController(ShooterConstants.kShooterP, 0, 0);
     public final Encoder m_flywheelEncoder =
         new Encoder(6, 7);
@@ -38,7 +40,7 @@ public class Shooter implements AutoCloseable {
         new FlywheelSim(
             m_flywheelGearbox,
             1.0,
-            0.01);
+            0.0002341117);
 
     private final EncoderSim m_flywheelEncoderSim = new EncoderSim(m_flywheelEncoder);
     private final PWMSim m_flywheelMotorSim = new PWMSim(m_flywheelMotor);
@@ -67,11 +69,9 @@ public class Shooter implements AutoCloseable {
 
     /** Run the control loop to reach and maintain the setpoint from the preferences. */
     public void reachSetpoint(double RPM) {
-        var pidOutput =
-        m_flywheelController.calculate(
-            m_flywheelEncoder.getRate(), RPM);
-    m_flywheelMotor.setVoltage(pidOutput);
-    SmartDashboard.putNumber("flywheelPID", pidOutput);
+        double closedLoopOutput = m_shooterFeedforward.calculate(RPM) + m_flywheelController.calculate(m_flywheelEncoder.getRate(), RPM);
+    m_flywheelMotor.setVoltage(closedLoopOutput);
+    SmartDashboard.putNumber("flywheelSetpoint", closedLoopOutput);
     }
 
     public void stop() {

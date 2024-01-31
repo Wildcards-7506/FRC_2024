@@ -111,8 +111,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Elbow P Gain", IntakeConstants.kPElbow);
     SmartDashboard.putNumber("Wrist P Gain", IntakeConstants.kPWrist);
     SmartDashboard.putNumber("Shooter FF Gain", ShooterConstants.kVShooter);
-    SmartDashboard.putNumber("Elbow FF Gain", IntakeConstants.kFFElbow);
-    SmartDashboard.putNumber("Wrist FF Gain", IntakeConstants.kFFWrist);
   }
 
   /**
@@ -131,8 +129,6 @@ public class Robot extends TimedRobot {
     double kPE = SmartDashboard.getNumber("Elbow P Gain", IntakeConstants.kPElbow);
     double kPW = SmartDashboard.getNumber("Wrist P Gain", IntakeConstants.kPWrist);
     double kFS = SmartDashboard.getNumber("Shooter FF Gain", ShooterConstants.kVShooter);
-    double kFE = SmartDashboard.getNumber("Elbow FF Gain", IntakeConstants.kFFElbow);
-    double kFW = SmartDashboard.getNumber("Wrist FF Gain", IntakeConstants.kFFWrist);
 
     // if PIDF coefficients on SmartDashboard have changed, write new values to controller
     if((kPS != ShooterConstants.kPShooter)) {
@@ -149,12 +145,6 @@ public class Robot extends TimedRobot {
       shooter.shooterLPIDF.setFF(kFS); 
       shooter.shooterRPIDF.setFF(kFS); 
       ShooterConstants.kVShooter = kFS; }
-    if((kFE != IntakeConstants.kFFElbow)) {
-      intake.elbowPIDF.setFF(kFE); 
-      IntakeConstants.kFFElbow = kFE; }
-    if((kFW != IntakeConstants.kFFWrist)) {
-      intake.wristPIDF.setFF(kFW); 
-      IntakeConstants.kFFWrist = kFW; }
   }
 
   @Override

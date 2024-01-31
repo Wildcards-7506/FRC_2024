@@ -31,8 +31,6 @@ public class Shooter extends SubsystemBase{
         shooterREncoder = shooterR.getEncoder();
         shooterRPIDF = shooterR.getPIDController();
 
-        shooterL.setInverted(true);
-
         shooterLPIDF.setP(ShooterConstants.kPShooter);
         shooterRPIDF.setP(ShooterConstants.kPShooter);
         shooterLPIDF.setFF(ShooterConstants.kVShooter);

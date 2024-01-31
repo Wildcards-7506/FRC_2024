@@ -106,10 +106,13 @@ public class Robot extends TimedRobot {
 
     Logger.info("SYSTEM","Robot Started");
 
-    //SmartDashboard PID Tuning Setup
+    //SmartDashboard PIDF Tuning Setup
     SmartDashboard.putNumber("Shooter P Gain", ShooterConstants.kPShooter);
     SmartDashboard.putNumber("Elbow P Gain", IntakeConstants.kPElbow);
     SmartDashboard.putNumber("Wrist P Gain", IntakeConstants.kPWrist);
+    SmartDashboard.putNumber("Shooter FF Gain", ShooterConstants.kVShooter);
+    SmartDashboard.putNumber("Elbow FF Gain", IntakeConstants.kFFElbow);
+    SmartDashboard.putNumber("Wrist FF Gain", IntakeConstants.kFFWrist);
   }
 
   /**
@@ -122,23 +125,36 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     // SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
-    //Update PID Values
-    // read PID coefficients from SmartDashboard
+    //Update PIDF Values
+    // read PIDF coefficients from SmartDashboard
     double kPS = SmartDashboard.getNumber("Shooter P Gain", ShooterConstants.kPShooter);
     double kPE = SmartDashboard.getNumber("Elbow P Gain", IntakeConstants.kPElbow);
     double kPW = SmartDashboard.getNumber("Wrist P Gain", IntakeConstants.kPWrist);
+    double kFS = SmartDashboard.getNumber("Shooter FF Gain", ShooterConstants.kVShooter);
+    double kFE = SmartDashboard.getNumber("Elbow FF Gain", IntakeConstants.kFFElbow);
+    double kFW = SmartDashboard.getNumber("Wrist FF Gain", IntakeConstants.kFFWrist);
 
-    // if PID coefficients on SmartDashboard have changed, write new values to controller
+    // if PIDF coefficients on SmartDashboard have changed, write new values to controller
     if((kPS != ShooterConstants.kPShooter)) {
-      shooter.shooterLPID.setP(kPS); 
-      shooter.shooterRPID.setP(kPS); 
+      shooter.shooterLPIDF.setP(kPS); 
+      shooter.shooterRPIDF.setP(kPS); 
       ShooterConstants.kPShooter = kPS; }
     if((kPE != IntakeConstants.kPElbow)) {
-      intake.elbowPID.setP(kPE); 
+      intake.elbowPIDF.setP(kPE); 
       IntakeConstants.kPElbow = kPE; }
     if((kPW != IntakeConstants.kPWrist)) {
-      intake.wristPID.setP(kPW); 
+      intake.wristPIDF.setP(kPW); 
       IntakeConstants.kPWrist = kPW; }
+    if((kFS != ShooterConstants.kVShooter)) {
+      shooter.shooterLPIDF.setFF(kFS); 
+      shooter.shooterRPIDF.setFF(kFS); 
+      ShooterConstants.kVShooter = kFS; }
+    if((kFE != IntakeConstants.kFFElbow)) {
+      intake.elbowPIDF.setFF(kFE); 
+      IntakeConstants.kFFElbow = kFE; }
+    if((kFW != IntakeConstants.kFFWrist)) {
+      intake.wristPIDF.setFF(kFW); 
+      IntakeConstants.kFFWrist = kFW; }
   }
 
   @Override

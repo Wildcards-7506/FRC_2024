@@ -24,8 +24,8 @@ public class Intake extends SubsystemBase {
     private RelativeEncoder wristEncoder;
     private RelativeEncoder intakeEncoder;
 
-    public SparkPIDController elbowPID;
-    public SparkPIDController wristPID;
+    public SparkPIDController elbowPIDF;
+    public SparkPIDController wristPIDF;
 
     public double wristSetPoint  = IntakeConstants.kWristStowed;
     public double elbowSetPoint  = IntakeConstants.kElbowStowed;
@@ -50,8 +50,8 @@ public class Intake extends SubsystemBase {
         wristEncoder = wristRotator.getEncoder();
         intakeEncoder = intakeLeader.getEncoder();
 
-        elbowPID = elbowRotatorLeader.getPIDController();
-        wristPID = wristRotator.getPIDController();
+        elbowPIDF = elbowRotatorLeader.getPIDController();
+        wristPIDF = wristRotator.getPIDController();
 
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
         intakeFollower.follow(intakeLeader, true);
@@ -86,11 +86,13 @@ public class Intake extends SubsystemBase {
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
 
-        elbowPID.setP(IntakeConstants.kPElbow);
-        wristPID.setP(IntakeConstants.kPWrist);
+        elbowPIDF.setP(IntakeConstants.kPElbow);
+        wristPIDF.setP(IntakeConstants.kPWrist);
+        elbowPIDF.setFF(IntakeConstants.kFFElbow);
+        wristPIDF.setFF(IntakeConstants.kFFWrist);
 
-        elbowPID.setOutputRange(-1, 1);
-        wristPID.setOutputRange(-1, 1);
+        elbowPIDF.setOutputRange(-1, 1);
+        wristPIDF.setOutputRange(-1, 1);
 
         elbowRotatorLeader.burnFlash();
         elbowRotatorFollower.burnFlash();
@@ -116,11 +118,11 @@ public class Intake extends SubsystemBase {
     }
     
     public void setElbowPosition(double setPoint) {
-        elbowPID.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        elbowPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
 	public void setWristPosition(double setPoint) {
-        wristPID.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        wristPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
     public void setIntakeVoltage(double setPoint) {

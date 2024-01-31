@@ -17,9 +17,9 @@ public class Shooter extends SubsystemBase{
     private final CANSparkMax shooterL;
     private final CANSparkMax shooterR;
     private final RelativeEncoder shooterLEncoder;
-    public final SparkPIDController shooterLPID;
+    public final SparkPIDController shooterLPIDF;
     private final RelativeEncoder shooterREncoder;
-    public final SparkPIDController shooterRPID;
+    public final SparkPIDController shooterRPIDF;
     public boolean shootingMode;
 
     public Shooter () {
@@ -27,17 +27,16 @@ public class Shooter extends SubsystemBase{
         shooterR = new CANSparkMax(CANID.shooter_RIGHT, MotorType.kBrushless);
 
         shooterLEncoder = shooterL.getEncoder();
-        shooterLPID = shooterL.getPIDController();
+        shooterLPIDF = shooterL.getPIDController();
         shooterREncoder = shooterR.getEncoder();
-        shooterRPID = shooterR.getPIDController();
+        shooterRPIDF = shooterR.getPIDController();
 
         shooterL.setInverted(true);
 
-        shooterLPID.setP(ShooterConstants.kPShooter);
-        shooterRPID.setP(ShooterConstants.kPShooter);
-
-        shooterLPID.setFF(ShooterConstants.kFFShooter);
-        shooterRPID.setFF(ShooterConstants.kFFShooter);
+        shooterLPIDF.setP(ShooterConstants.kPShooter);
+        shooterRPIDF.setP(ShooterConstants.kPShooter);
+        shooterLPIDF.setFF(ShooterConstants.kVShooter);
+        shooterRPIDF.setFF(ShooterConstants.kVShooter);
 
         shooterL.setIdleMode(IdleMode.kCoast);
         shooterR.setIdleMode(IdleMode.kCoast);
@@ -57,8 +56,8 @@ public class Shooter extends SubsystemBase{
     }
 
     public void setShooterSpeed(double lSpeed, double rSpeed) {
-        shooterLPID.setReference(lSpeed, ControlType.kVelocity);
-        shooterRPID.setReference(rSpeed, ControlType.kVelocity);
+        shooterLPIDF.setReference(lSpeed, ControlType.kVelocity);
+        shooterRPIDF.setReference(rSpeed, ControlType.kVelocity);
     }
     
     public void shooterLog(){

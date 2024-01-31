@@ -3,7 +3,7 @@ Tasks to complete - 3 February 2024
     a. Check with Rev HW Client, the setting may not have stuck on startup.
     b. Check that the Right Elbow is following the correct CAN ID (9)
     b. Right elbow MUST be reversed, motors should rotate towards and away from one another, never in the same direction
-2. PID Tuning
+2. PIDF Tuning
     a. Robot.java has been set up to adjust P values on the fly through the smart dashboard. Tune Elbow, Wrist, and Shooter using these
     b. Once good P values are found, replace Constants and change variables to final.
 3. On-Bot Intake Test

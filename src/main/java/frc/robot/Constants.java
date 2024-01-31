@@ -177,7 +177,8 @@ public final class Constants {
       public static final class IntakeConstants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
-        public static double kPElbow = 0.2; //<-Will probably be closer to 0.5, increase until movement is snappy but not overshooting/oscillating
+        public static double kPElbow = 0.2;
+        public static double kFFElbow = 0.000015;
         public static final double kElbowGround = 0.0;
         public static final double kElbowDownConstraint = 40.0;
         public static final double kElbowTrap = 80.0;
@@ -187,7 +188,8 @@ public final class Constants {
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
-        public static double kPWrist = 0.2; //<-Will probably be closer to 0.5, increase until movement is snappy but not overshooting/oscillating
+        public static double kPWrist = 0.2;
+        public static double kFFWrist = 0.000015;
         public static final double kWristConstraint = -75.0;
         public static final double kWristAmp = -10.0;
         public static final double kWristGround = 0.0;
@@ -200,11 +202,12 @@ public final class Constants {
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static final double kLArmedRPM = 2700;
+        public static final double kLArmedRPM = -2700;
         public static final double kRArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
-        public static double kPShooter = 6e-5;
-        public static final double kFFShooter = 0.000015; 
+        public static double kPShooter = 6e-5; //<-This will be tine
+        public static double kVShooter = 0.000015; //<-Simulation had this near 0.0021
+        //Follow the process here to tune these values: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/tuning-flywheel.html
       }
 
       public static final class ClimberConstants {

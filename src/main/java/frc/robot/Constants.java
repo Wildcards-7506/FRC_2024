@@ -181,7 +181,8 @@ public final class Constants {
         public static final double kElbowGround = 0.0;
         public static final double kElbowDownConstraint = 60.0;
         public static final double kElbowConstraint = 118.0;
-        public static final double kElbowTrap = 110;
+        public static final double kElbowTrapPressure = 110;
+        public static final double kElbowTrapScoring = 128;
         public static final double kElbowAmp = 105;
         public static final double kElbowStowed = 155.0;
 

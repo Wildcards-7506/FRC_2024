@@ -260,8 +260,13 @@ public class Intake implements AutoCloseable {
                     Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
                 //Trap State
                 } else if (Robot.intake.intakeState == 3) {
-                    Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
-                    if (Math.abs(IntakeConstants.kElbowTrap - Robot.intake.getElbowEncoder() - 28) < 10 && PlayerConfigs.armScoringMechanism) {
+                    if(Robot.climbers.getClimberEncoder() > 20){
+                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapScoring;
+                    } else{
+                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapPressure;
+                    }
+                    
+                    if (Robot.climbers.getClimberEncoder() > 20) {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
                     } else if (Robot.intake.getElbowEncoder() + 28 < 105){
                         Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;

@@ -179,29 +179,30 @@ public final class Constants {
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
         public static double kPElbow = 0.2;
         public static final double kElbowGround = 0.0;
-        public static final double kElbowDownConstraint = 40.0;
-        public static final double kElbowTrap = 80.0;
-        public static final double kElbowAmp = 110.0;
-        public static final double kElbowUpConstraint = 118.0;
-        public static final double kElbowStowed = 155.0;
+        public static double kElbowDownConstraint = 40.0;
+        public static double kElbowTrapPressure = 110.0;
+        public static double kElbowTrapScoring = 128.0;
+        public static double kElbowAmp = 110.0;
+        public static double kElbowUpConstraint = 118.0;
+        public static double kElbowStowed = 155.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
         public static double kPWrist = 0.2;
-        public static final double kWristConstraint = -75.0;
-        public static final double kWristAmp = -10.0;
+        public static double kWristConstraint = -75.0;
+        public static double kWristAmp = -10.0;
         public static final double kWristGround = 0.0;
-        public static final double kWristTrap = 15.0;
-        public static final double kWristShooting = 155.0;
-        public static final double kWristStowed = 180.0;
+        public static double kWristTrap = 20.0;
+        public static double kWristShooting = 155.0;
+        public static double kWristStowed = 180.0;
 
         public static final int kIntakeCurrentLimit = 20;
       }
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static final double kLArmedRPM = -2700;
-        public static final double kRArmedRPM = 3000;
+        public static double kLArmedRPM = -2700;
+        public static double kRArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
         public static double kPShooter = 6e-5; //<-This will be tine
         public static double kVShooter = 0.000015; //<-Simulation had this near 0.0021
@@ -213,6 +214,7 @@ public final class Constants {
         public static final int kClimberCurrentLimit = 50;
         public static final int downLimit = 24;
         public static final int upLimit = 0;
+        public static final int scoringHeight = 18;
       }
 
       public static final class LimelightConstants {

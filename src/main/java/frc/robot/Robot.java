@@ -114,7 +114,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
     SmartDashboard.putNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
     SmartDashboard.putNumber("Elbow Amp", IntakeConstants.kElbowAmp);
-    SmartDashboard.putNumber("Elbow Trap", IntakeConstants.kElbowTrap);
+    SmartDashboard.putNumber("Elbow Trap Pressure", IntakeConstants.kElbowTrapPressure);
+    SmartDashboard.putNumber("Elbow Trap Scoring", IntakeConstants.kElbowTrapScoring);
     SmartDashboard.putNumber("Elbow Stow", IntakeConstants.kElbowStowed);
     SmartDashboard.putNumber("Elbow Up Constraint", IntakeConstants.kElbowUpConstraint);
     SmartDashboard.putNumber("Elbow Down Constraint", IntakeConstants.kElbowDownConstraint);
@@ -143,7 +144,8 @@ public class Robot extends TimedRobot {
     double SLA = SmartDashboard.getNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
     double SRA = SmartDashboard.getNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
     double EA = SmartDashboard.getNumber("Elbow Amp", IntakeConstants.kElbowAmp);
-    double ET = SmartDashboard.getNumber("Elbow Trap", IntakeConstants.kElbowTrap);
+    double ETP = SmartDashboard.getNumber("Elbow Trap", IntakeConstants.kElbowTrapPressure);
+    double ETS = SmartDashboard.getNumber("Elbow Trap", IntakeConstants.kElbowTrapScoring);
     double ES = SmartDashboard.getNumber("Elbow Stow", IntakeConstants.kElbowStowed);
     double EUC = SmartDashboard.getNumber("Elbow Up Constraint", IntakeConstants.kElbowUpConstraint);
     double EDC = SmartDashboard.getNumber("Elbow Down Constraint", IntakeConstants.kElbowDownConstraint);
@@ -174,8 +176,10 @@ public class Robot extends TimedRobot {
       ShooterConstants.kRArmedRPM = SRA; }
     if((EA != IntakeConstants.kElbowAmp)) {
       IntakeConstants.kElbowAmp = EA; }
-    if((ET != IntakeConstants.kElbowTrap)) {
-      IntakeConstants.kElbowTrap = ET; }
+    if((ETP != IntakeConstants.kElbowTrapPressure)) {
+      IntakeConstants.kElbowTrapPressure = ETP; }
+    if((ETS != IntakeConstants.kElbowTrapScoring)) {
+      IntakeConstants.kElbowTrapScoring = ETS; }
     if((ES != IntakeConstants.kElbowStowed)) {
       IntakeConstants.kElbowStowed = ES; }
     if((EUC != IntakeConstants.kElbowUpConstraint)) {

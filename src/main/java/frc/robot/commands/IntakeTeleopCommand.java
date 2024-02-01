@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Robot;
 import frc.robot.ControlConfigs.PlayerConfigs;
@@ -19,8 +20,6 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.pieceAcquired = false;
         } else if(PlayerConfigs.amp){
             Robot.intake.intakeState = 2;
-        } else if(PlayerConfigs.trap){
-            Robot.intake.intakeState = 3;
         } else if(PlayerConfigs.stow){
             Robot.intake.intakeState = 0;
         }
@@ -41,9 +40,9 @@ public class IntakeTeleopCommand extends Command{
             }  
         //Amp State
         } else if (Robot.intake.intakeState == 2) {
-            if (Robot.intake.getElbowEncoder() + 28 > 140) {
+            if (Robot.intake.getElbowEncoder() > 140) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            } else if (Robot.intake.getElbowEncoder() + 28 < 115){
+            } else if (Robot.intake.getElbowEncoder() < 115){
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
@@ -52,11 +51,14 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
         //Trap State
         } else if (Robot.intake.intakeState == 3) {
-            Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
-            if (Math.abs(IntakeConstants.kElbowTrap - Robot.intake.getElbowEncoder()) < 10 && PlayerConfigs.armScoringMechanism) {
+            if(Robot.climbers.getClimberEncoder() > ClimberConstants.scoringHeight){
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapScoring;
+            } else {
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapPressure;
+            }
+            
+            if (Robot.climbers.getClimberEncoder() < ClimberConstants.scoringHeight) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowTrap - 5){
-                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }

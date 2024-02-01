@@ -177,20 +177,20 @@ public final class Constants {
       public static final class IntakeConstants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 2*Math.PI;
-        public static final double kElbowKP = 12;
+        public static final double kElbowKP = 1;
         public static final double kElbowGround = 0.0;
-        public static final double kElbowDownConstraint = 40.0;
+        public static final double kElbowDownConstraint = 60.0;
         public static final double kElbowConstraint = 118.0;
         public static final double kElbowTrap = 110;
-        public static final double kElbowAmp = 120;
+        public static final double kElbowAmp = 105;
         public static final double kElbowStowed = 155.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/75 * 2*Math.PI;
-        public static final double kWristKP = 12;
+        public static final double kWristKP = 1;
         public static final double kWristConstraint = -75;
         public static final double kWristGround = 0;
-        public static final double kWristTrap = 40;
+        public static final double kWristTrap = 20;
         public static final double kWristAmp = 10.0;
         public static final double kWristShooting = 155;
         public static final double kWristStowed = 180;
@@ -217,8 +217,8 @@ public final class Constants {
         //Limelight Rotator Constants Here
         public static final double kRotatorKP = 1;
         public static final int kRotateCurrentLimit = 30;
-        public static final double kIntakePosition = -140;
-        public static final double kShooterPosition = -50;
+        public static final double kIntakePosition = -50;
+        public static final double kShooterPosition = -140;
       }
 
       public static final class LEDConstants {

@@ -38,11 +38,11 @@ public class Intake implements AutoCloseable {
   private final DCMotor m_intakeGearbox = DCMotor.getNeo550(1);
 
   // Standard classes for controlling our arm
-  private final PIDController m_elbowController = new PIDController(IntakeConstants.kElbowKP, 0, 0.0);
+  private final PIDController m_elbowController = new PIDController(IntakeConstants.kElbowKP * 12, 0, 0.0);
   public final Encoder m_elbowEncoder =
       new Encoder(0, 1);
   private final PWMSparkMax m_elbowMotor = new PWMSparkMax(CANID.ELBOW_LEFT);
-  private final PIDController m_wristController = new PIDController(IntakeConstants.kWristKP, 0, 0.0);
+  private final PIDController m_wristController = new PIDController(IntakeConstants.kWristKP * 12, 0, 0.0);
   public final Encoder m_wristEncoder =
       new Encoder(2, 3);
   private final PWMSparkMax m_wristMotor = new PWMSparkMax(CANID.WRIST);
@@ -249,9 +249,9 @@ public class Intake implements AutoCloseable {
                     }  
                 //Amp State
                 } else if (Robot.intake.intakeState == 2) {
-                    if (Robot.intake.getElbowEncoder() + 28 > 140) {
+                    if (Robot.intake.getElbowEncoder() + 28 > 110) {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-                    } else if (Robot.intake.getElbowEncoder() + 28 < 115){
+                    } else if (Robot.intake.getElbowEncoder() + 28 < 100){
                         Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
                     } else {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;

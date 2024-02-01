@@ -20,7 +20,7 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class Shooter implements AutoCloseable {
     public boolean prev_ActiveButton;
-    public boolean shootingMode;
+    public boolean shootingMode = true;
     public double setpoint;
 
     // The arm gearbox represents a gearbox containing two Vex 775pro motors.
@@ -96,9 +96,9 @@ public class Shooter implements AutoCloseable {
             }
         }
 
-        if(Robot.shooter.shootingMode == true && PlayerConfigs.armScoringMechanism == true){
+        if(Robot.shooter.shootingMode && PlayerConfigs.armScoringMechanism){
             setpoint = Constants.ShooterConstants.kArmedRPM;
-        } else if(Robot.shooter.shootingMode == true){
+        } else if(Robot.shooter.shootingMode){
             setpoint = ShooterConstants.kPrimeRPM;
         } else {
             setpoint = 0;

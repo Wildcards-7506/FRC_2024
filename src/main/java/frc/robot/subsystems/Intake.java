@@ -225,9 +225,6 @@ public class Intake implements AutoCloseable {
         } else if(PlayerConfigs.amp){
             Robot.intake.intakeState = 2;
             Robot.intake.pieceAcquired = false;
-        } else if(PlayerConfigs.trap){
-            Robot.intake.intakeState = 3;
-            Robot.intake.pieceAcquired = false;
         } else if(PlayerConfigs.stow){
             Robot.intake.intakeState = 0;
             Robot.intake.pieceAcquired = false;

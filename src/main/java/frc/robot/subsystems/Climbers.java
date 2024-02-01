@@ -99,10 +99,11 @@ public class Climbers implements AutoCloseable {
     }
 
     public void teleopCommand(){
-        if(!Robot.shooter.shootingMode && m_climberEncoder.getDistance() >= 0 && m_climberEncoder.getDistance() <= 28){
+        if(!Robot.shooter.shootingMode && m_climberEncoder.getDistance() >= 0 && m_climberEncoder.getDistance() <= 28 && (Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3)){
             if (PlayerConfigs.climberDown) {
                 reachSetpoint(-12);
             } else if (PlayerConfigs.climberUp) {
+                Robot.intake.intakeState = 3;
                 reachSetpoint(12);
             } else {
                 reachSetpoint(0);

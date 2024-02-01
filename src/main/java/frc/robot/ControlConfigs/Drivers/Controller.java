@@ -30,7 +30,6 @@ public class Controller extends PlayerConfigs {
     public void getCoDriverConfig() {
         //Intake
         PlayerConfigs.intake = Robot.controller1.getAButton();
-        PlayerConfigs.trap = Robot.controller1.getBButton();
         PlayerConfigs.amp = Robot.controller1.getXButton();
         PlayerConfigs.stow = Robot.controller1.getYButton();
 

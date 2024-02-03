@@ -72,7 +72,7 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             }
 
-            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristShooting - 5 &! PlayerConfigs.armScoringMechanism){
+            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristShooting - 5 && !PlayerConfigs.armScoringMechanism){
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint;
             } else {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
@@ -83,7 +83,7 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
 
-        if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || (PlayerConfigs.fire)) {
+        if ((Robot.intake.intakeState == 1 && !Robot.intake.pieceAcquired) || (PlayerConfigs.fire)) {
             Robot.intake.setIntakeVoltage(12);
             Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
             Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;

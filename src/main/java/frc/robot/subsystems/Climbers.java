@@ -14,14 +14,17 @@ public class Climbers extends SubsystemBase{
     private CANSparkMax climberRight;
     private CANSparkMax climberLeft;
     
-    private RelativeEncoder climbEncoder;
+    private RelativeEncoder climbLEncoder;
+    private RelativeEncoder climbREncoder;
     
     public Climbers () {
         climberRight = new CANSparkMax(CANID.CLIMBER_RIGHT, MotorType.kBrushless);
         climberLeft = new CANSparkMax(CANID.CLIMBER_LEFT, MotorType.kBrushless);
 
-        climbEncoder = climberLeft.getEncoder();
-        climbEncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
+        climbLEncoder = climberLeft.getEncoder();
+        climbREncoder = climberRight.getEncoder();
+        climbLEncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
+        climbREncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
     
         climberLeft.enableSoftLimit(SoftLimitDirection.kForward, true);
         climberLeft.enableSoftLimit(SoftLimitDirection.kReverse, true);
@@ -31,12 +34,12 @@ public class Climbers extends SubsystemBase{
         climberLeft.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
         climberRight.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
 
-        climberLeft.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.upLimit);
-        climberLeft.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.downLimit);
-        climberRight.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.upLimit);
-        climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.downLimit);
+        climberLeft.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
+        climberLeft.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
+        climberRight.setSoftLimit(SoftLimitDirection.kForward, ClimberConstants.downLimit);
+        climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
 
-        climberRight.follow(climberLeft);
+        climberRight.follow(climberLeft, true);
 
         climberLeft.setOpenLoopRampRate(1);
         climberRight.setOpenLoopRampRate(1);
@@ -49,7 +52,7 @@ public class Climbers extends SubsystemBase{
     }
 
     public double getClimberEncoder() {
-        return climbEncoder.getPosition();
+        return climbLEncoder.getPosition();
     }
 
     public void setClimbers (double volts) {

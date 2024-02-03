@@ -72,8 +72,8 @@ public class Intake extends SubsystemBase {
         // Will need to test these angle parameters when testing
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 160);
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
-        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
-        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, 160);
+        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 160);
+        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, 0);
         wristRotator.setSoftLimit(SoftLimitDirection.kForward, 190);
         wristRotator.setSoftLimit(SoftLimitDirection.kReverse, 0);
 

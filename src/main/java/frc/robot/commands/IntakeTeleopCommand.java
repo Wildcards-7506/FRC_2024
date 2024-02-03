@@ -20,6 +20,8 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.pieceAcquired = false;
         } else if(PlayerConfigs.amp){
             Robot.intake.intakeState = 2;
+        } else if(!Robot.shooter.shootingMode && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
+            Robot.intake.intakeState = 3;
         } else if(PlayerConfigs.stow){
             Robot.intake.intakeState = 0;
         }

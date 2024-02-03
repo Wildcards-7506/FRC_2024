@@ -17,10 +17,8 @@ public class ClimberTeleopCommand extends Command{
         if(!Robot.shooter.shootingMode && (Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3)){
             if (PlayerConfigs.climberDown) {
                 Robot.climbers.setClimbers(-12);
-                Robot.intake.intakeState = 3;
             } else if (PlayerConfigs.climberUp) {
                 Robot.climbers.setClimbers(12);
-                Robot.intake.intakeState = 3;
             } else {
                 Robot.climbers.setClimbers(0);
             }

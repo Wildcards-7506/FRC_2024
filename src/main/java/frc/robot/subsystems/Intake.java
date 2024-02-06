@@ -17,8 +17,7 @@ public class Intake extends SubsystemBase {
     private CANSparkMax elbowRotatorLeader;
     private CANSparkMax elbowRotatorFollower;
     private CANSparkMax wristRotator;
-    private CANSparkMax intakeLeader;
-    private CANSparkMax intakeFollower;
+    private CANSparkMax intake;
     
     private RelativeEncoder elbowEncoder;
     private RelativeEncoder wristEncoder;
@@ -34,27 +33,26 @@ public class Intake extends SubsystemBase {
     public boolean pieceAcquired = false;
 
     public Intake() {
-        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
-        elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
+        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
+        elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
-        intakeLeader = new CANSparkMax(CANID.INTAKE_LEFT, MotorType.kBrushless);
-        intakeFollower = new CANSparkMax(CANID.INTAKE_RIGHT, MotorType.kBrushless);
+        intake = new CANSparkMax(CANID.INTAKE, MotorType.kBrushless);
 
         elbowRotatorLeader.setIdleMode(IdleMode.kBrake);
         elbowRotatorFollower.setIdleMode(IdleMode.kBrake);
         wristRotator.setIdleMode(IdleMode.kBrake);
-        intakeLeader.setIdleMode(IdleMode.kBrake);
-        intakeFollower.setIdleMode(IdleMode.kBrake);
+        intake.setIdleMode(IdleMode.kCoast);
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
         wristEncoder = wristRotator.getEncoder();
-        intakeEncoder = intakeLeader.getEncoder();
+        intakeEncoder = intake.getEncoder();
 
         elbowPIDF = elbowRotatorLeader.getPIDController();
         wristPIDF = wristRotator.getPIDController();
 
+        intake.setInverted(true);
+        wristRotator.setInverted(true);
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
-        intakeFollower.follow(intakeLeader, true);
 
         elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kForward, true);
         elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kReverse, true);
@@ -64,10 +62,8 @@ public class Intake extends SubsystemBase {
         wristRotator.enableSoftLimit(SoftLimitDirection.kForward, true);
         wristRotator.enableSoftLimit(SoftLimitDirection.kReverse, true);
 
-        intakeLeader.enableSoftLimit(SoftLimitDirection.kForward, false);
-        intakeLeader.enableSoftLimit(SoftLimitDirection.kReverse, false);
-        intakeFollower.enableSoftLimit(SoftLimitDirection.kForward, false);
-        intakeFollower.enableSoftLimit(SoftLimitDirection.kReverse, false);
+        intake.enableSoftLimit(SoftLimitDirection.kForward, false);
+        intake.enableSoftLimit(SoftLimitDirection.kReverse, false);
 
         // Will need to test these angle parameters when testing
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 160);
@@ -80,8 +76,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
-        intakeLeader.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-        intakeFollower.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+        intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
 
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
@@ -95,8 +90,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorLeader.burnFlash();
         elbowRotatorFollower.burnFlash();
         wristRotator.burnFlash();
-        intakeLeader.burnFlash();
-        intakeFollower.burnFlash();
+        intake.burnFlash();
     }
 
     public double getElbowEncoder() {
@@ -108,7 +102,7 @@ public class Intake extends SubsystemBase {
     }
 
     public double getIntakeCurrent() {
-        return intakeLeader.getOutputCurrent();
+        return intake.getOutputCurrent();
     }
 
     public double getIntakeSpeed() {
@@ -124,7 +118,7 @@ public class Intake extends SubsystemBase {
     }
 
     public void setIntakeVoltage(double setPoint) {
-        intakeLeader.setVoltage(setPoint);
+        intake.setVoltage(setPoint);
     }
 
     public void intakeLog(){
@@ -133,7 +127,6 @@ public class Intake extends SubsystemBase {
         if(elbowRotatorLeader.getFaults()!=0){Logger.warn("ELBWL: " + Short.toString(elbowRotatorLeader.getFaults()));}
         if(elbowRotatorFollower.getFaults()!=0){Logger.warn("ELBWF: " + Short.toString(elbowRotatorFollower.getFaults()));}
         if(wristRotator.getFaults()!=0){Logger.warn("WRIST: " + Short.toString(wristRotator.getFaults()));}
-        if(intakeLeader.getFaults()!=0){Logger.warn("INTKL: " + Short.toString(intakeLeader.getFaults()));}
-        if(intakeFollower.getFaults()!=0){Logger.warn("INTKF: " + Short.toString(intakeFollower.getFaults()));}
+        if(intake.getFaults()!=0){Logger.warn("INTKL: " + Short.toString(intake.getFaults()));}
     }
 }

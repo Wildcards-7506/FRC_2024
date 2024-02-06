@@ -23,8 +23,7 @@ public final class Constants {
         public static final int ELBOW_LEFT = 9;
         public static final int ELBOW_RIGHT = 10;
         public static final int WRIST = 11;
-        public static final int INTAKE_LEFT = 12;
-        public static final int INTAKE_RIGHT = 13;
+        public static final int INTAKE = 12;
         
         public static final int shooter_LEFT = 14;
         public static final int shooter_RIGHT = 15;

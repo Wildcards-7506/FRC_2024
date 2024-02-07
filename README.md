@@ -1,3 +1,5 @@
+Robot CAD: https://cad.onshape.com/documents/422928e74faff55a2b7e3115/w/bd0901fd7d8095d2719307df/e/b6718d1b03bd148cc952edf7
+
 Tasks to complete - 3 February 2024
 1. Link Right Elbow to Left
     a. Check with Rev HW Client, the setting may not have stuck on startup.

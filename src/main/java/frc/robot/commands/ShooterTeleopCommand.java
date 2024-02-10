@@ -24,6 +24,7 @@ public class ShooterTeleopCommand extends Command{
         }
 
         //If in shooting mode and intake is in shooting position, high speed
+        System.out.println(Robot.shooter.shootingMode + " " + PlayerConfigs.armScoringMechanism + Robot.shooter.getRSpeed());
         if(Robot.shooter.shootingMode && PlayerConfigs.armScoringMechanism){
             Robot.shooter.setShooterSpeed(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM);
         //If in shooting mode but not actively shooting, idle speed

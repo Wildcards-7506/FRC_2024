@@ -183,7 +183,7 @@ public final class Constants {
         public static double kElbowTrapScoring = 128.0;
         public static double kElbowAmp = 110.0;
         public static double kElbowUpConstraint = 118.0;
-        public static double kElbowStowed = 155.0;
+        public static double kElbowStowed = 130.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
@@ -200,7 +200,7 @@ public final class Constants {
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static double kLArmedRPM = -2700;
+        public static double kLArmedRPM = 2700;
         public static double kRArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
         public static double kPShooter = 6e-5; //<-This will be tine

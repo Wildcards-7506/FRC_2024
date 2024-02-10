@@ -38,9 +38,9 @@ public class Intake extends SubsystemBase {
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
         intake = new CANSparkMax(CANID.INTAKE, MotorType.kBrushless);
 
-        elbowRotatorLeader.setIdleMode(IdleMode.kBrake);
-        elbowRotatorFollower.setIdleMode(IdleMode.kBrake);
-        wristRotator.setIdleMode(IdleMode.kBrake);
+        elbowRotatorLeader.setIdleMode(IdleMode.kCoast);
+        elbowRotatorFollower.setIdleMode(IdleMode.kCoast);
+        wristRotator.setIdleMode(IdleMode.kCoast);
         intake.setIdleMode(IdleMode.kCoast);
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
@@ -50,7 +50,7 @@ public class Intake extends SubsystemBase {
         elbowPIDF = elbowRotatorLeader.getPIDController();
         wristPIDF = wristRotator.getPIDController();
 
-        intake.setInverted(true);
+        intake.setInverted(false);
         wristRotator.setInverted(true);
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
 
@@ -110,11 +110,11 @@ public class Intake extends SubsystemBase {
     }
     
     public void setElbowPosition(double setPoint) {
-        elbowPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        // elbowPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
 	public void setWristPosition(double setPoint) {
-        wristPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        // wristPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
     public void setIntakeVoltage(double setPoint) {

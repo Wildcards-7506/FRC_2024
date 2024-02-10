@@ -8,6 +8,8 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import frc.robot.Constants;
 import frc.robot.Constants.CANID;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.util.Logger;
@@ -31,6 +33,11 @@ public class Shooter extends SubsystemBase{
         shooterREncoder = shooterR.getEncoder();
         shooterRPIDF = shooterR.getPIDController();
 
+        shooterL.setSmartCurrentLimit(Constants.ShooterConstants.kShooterCurrentLimit);
+        shooterR.setSmartCurrentLimit(Constants.ShooterConstants.kShooterCurrentLimit);
+
+        shooterR.setInverted(true);
+
         shooterLPIDF.setP(ShooterConstants.kPShooter);
         shooterRPIDF.setP(ShooterConstants.kPShooter);
         shooterLPIDF.setFF(ShooterConstants.kVShooter);
@@ -42,7 +49,7 @@ public class Shooter extends SubsystemBase{
         shooterL.burnFlash();
         shooterR.burnFlash();
 
-        shootingMode = true;
+        shootingMode = false;
     }
 
     public double getRSpeed(){
@@ -55,7 +62,7 @@ public class Shooter extends SubsystemBase{
 
     public void setShooterSpeed(double lSpeed, double rSpeed) {
         shooterLPIDF.setReference(lSpeed, ControlType.kVelocity);
-        shooterRPIDF.setReference(rSpeed, ControlType.kVelocity);
+        shooterRPIDF.setReference(-rSpeed, ControlType.kVelocity);
     }
     
     public void shooterLog(){

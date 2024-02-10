@@ -265,8 +265,14 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     operator.getoperatorConfig();
-    Robot.intake.setElbowPosition(Robot.intake.getElbowEncoder() + 3*PlayerConfigs.fcElbow);
-    Robot.intake.setWristPosition(Robot.intake.getWristEncoder() + 3*PlayerConfigs.fcWrist);
+    Robot.intake.setElbowPosition(Robot.intake.getElbowEncoder() + 20*PlayerConfigs.fcElbow);
+    Robot.intake.setWristPosition(Robot.intake.getWristEncoder() + 20*PlayerConfigs.fcWrist);
+    System.out.println("Running" + Robot.intake.getElbowEncoder() + "\t" + PlayerConfigs.fcElbow);
+
+    SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
+    SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
+    SmartDashboard.putNumber("Wrist Position: ", Robot.intake.getWristEncoder());
+    SmartDashboard.putNumber("Elbow Position: ", Robot.intake.getElbowEncoder());
   }
 
   /** This function is called once when the robot is first started up. */

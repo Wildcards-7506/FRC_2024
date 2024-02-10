@@ -22,6 +22,8 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.intakeState = 2;
         } else if(!Robot.shooter.shootingMode && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
             Robot.intake.intakeState = 3;
+        } else if(PlayerConfigs.fcEnable){
+            Robot.intake.intakeState = 4;
         } else if(PlayerConfigs.stow){
             Robot.intake.intakeState = 0;
         }
@@ -64,6 +66,10 @@ public class IntakeTeleopCommand extends Command{
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
+        //Fine Control
+        } else if(Robot.intake.intakeState == 4) {
+            Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 20.0 * PlayerConfigs.fcElbow;
+            Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + 20.0 * PlayerConfigs.fcWrist;
         //Stow and Shoot
         } else {
             if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder()) < 10) && PlayerConfigs.armScoringMechanism) {

@@ -34,6 +34,7 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.stow = Robot.controller1.getLeftBumper();
 
         //Intake Fine Control
+        PlayerConfigs.fcEnable = Robot.controller1.getStartButton();
         PlayerConfigs.fcElbow = Robot.controller1.getLeftY();
         PlayerConfigs.fcWrist = Robot.controller1.getRightY();
 

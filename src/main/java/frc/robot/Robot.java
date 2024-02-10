@@ -107,23 +107,11 @@ public class Robot extends TimedRobot {
     Logger.info("SYSTEM","Robot Started");
 
     //SmartDashboard PIDF Tuning Setup
-    SmartDashboard.putNumber("Shooter P Gain", ShooterConstants.kPShooter);
     SmartDashboard.putNumber("Elbow P Gain", IntakeConstants.kPElbow);
     SmartDashboard.putNumber("Wrist P Gain", IntakeConstants.kPWrist);
     SmartDashboard.putNumber("Shooter FF Gain", ShooterConstants.kVShooter);
     SmartDashboard.putNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
     SmartDashboard.putNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
-    SmartDashboard.putNumber("Elbow Amp", IntakeConstants.kElbowAmp);
-    SmartDashboard.putNumber("Elbow Trap Pressure", IntakeConstants.kElbowTrapPressure);
-    SmartDashboard.putNumber("Elbow Trap Scoring", IntakeConstants.kElbowTrapScoring);
-    SmartDashboard.putNumber("Elbow Stow", IntakeConstants.kElbowStowed);
-    SmartDashboard.putNumber("Elbow Up Constraint", IntakeConstants.kElbowUpConstraint);
-    SmartDashboard.putNumber("Elbow Down Constraint", IntakeConstants.kElbowDownConstraint);
-    SmartDashboard.putNumber("Wrist Amp", IntakeConstants.kWristAmp);
-    SmartDashboard.putNumber("Wrist Trap", IntakeConstants.kWristTrap);
-    SmartDashboard.putNumber("Wrist Stow", IntakeConstants.kWristStowed);
-    SmartDashboard.putNumber("Wrist Shooting", IntakeConstants.kWristShooting);
-    SmartDashboard.putNumber("Wrist Constraint", IntakeConstants.kWristConstraint);
   }
 
   /**
@@ -137,29 +125,13 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
     //Update PIDF Values and Setpoints
-    double kPS = SmartDashboard.getNumber("Shooter P Gain", ShooterConstants.kPShooter);
     double kPE = SmartDashboard.getNumber("Elbow P Gain", IntakeConstants.kPElbow);
     double kPW = SmartDashboard.getNumber("Wrist P Gain", IntakeConstants.kPWrist);
     double kFS = SmartDashboard.getNumber("Shooter FF Gain", ShooterConstants.kVShooter);
     double SLA = SmartDashboard.getNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
     double SRA = SmartDashboard.getNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
-    double EA = SmartDashboard.getNumber("Elbow Amp", IntakeConstants.kElbowAmp);
-    double ETP = SmartDashboard.getNumber("Elbow Trap", IntakeConstants.kElbowTrapPressure);
-    double ETS = SmartDashboard.getNumber("Elbow Trap", IntakeConstants.kElbowTrapScoring);
-    double ES = SmartDashboard.getNumber("Elbow Stow", IntakeConstants.kElbowStowed);
-    double EUC = SmartDashboard.getNumber("Elbow Up Constraint", IntakeConstants.kElbowUpConstraint);
-    double EDC = SmartDashboard.getNumber("Elbow Down Constraint", IntakeConstants.kElbowDownConstraint);
-    double WA = SmartDashboard.getNumber("Wrist Amp", IntakeConstants.kWristAmp);
-    double WT = SmartDashboard.getNumber("Wrist Trap", IntakeConstants.kWristTrap);
-    double WST = SmartDashboard.getNumber("Wrist Stow", IntakeConstants.kWristStowed);
-    double WSH = SmartDashboard.getNumber("Wrist Shooting", IntakeConstants.kWristShooting);
-    double WC = SmartDashboard.getNumber("Wrist Constraint", IntakeConstants.kWristConstraint);
 
     // if PIDF coefficients on SmartDashboard have changed, write new values to controller
-    if((kPS != ShooterConstants.kPShooter)) {
-      shooter.shooterLPIDF.setP(kPS); 
-      shooter.shooterRPIDF.setP(kPS); 
-      ShooterConstants.kPShooter = kPS; }
     if((kPE != IntakeConstants.kPElbow)) {
       intake.elbowPIDF.setP(kPE); 
       IntakeConstants.kPElbow = kPE; }
@@ -174,28 +146,6 @@ public class Robot extends TimedRobot {
       ShooterConstants.kLArmedRPM = SLA; }
     if((SRA != ShooterConstants.kRArmedRPM)) {
       ShooterConstants.kRArmedRPM = SRA; }
-    if((EA != IntakeConstants.kElbowAmp)) {
-      IntakeConstants.kElbowAmp = EA; }
-    if((ETP != IntakeConstants.kElbowTrapPressure)) {
-      IntakeConstants.kElbowTrapPressure = ETP; }
-    if((ETS != IntakeConstants.kElbowTrapScoring)) {
-      IntakeConstants.kElbowTrapScoring = ETS; }
-    if((ES != IntakeConstants.kElbowStowed)) {
-      IntakeConstants.kElbowStowed = ES; }
-    if((EUC != IntakeConstants.kElbowUpConstraint)) {
-      IntakeConstants.kElbowUpConstraint = EUC; }
-    if((EDC != IntakeConstants.kElbowDownConstraint)) {
-      IntakeConstants.kElbowDownConstraint = EDC; }
-    if((WA != IntakeConstants.kWristAmp)) {
-      IntakeConstants.kWristAmp = WA; }
-    if((WT != IntakeConstants.kWristTrap)) {
-      IntakeConstants.kWristTrap = WT; }
-    if((WST != IntakeConstants.kWristStowed)) {
-      IntakeConstants.kWristStowed = WST; }
-    if((WSH != IntakeConstants.kWristShooting)) {
-      IntakeConstants.kWristShooting = WSH; }
-    if((WC != IntakeConstants.kWristConstraint)) {
-      IntakeConstants.kWristConstraint = WC; }
   }
 
   @Override
@@ -265,8 +215,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     operator.getoperatorConfig();
-    Robot.intake.setElbowPosition(Robot.intake.getElbowEncoder() + 3*PlayerConfigs.fcElbow);
-    Robot.intake.setWristPosition(Robot.intake.getWristEncoder() + 3*PlayerConfigs.fcWrist);
+    
   }
 
   /** This function is called once when the robot is first started up. */

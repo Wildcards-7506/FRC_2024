@@ -23,6 +23,8 @@ public class PlayerConfigs {
     public static boolean trap;
     public static boolean amp;
     public static boolean stow;
+    public static double fcElbow;
+    public static double fcWrist;
 
     //Shooter
     public static boolean armScoringMechanism;

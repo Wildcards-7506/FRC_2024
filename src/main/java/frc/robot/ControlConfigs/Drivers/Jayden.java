@@ -33,6 +33,10 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.amp = Robot.controller1.getBButton();
         PlayerConfigs.stow = Robot.controller1.getLeftBumper();
 
+        //Intake Fine Control
+        PlayerConfigs.fcElbow = Robot.controller1.getLeftY();
+        PlayerConfigs.fcWrist = Robot.controller1.getRightY();
+
         //Shooter Spin up
         PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;
         PlayerConfigs.shooterActive = Robot.controller1.getRightBumper();

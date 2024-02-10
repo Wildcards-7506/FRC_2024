@@ -258,11 +258,15 @@ public class Robot extends TimedRobot {
   /** This function is called once when test mode is enabled. */
   @Override
   public void testInit() {
+    operator = operator_chooser.getSelected();
   }
 
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
+    operator.getoperatorConfig();
+    Robot.intake.setElbowPosition(Robot.intake.getElbowEncoder() + 3*PlayerConfigs.fcElbow);
+    Robot.intake.setWristPosition(Robot.intake.getWristEncoder() + 3*PlayerConfigs.fcWrist);
   }
 
   /** This function is called once when the robot is first started up. */

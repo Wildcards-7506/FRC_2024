@@ -28,10 +28,13 @@ public class TestController extends PlayerConfigs {
 
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.intake = Robot.controller1.getLeftTriggerAxis()>0.2;
-        PlayerConfigs.trap = Robot.controller1.getXButton();
+        PlayerConfigs.intake = Robot.controller1.getAButton();
         PlayerConfigs.amp = Robot.controller1.getBButton();
-        PlayerConfigs.stow = Robot.controller1.getLeftBumper();
+        PlayerConfigs.stow = Robot.controller1.getYButton();
+
+        //Intake Fine Control
+        PlayerConfigs.fcElbow = Robot.controller1.getLeftY();
+        PlayerConfigs.fcWrist = Robot.controller1.getRightY();
 
         //Shooter Spin up
         PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;

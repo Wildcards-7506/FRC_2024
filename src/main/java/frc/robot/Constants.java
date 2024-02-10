@@ -195,7 +195,7 @@ public final class Constants {
         public static final double kWristShooting = 155.0;
         public static final double kWristStowed = 180.0;
 
-        public static final int kIntakeCurrentLimit = 20;
+        public static final int kIntakeCurrentLimit = 30;
       }
 
       public static final class ShooterConstants {

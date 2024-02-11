@@ -33,6 +33,11 @@ public class Controller extends PlayerConfigs {
         PlayerConfigs.amp = Robot.controller1.getXButton();
         PlayerConfigs.stow = Robot.controller1.getYButton();
 
+        //Intake Fine Control
+        PlayerConfigs.fcEnable = Robot.controller1.getStartButton();
+        PlayerConfigs.fcElbow = Robot.controller1.getLeftY();
+        PlayerConfigs.fcWrist = Robot.controller1.getRightY();
+
         //Shooter Spin Up
         PlayerConfigs.shooterActive = Robot.controller1.getRightBumper();
         PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;

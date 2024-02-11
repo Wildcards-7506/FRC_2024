@@ -89,8 +89,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
     SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
     SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
-    SmartDashboard.putNumber("Wrist Position: ", Robot.intake.m_wristEncoder.getDistance()/(2*Math.PI)*360 - Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 62);
-    SmartDashboard.putNumber("Elbow Position: ", Robot.intake.m_elbowEncoder.getDistance()/(2*Math.PI)*360 + 28);
+    SmartDashboard.putNumber("Wrist Position: ", Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62);
+    SmartDashboard.putNumber("Elbow Position: ", Robot.intake.getElbowEncoder() + 28);
     SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
     SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
     SmartDashboard.putNumber("Intake Speed", Robot.intake.m_intakeEncoder.getRate());

@@ -27,7 +27,7 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 public class Intake implements AutoCloseable {
     public double elbowSetPoint = IntakeConstants.kElbowStowed;
     public double wristSetPoint;
-    public double intakeState;
+    public double intakeState = 4;
     public boolean pieceAcquired;
     public boolean running;
     private Timer time = new Timer();
@@ -225,6 +225,10 @@ public class Intake implements AutoCloseable {
         } else if(PlayerConfigs.amp){
             Robot.intake.intakeState = 2;
             Robot.intake.pieceAcquired = false;
+        } else if(!Robot.shooter.shootingMode && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
+            Robot.intake.intakeState = 3;
+        } else if(PlayerConfigs.fcEnable){
+            Robot.intake.intakeState = 4;
         } else if(PlayerConfigs.stow){
             Robot.intake.intakeState = 0;
             Robot.intake.pieceAcquired = false;
@@ -270,6 +274,10 @@ public class Intake implements AutoCloseable {
                     } else {
                         Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
                     }
+                //Fine Control
+                } else if(Robot.intake.intakeState == 4) {
+                    Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28 + 20.0 * PlayerConfigs.fcElbow;
+                    Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 + 20.0 * PlayerConfigs.fcWrist;
                 //Stow and Shoot
                 } else {
                     if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder() - 28) < 10) && PlayerConfigs.armScoringMechanism) {

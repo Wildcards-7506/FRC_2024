@@ -31,6 +31,8 @@ public class Intake extends SubsystemBase {
     public int intakeState = 4; //<- CHANGE THIS TO ZERO BEFORE COMPS
     public boolean running = false;
     public boolean pieceAcquired = false;
+    public boolean fcControlElbow;
+    public boolean fcControlWrist;
 
     public Intake() {
         elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);

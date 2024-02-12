@@ -25,6 +25,10 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.intakeState = 3;
         } else if(PlayerConfigs.fcEnable){
             Robot.intake.intakeState = 4;
+            Robot.intake.fcControlElbow = false;
+            Robot.intake.fcControlWrist = false;
+            Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
+            Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
         } else if(PlayerConfigs.stow){
             Robot.intake.intakeState = 0;
         }
@@ -69,8 +73,22 @@ public class IntakeTeleopCommand extends Command{
             }
         //Fine Control
         } else if(Robot.intake.intakeState == 4) {
-            Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 20.0 * PlayerConfigs.fcElbow;
-            Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + 20.0 * PlayerConfigs.fcWrist;
+            if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
+                Robot.intake.fcControlElbow = true;
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 10.0 * PlayerConfigs.fcElbow; 
+            } else if(Robot.intake.fcControlElbow){
+                Robot.intake.fcControlElbow = false;
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
+            }
+
+            if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
+                Robot.intake.fcControlWrist = true;
+                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + 10.0 * PlayerConfigs.fcWrist;
+            } else if(Robot.intake.fcControlWrist){
+                Robot.intake.fcControlWrist = false;
+                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
+            }
+            
         //Stow and Shoot
         } else {
             if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder()) < 10) && PlayerConfigs.armScoringMechanism) {

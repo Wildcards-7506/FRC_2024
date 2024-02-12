@@ -30,6 +30,8 @@ public class Intake implements AutoCloseable {
     public double intakeState = 4;
     public boolean pieceAcquired;
     public boolean running;
+    public boolean fcControlElbow;
+    public boolean fcControlWrist;
     private Timer time = new Timer();
 
   // The arm gearbox represents a gearbox containing two Vex 775pro motors.
@@ -229,6 +231,10 @@ public class Intake implements AutoCloseable {
             Robot.intake.intakeState = 3;
         } else if(PlayerConfigs.fcEnable){
             Robot.intake.intakeState = 4;
+            Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28 + 20.0 * PlayerConfigs.fcElbow;
+            Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 + 20.0 * PlayerConfigs.fcWrist;
+            Robot.intake.fcControlElbow = false;   
+            Robot.intake.fcControlWrist = false;   
         } else if(PlayerConfigs.stow){
             Robot.intake.intakeState = 0;
             Robot.intake.pieceAcquired = false;
@@ -276,8 +282,21 @@ public class Intake implements AutoCloseable {
                     }
                 //Fine Control
                 } else if(Robot.intake.intakeState == 4) {
-                    Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28 + 20.0 * PlayerConfigs.fcElbow;
-                    Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 + 20.0 * PlayerConfigs.fcWrist;
+                    if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
+                        Robot.intake.fcControlElbow = true;
+                        Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28 + 20.0 * PlayerConfigs.fcElbow;
+                    } else if(Robot.intake.fcControlElbow){
+                        Robot.intake.fcControlElbow = false;
+                        Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28;
+                    }
+        
+                    if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
+                        Robot.intake.fcControlWrist = true;
+                        Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 + 20.0 * PlayerConfigs.fcWrist;
+                    } else if(Robot.intake.fcControlWrist){
+                        Robot.intake.fcControlWrist = false;
+                        Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62;
+                    }
                 //Stow and Shoot
                 } else {
                     if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder() - 28) < 10) && PlayerConfigs.armScoringMechanism) {

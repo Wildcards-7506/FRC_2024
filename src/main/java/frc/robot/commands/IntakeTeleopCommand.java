@@ -81,7 +81,7 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
             }
 
-            if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
+            if(Math.abs(PlayerConfigs.fcWrist) > 0.5){
                 Robot.intake.fcControlWrist = true;
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + 10.0 * PlayerConfigs.fcWrist;
             } else if(Robot.intake.fcControlWrist){

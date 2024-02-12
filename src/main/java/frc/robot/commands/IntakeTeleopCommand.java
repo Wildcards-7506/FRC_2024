@@ -18,6 +18,7 @@ public class IntakeTeleopCommand extends Command{
         if(PlayerConfigs.intake){
             Robot.intake.intakeState = 1;
             Robot.intake.pieceAcquired = false;
+            Robot.intake.running = false;
         } else if(PlayerConfigs.amp){
             Robot.intake.intakeState = 2;
         } else if(!Robot.shooter.shootingMode && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
@@ -93,7 +94,7 @@ public class IntakeTeleopCommand extends Command{
 
         if ((Robot.intake.intakeState == 1 && !Robot.intake.pieceAcquired) || (PlayerConfigs.fire)) {
             Robot.intake.setIntakeVoltage(12);
-            Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
+            Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : Robot.intake.running;
             Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;
         } else {
             Robot.intake.setIntakeVoltage(0);

@@ -35,8 +35,9 @@ public class Shooter extends SubsystemBase{
 
         shooterL.setSmartCurrentLimit(Constants.ShooterConstants.kShooterCurrentLimit);
         shooterR.setSmartCurrentLimit(Constants.ShooterConstants.kShooterCurrentLimit);
-
-        shooterR.setInverted(true);
+        
+        shooterL.setInverted(false);
+        shooterR.setInverted(false);
 
         shooterLPIDF.setP(ShooterConstants.kPShooter);
         shooterRPIDF.setP(ShooterConstants.kPShooter);

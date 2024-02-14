@@ -52,8 +52,8 @@ public class Intake extends SubsystemBase {
         elbowPIDF = elbowRotatorLeader.getPIDController();
         wristPIDF = wristRotator.getPIDController();
 
-        intake.setInverted(true);
-        wristRotator.setInverted(true);
+        // intake.setInverted(true);
+        wristRotator.setInverted(false);
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
 
         elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kForward, true);
@@ -112,11 +112,11 @@ public class Intake extends SubsystemBase {
     }
     
     public void setElbowPosition(double setPoint) {
-        elbowPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        // elbowPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
 	public void setWristPosition(double setPoint) {
-        wristPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        // wristPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
     public void setIntakeVoltage(double setPoint) {

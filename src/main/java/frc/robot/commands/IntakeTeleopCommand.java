@@ -9,12 +9,14 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class IntakeTeleopCommand extends Command{
     
-    public IntakeTeleopCommand(){
+    public IntakeTeleopCommand() {
         addRequirements(Robot.intake);
     }
     
     @Override
-    public void execute (){
+    public void execute () {
+        System.out.println(Robot.intake.intakeState + "\t" + !Robot.shooter.shootingMode);
+
         if(PlayerConfigs.intake){
             Robot.intake.intakeState = 1;
             Robot.intake.pieceAcquired = false;
@@ -35,13 +37,18 @@ public class IntakeTeleopCommand extends Command{
 
         //Ground State
         if (Robot.intake.intakeState == 1) {
+            System.out.println(Robot.intake.getElbowEncoder());
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
+                System.out.println(1);
             } else if (Robot.intake.getElbowEncoder() < 140){
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
+                System.out.println(2);
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+                System.out.println(3);
             }
+            
             if (Robot.intake.getWristEncoder() < -60 || Robot.intake.elbowSetPoint == IntakeConstants.kElbowGround){
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
             } else {
@@ -103,12 +110,11 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             }
 
-            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristShooting - 5 && !PlayerConfigs.armScoringMechanism){
+            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristShooting - 5 && !PlayerConfigs.armScoringMechanism) {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint;
             } else {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
             }
-                
         }
 
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);

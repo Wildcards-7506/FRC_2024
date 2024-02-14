@@ -200,11 +200,11 @@ public final class Constants {
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static double kLArmedRPM = -2700;
+        public static double kLArmedRPM = 2700;
         public static double kRArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
         public static final double kPShooter = 6e-5; //<-This will be tiny
-        public static double kVShooter = 0.001; //<-Simulation had this near 0.0021
+        public static final double kVShooter = 0.00015; //<-Simulation had this near 0.0021
         //Follow the process here to tune these values: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/tuning-flywheel.html
       }
 

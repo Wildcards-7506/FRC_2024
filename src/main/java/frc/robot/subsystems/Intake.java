@@ -52,8 +52,7 @@ public class Intake extends SubsystemBase {
         elbowPIDF = elbowRotatorLeader.getPIDController();
         wristPIDF = wristRotator.getPIDController();
 
-        intake.setInverted(false);
-        wristRotator.setInverted(true);
+        wristRotator.setInverted(false);
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
 
         elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kForward, true);

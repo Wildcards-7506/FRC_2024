@@ -15,8 +15,6 @@ public class IntakeTeleopCommand extends Command{
     
     @Override
     public void execute () {
-        System.out.println(Robot.intake.intakeState + "\t" + !Robot.shooter.shootingMode);
-
         if(PlayerConfigs.intake){
             Robot.intake.intakeState = 1;
             Robot.intake.pieceAcquired = false;
@@ -37,16 +35,12 @@ public class IntakeTeleopCommand extends Command{
 
         //Ground State
         if (Robot.intake.intakeState == 1) {
-            System.out.println(Robot.intake.getElbowEncoder());
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-                System.out.println(1);
             } else if (Robot.intake.getElbowEncoder() < 140){
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
-                System.out.println(2);
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-                System.out.println(3);
             }
             
             if (Robot.intake.getWristEncoder() < -60 || Robot.intake.elbowSetPoint == IntakeConstants.kElbowGround){
@@ -82,21 +76,17 @@ public class IntakeTeleopCommand extends Command{
         } else if(Robot.intake.intakeState == 4) {
             if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
                 Robot.intake.fcControlElbow = true;
-                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 60.0 * PlayerConfigs.fcElbow; 
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow; 
             } else if(Robot.intake.fcControlElbow){
                 Robot.intake.fcControlElbow = false;
-                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
-            } else {
                 Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
             }
 
             if(Math.abs(PlayerConfigs.fcWrist) > 0.5){
                 Robot.intake.fcControlWrist = true;
-                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + 10.0 * PlayerConfigs.fcWrist;
+                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + IntakeConstants.kWristManualOffset * PlayerConfigs.fcWrist;
             } else if(Robot.intake.fcControlWrist){
                 Robot.intake.fcControlWrist = false;
-                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
-            } else {
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
             }
             

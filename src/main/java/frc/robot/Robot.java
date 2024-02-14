@@ -109,7 +109,6 @@ public class Robot extends TimedRobot {
     //SmartDashboard PIDF Tuning Setup
     SmartDashboard.putNumber("Elbow P Gain", IntakeConstants.kPElbow);
     SmartDashboard.putNumber("Wrist P Gain", IntakeConstants.kPWrist);
-    SmartDashboard.putNumber("Shooter FF Gain", ShooterConstants.kVShooter);
     SmartDashboard.putNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
     SmartDashboard.putNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
   }
@@ -127,7 +126,6 @@ public class Robot extends TimedRobot {
     //Update PIDF Values and Setpoints
     double kPE = SmartDashboard.getNumber("Elbow P Gain", IntakeConstants.kPElbow);
     double kPW = SmartDashboard.getNumber("Wrist P Gain", IntakeConstants.kPWrist);
-    double kFS = SmartDashboard.getNumber("Shooter FF Gain", ShooterConstants.kVShooter);
     double SLA = SmartDashboard.getNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
     double SRA = SmartDashboard.getNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
 
@@ -138,10 +136,6 @@ public class Robot extends TimedRobot {
     if((kPW != IntakeConstants.kPWrist)) {
       intake.wristPIDF.setP(kPW); 
       IntakeConstants.kPWrist = kPW; }
-    if((kFS != ShooterConstants.kVShooter)) {
-      shooter.shooterLPIDF.setFF(kFS); 
-      shooter.shooterRPIDF.setFF(kFS); 
-      ShooterConstants.kVShooter = kFS; }
     if((SLA != ShooterConstants.kLArmedRPM)) {
       ShooterConstants.kLArmedRPM = SLA; }
     if((SRA != ShooterConstants.kRArmedRPM)) {
@@ -181,6 +175,8 @@ public class Robot extends TimedRobot {
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
     Robot.limelight.setDefaultCommand(new LimelightTeleopCommand());
     Robot.drivetrain.idleSwerve(IdleMode.kBrake);
+    Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
+    Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
   }
 
   /** This function is called periodically during operator control. */

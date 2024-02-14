@@ -26,8 +26,8 @@ public class Intake extends SubsystemBase {
     public SparkPIDController elbowPIDF;
     public SparkPIDController wristPIDF;
 
-    public double wristSetPoint  = IntakeConstants.kWristStowed;
-    public double elbowSetPoint  = IntakeConstants.kElbowStowed;
+    public double wristSetPoint;
+    public double elbowSetPoint;
     public int intakeState = 4; //<- CHANGE THIS TO ZERO BEFORE COMPS
     public boolean running = false;
     public boolean pieceAcquired = false;
@@ -111,11 +111,11 @@ public class Intake extends SubsystemBase {
     }
     
     public void setElbowPosition(double setPoint) {
-        // elbowPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        elbowPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
 	public void setWristPosition(double setPoint) {
-        // wristPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
+        wristPIDF.setReference(setPoint, CANSparkBase.ControlType.kPosition);
     }
 
     public void setIntakeVoltage(double setPoint) {

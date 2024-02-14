@@ -28,9 +28,11 @@ public class Intake extends SubsystemBase {
 
     public double wristSetPoint  = IntakeConstants.kWristStowed;
     public double elbowSetPoint  = IntakeConstants.kElbowStowed;
-    public int intakeState = 0;
+    public int intakeState = 4; //<- CHANGE THIS TO ZERO BEFORE COMPS
     public boolean running = false;
     public boolean pieceAcquired = false;
+    public boolean fcControlElbow;
+    public boolean fcControlWrist;
 
     public Intake() {
         elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
@@ -68,10 +70,10 @@ public class Intake extends SubsystemBase {
         // Will need to test these angle parameters when testing
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 160);
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
-        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 160);
-        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, 0);
+        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
+        elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, -160);
         wristRotator.setSoftLimit(SoftLimitDirection.kForward, 190);
-        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, 0);
+        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -90);
 
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);

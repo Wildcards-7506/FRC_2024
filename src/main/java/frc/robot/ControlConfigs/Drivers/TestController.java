@@ -33,6 +33,7 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.stow = Robot.controller1.getYButton();
 
         //Intake Fine Control
+        PlayerConfigs.fcEnable = Robot.controller1.getStartButton();
         PlayerConfigs.fcElbow = Robot.controller1.getLeftY();
         PlayerConfigs.fcWrist = Robot.controller1.getRightY();
 

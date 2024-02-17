@@ -202,11 +202,11 @@ public final class Constants {
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static double kLArmedRPM = 2700;
-        public static double kRArmedRPM = 3000;
+        public static double kLArmedRPM = 3500;
+        public static double kRArmedRPM = 4000;
         public static final double kPrimeRPM = 200;
         public static final double kPShooter = 6e-5;
-        public static final double kVShooter = 0.00015;
+        public static final double kVShooter = 0.00013;
       }
 
       public static final class ClimberConstants {

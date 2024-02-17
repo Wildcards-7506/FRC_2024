@@ -40,7 +40,7 @@ public class Shooter implements AutoCloseable {
         new FlywheelSim(
             m_flywheelGearbox,
             1.0,
-            0.0002341117);
+            0.002);
 
     private final EncoderSim m_flywheelEncoderSim = new EncoderSim(m_flywheelEncoder);
     private final PWMSim m_flywheelMotorSim = new PWMSim(m_flywheelMotor);

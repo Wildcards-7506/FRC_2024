@@ -176,7 +176,7 @@ public final class Constants {
       public static final class IntakeConstants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
-        public static double kPElbow = 0.0002;
+        public static double kPElbow = 0.02;
         public static final double kElbowGround = 0.0;
         public static final double kElbowDownConstraint = 40.0;
         public static final double kElbowTrapPressure = 110.0;

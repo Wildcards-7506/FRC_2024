@@ -88,7 +88,7 @@ public class IntakeTeleopCommand extends Command{
             //Grabbing position once eliminates gradual sinking due to gravity
             if(Math.abs(PlayerConfigs.fcElbow) > 0.25){
                 Robot.intake.fcControlElbow = true;
-                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() - IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow; 
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow; 
             } else if(Robot.intake.fcControlElbow){
                 Robot.intake.fcControlElbow = false;
                 Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
@@ -96,7 +96,7 @@ public class IntakeTeleopCommand extends Command{
 
             if(Math.abs(PlayerConfigs.fcWrist) > 0.25){
                 Robot.intake.fcControlWrist = true;
-                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - IntakeConstants.kWristManualOffset * PlayerConfigs.fcWrist;
+                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + IntakeConstants.kWristManualOffset * PlayerConfigs.fcWrist;
             } else if(Robot.intake.fcControlWrist){
                 Robot.intake.fcControlWrist = false;
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();

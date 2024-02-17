@@ -184,7 +184,7 @@ public final class Constants {
         public static final double kElbowAmp = 110.0;
         public static final double kElbowUpConstraint = 118.0;
         public static final double kElbowStowed = 130.0; // max is 138
-        public static final double kElbowManualOffset = 30.0;
+        public static final double kElbowManualOffset = 45.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;

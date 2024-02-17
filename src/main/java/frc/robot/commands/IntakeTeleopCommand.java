@@ -59,6 +59,8 @@ public class IntakeTeleopCommand extends Command{
             //Wrist stays in safe position (stowed or constrained) until elbow is in target position
             if (Robot.intake.getElbowEncoder() > 140) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint){
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
             } else if (Robot.intake.getElbowEncoder() < 115){
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else {
@@ -109,6 +111,8 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
             } else if(Robot.intake.getElbowEncoder() > 80){
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            } else if(Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint){
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
             } else {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             }

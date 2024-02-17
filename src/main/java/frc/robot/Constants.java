@@ -205,9 +205,8 @@ public final class Constants {
         public static double kLArmedRPM = 2700;
         public static double kRArmedRPM = 3000;
         public static final double kPrimeRPM = 200;
-        public static final double kPShooter = 6e-5; //<-This will be tiny
-        public static final double kVShooter = 0.00015; //<-Simulation had this near 0.0021
-        //Follow the process here to tune these values: https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/tuning-flywheel.html
+        public static final double kPShooter = 6e-5;
+        public static final double kVShooter = 0.00015;
       }
 
       public static final class ClimberConstants {
@@ -224,7 +223,7 @@ public final class Constants {
         public static final double kRotatorKP = 0.01; //<-Will probably be near this value, tune as necessary.
         public static final int kRotateCurrentLimit = 30;
         public static final double kIntakePosition = 180;
-        public static final double kPShooterosition = 0;
+        public static final double kPShooterPosition = 0;
       }
 
       public static final class LEDConstants {

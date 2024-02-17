@@ -15,7 +15,7 @@ public class LimelightTeleopCommand extends Command{
     public void execute (){
         Robot.limelight.updateData();
         if(Robot.shooter.shootingMode){
-            Robot.limelight.setLimelightPosition(LimelightConstants.kPShooterosition);
+            Robot.limelight.setLimelightPosition(LimelightConstants.kPShooterPosition);
         } else {
             Robot.limelight.setLimelightPosition(LimelightConstants.kIntakePosition);
         }

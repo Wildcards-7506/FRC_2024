@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
 
     public double wristSetPoint;
     public double elbowSetPoint;
-    public int intakeState = 4; //<- CHANGE THIS TO ZERO BEFORE COMPS
+    public int intakeState = 0; //<- CHANGE THIS TO ZERO BEFORE COMPS
     public boolean running = false;
     public boolean pieceAcquired = false;
     public boolean fcControlElbow;

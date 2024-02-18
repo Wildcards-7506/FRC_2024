@@ -15,15 +15,16 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.xMovement = Robot.controller0.getLeftX();
         PlayerConfigs.yMovement = Robot.controller0.getLeftY();
         PlayerConfigs.turnMovement = Robot.controller0.getRightX();
-        PlayerConfigs.fineControlToggle = Robot.controller0.getRightBumper();
+        PlayerConfigs.fineControlToggle = Robot.controller0.getLeftBumper();
         PlayerConfigs.snapUp = Robot.controller0.getPOV() == 0;
         PlayerConfigs.snapRight = Robot.controller0.getPOV() == 90;
         PlayerConfigs.snapDown = Robot.controller0.getPOV() == 180;
         PlayerConfigs.snapLeft = Robot.controller0.getPOV() == 270;
-        PlayerConfigs.align = Robot.controller0.getLeftBumper();
+        PlayerConfigs.align = Robot.controller0.getLeftTriggerAxis() > 0.2;
 
         //Scoring and grabbing objects
-        PlayerConfigs.fire = Robot.controller0.getRightTriggerAxis() > 0.2;
+        PlayerConfigs.fire = Robot.controller0.getRightBumper();
+        PlayerConfigs.reject = Robot.controller0.getRightTriggerAxis() > 0.2;
     } 
 
     public void getoperatorConfig() {

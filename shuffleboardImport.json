@@ -11,313 +11,46 @@
         "vgap": 16.0,
         "titleType": 1,
         "tiles": {
-          "11,1": {
-            "size": [
-              4,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Shooter Mode",
-              "_title": "Shooter Mode",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "11,2": {
-            "size": [
-              5,
-              3
-            ],
-            "content": {
-              "_type": "Grid Layout",
-              "_title": "Grid Layout",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Number of columns": 3,
-              "Layout/Number of rows": 3,
-              "Layout/Label position": "BOTTOM",
-              "_children": {
-                "0,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist Setpoint: ",
-                  "_title": "Wrist Setpoint: ",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Intake State: ",
-                  "_title": "Intake State: ",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "0,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist Position: ",
-                  "_title": "Wrist Position: ",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow Setpoint: ",
-                  "_title": "Elbow Setpoint: ",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow Position: ",
-                  "_title": "Elbow Position: ",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,2": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/error",
-                  "_title": "error",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,1": {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///SmartDashboard/Piece Acquired: ",
-                  "_title": "Piece Acquired: ",
-                  "_glyph": 148,
-                  "_showGlyph": false,
-                  "Colors/Color when true": "#7CFC00FF",
-                  "Colors/Color when false": "#8B0000FF"
-                },
-                "0,2": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Limelight Position",
-                  "_title": "Limelight Position",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,2": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Climber Position",
-                  "_title": "Climber Position",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              }
-            }
-          },
-          "0,0": {
-            "size": [
-              5,
-              3
-            ],
-            "content": {
-              "_type": "Field",
-              "_source0": "network_table:///SmartDashboard/Field",
-              "_title": "Field",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Game/Game": "k2024Crescendo",
-              "Visuals/Robot Icon Size": 20.0,
-              "Visuals/Show Outside Circles": false
-            }
-          },
-          "0,5": {
+          "3,0": {
             "size": [
               2,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_title": "Auto Delay",
+              "_source0": "network_table:///SmartDashboard/Shooter Status",
+              "_title": "Shooter Status",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "2,4": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/Skip Non-Path Commands",
-              "_title": "Skip Non-Path Commands",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,0": {
-            "size": [
-              6,
-              6
-            ],
-            "content": {
-              "_type": "Grid Layout",
-              "_title": "Grid Layout",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Number of columns": 3,
-              "Layout/Number of rows": 6,
-              "Layout/Label position": "TOP",
-              "_children": {
-                "0,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Shooter P Gain",
-                  "_title": "Shooter P Gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,5": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow Down Constraint",
-                  "_title": "Elbow Down Constraint",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "0,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Shooter FF Gain",
-                  "_title": "Shooter FF Gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow P Gain",
-                  "_title": "Elbow P Gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,5": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist Constraint",
-                  "_title": "Wrist Constraint",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,0": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist P Gain",
-                  "_title": "Wrist P Gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,2": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist Shooting",
-                  "_title": "Wrist Shooting",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist Stow",
-                  "_title": "Wrist Stow",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,3": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist Trap",
-                  "_title": "Wrist Trap",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "2,4": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Wrist Amp",
-                  "_title": "Wrist Amp",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,1": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow Stow",
-                  "_title": "Elbow Stow",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "0,3": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Shooter Left Armed",
-                  "_title": "Shooter Left Armed",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,3": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow Amp",
-                  "_title": "Elbow Amp",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,2": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow Up Constraint",
-                  "_title": "Elbow Up Constraint",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "0,2": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Shooter Right Armed",
-                  "_title": "Shooter Right Armed",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                "1,4": {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Elbow Trap",
-                  "_title": "Elbow Trap",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              }
-            }
-          },
-          "0,3": {
+          "3,1": {
             "size": [
               2,
               1
             ],
             "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Driver",
-              "_title": "Driver",
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Right Armed",
+              "_title": "Shooter Right Armed",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "0,4": {
+          "3,2": {
             "size": [
               2,
               1
             ],
             "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Operator",
-              "_title": "Operator",
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Left Armed",
+              "_title": "Shooter Left Armed",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "2,3": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto Chooser",
-              "_title": "Auto Chooser",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "13,0": {
+          "3,3": {
             "size": [
               2,
               1
@@ -330,7 +63,7 @@
               "_showGlyph": false
             }
           },
-          "11,0": {
+          "3,4": {
             "size": [
               2,
               1
@@ -339,6 +72,254 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Left Shooter Speed",
               "_title": "Left Shooter Speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Limelight Position",
+              "_title": "Limelight Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elbow P Gain",
+              "_title": "Elbow P Gain",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wrist P Gain",
+              "_title": "Wrist P Gain",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,1": {
+            "size": [
+              5,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elbow Status",
+              "_title": "Elbow Status",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,2": {
+            "size": [
+              5,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wrist Status",
+              "_title": "Wrist Status",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elbow Setpoint: ",
+              "_title": "Elbow Setpoint: ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elbow Position: ",
+              "_title": "Elbow Position: ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,3": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Skip Non-Path Commands",
+              "_title": "Skip Non-Path Commands",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wrist Position: ",
+              "_title": "Wrist Position: ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Wrist Setpoint: ",
+              "_title": "Wrist Setpoint: ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake State: ",
+              "_title": "Intake State: ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Piece Acquired: ",
+              "_title": "Piece Acquired: ",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "10,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Status",
+              "_title": "Intake Status",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "16,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Operator",
+              "_title": "Operator",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Chooser",
+              "_title": "Auto Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Position",
+              "_title": "Climber Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,4": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_title": "Auto Delay",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Driver",
+              "_title": "Driver",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Operator",
+              "_title": "Operator",
               "_glyph": 148,
               "_showGlyph": false
             }

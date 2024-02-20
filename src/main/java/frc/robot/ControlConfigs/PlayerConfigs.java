@@ -31,6 +31,7 @@ public class PlayerConfigs {
     public static boolean armScoringMechanism;
     public static boolean shooterActive;
     public static boolean fire;
+    public static boolean reject;
 
     //Climbers
     public static boolean climberUp;

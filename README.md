@@ -1,17 +1,24 @@
 Robot CAD: https://cad.onshape.com/documents/422928e74faff55a2b7e3115/w/bd0901fd7d8095d2719307df/e/b6718d1b03bd148cc952edf7
 
-Tasks to complete - 3 February 2024
-1. Link Right Elbow to Left
-    a. Check with Rev HW Client, the setting may not have stuck on startup.
-    b. Check that the Right Elbow is following the correct CAN ID (9)
-    b. Right elbow MUST be reversed, motors should rotate towards and away from one another, never in the same direction
-2. PIDF Tuning
-    a. Robot.java has been set up to adjust P values on the fly through the smart dashboard. Tune Elbow, Wrist, and Shooter using these
-    b. Once good P values are found, replace Constants and change variables to final.
-3. On-Bot Intake Test
-    a. Left Elbow goes on the left hand side when standing where the intake should land. 
-    b. Wrist appears to be set up to go on the right hand side.
-    c. Remember, the motor axles are not moving, the motors themselves are. Motion is reversed from what the test board is showing you
-4. Auto Path Verification
-    a. Make sure the robot can handle new auto paths running faster.
-    b. Trident, Jaguar Up, and Jaguar Down are probably the only routines you can run on that small section of carpet, All others go to the centerline. Maybe we get lucky, but check first.
+Tasks to complete - 20 February 2024
+1. Update Shuffleboard for Tuning Procedure - Open shuffleboard > File > Load Layout > ShuffleboardImport.json within the robot folder
+2. Tune Setpoints
+    a. In Manual Control, go to each setpoint below and record setpoints. CAD values in degrees are given for reference.
+        1. Ground - 0,0 Power On State
+        2. Elbow Horizontal (Elbow Down Constraint) - CAD 28
+        3. Wrist Constraint - With elbow horizontal, bring wrist in until intake is clear of 12 inch rule. CAD -75
+        4. Elbow Vertical (Elbow Up Constraint) - CAD 118
+        5. Wrist Stow - Intake a ring, then bring the wrist around until the elbow can be moved in any position without collisions. CAD 180
+        6. Elbow Stow/Wrist Shoot - Bring elbow down to shooter, then move wrist out to approximate shooting position. CAD 155/155 
+        7. AMP Positions - CAD 110/-10
+        8. Trap Scoring - CAD 138/20
+        9. Trap Pressure not to be tested yet. Tune at climb test.
+    b. Once setpoints have been tuned, progress through preset buttons to make sure the robot does not have clashing problems.
+3. Shooter Tuning
+    a. Many bounce-outs were seen at week 0 events due to robots shooting too hard with no spin.
+        1. Tune shooter speed to be strong but not overpowered.
+        2. Tune wheel difference to generate some spin on the ring.
+    b. Test feed from intake to make sure intake wheels are not dragging the shot
+4. Intake Tuning
+    a. Tune Intake Current Limit to intake ring securely while conserving motor life (Motor load + not spinning = hot motor = magic smoke).
+5. Light Driver's Practice

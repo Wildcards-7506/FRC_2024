@@ -178,11 +178,11 @@ public final class Constants {
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
         public static double kPElbow = 0.0002;
         public static final double kElbowGround = 0.0;
-        public static final double kElbowDownConstraint = 40.0;
+        public static final double kElbowDownConstraint = 75.0;
         public static final double kElbowTrapPressure = 110.0;
         public static final double kElbowTrapScoring = 128.0;
         public static final double kElbowAmp = 110.0;
-        public static final double kElbowUpConstraint = 118.0;
+        public static final double kElbowUpConstraint = 95.0;
         public static final double kElbowStowed = 130.0; // max is 138
         public static final double kElbowManualOffset = 30.0;
 
@@ -223,7 +223,7 @@ public final class Constants {
         public static final double kRotatorKP = 0.01; //<-Will probably be near this value, tune as necessary.
         public static final int kRotateCurrentLimit = 30;
         public static final double kIntakePosition = 180;
-        public static final double kPShooterPosition = 0;
+        public static final double kShooterPosition = 0;
       }
 
       public static final class LEDConstants {

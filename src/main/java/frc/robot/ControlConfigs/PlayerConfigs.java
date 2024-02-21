@@ -19,8 +19,7 @@ public class PlayerConfigs {
     public static boolean align;
 
     //Intake
-    public static boolean intake;
-    public static boolean trap;
+    public static boolean ground;
     public static boolean amp;
     public static boolean stow;
     public static boolean fcEnable;

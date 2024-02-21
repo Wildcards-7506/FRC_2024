@@ -17,4 +17,4 @@ public class AutoIntakeStowToGround extends SequentialCommandGroup{
             new AutoIntakeWristSet(IntakeConstants.kWristGround,5)
         );
     }
-}
+}  

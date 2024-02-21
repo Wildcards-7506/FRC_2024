@@ -42,7 +42,7 @@ public class IntakeTeleopCommand extends Command{
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint) {
                 SmartDashboard.putString("Wrist Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-            } else if (Robot.intake.getElbowEncoder() < 140){
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint + 5){
                 SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Constrain");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else {
@@ -52,7 +52,7 @@ public class IntakeTeleopCommand extends Command{
             
             // Only move to ground when wrist is constrained to not break extension rule
             // Prevent fluttering as wrist comes out to ground position by locking elbow setpoint to ground once triggered
-            if (Robot.intake.getWristEncoder() < -60 || Robot.intake.elbowSetPoint == IntakeConstants.kElbowGround){
+            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristConstraint || Robot.intake.elbowSetPoint == IntakeConstants.kElbowGround){
                 SmartDashboard.putString("Elbow Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
             } else {

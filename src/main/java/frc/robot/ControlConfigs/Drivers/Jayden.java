@@ -29,8 +29,7 @@ public class Jayden extends PlayerConfigs {
 
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.intake = Robot.controller1.getLeftTriggerAxis()>0.2;
-        PlayerConfigs.trap = Robot.controller1.getXButton();
+        PlayerConfigs.ground = Robot.controller1.getLeftTriggerAxis()>0.2;
         PlayerConfigs.amp = Robot.controller1.getBButton();
         PlayerConfigs.stow = Robot.controller1.getLeftBumper();
 

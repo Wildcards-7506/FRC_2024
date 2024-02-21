@@ -15,14 +15,14 @@ public class IntakeTeleopCommand extends Command{
     
     @Override
     public void execute () {
-        if(PlayerConfigs.intake){
+        if(PlayerConfigs.ground){
             Robot.intake.intakeState = 1;
             Robot.intake.pieceAcquired = false;
             Robot.intake.running = false;
         } else if(PlayerConfigs.amp){
             Robot.intake.intakeState = 2;
-        } else if(!Robot.shooter.shootingMode && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
-            //Only climber control can initiate trap position, no manual triggering allowed
+        } else if(!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
+            //Only climber control can initiate trap position, no manual triggering allowed, must start from stow position
             //To activate trap, disable shooter and run climber down
             Robot.intake.intakeState = 3;
         } else if(PlayerConfigs.fcEnable){
@@ -62,16 +62,12 @@ public class IntakeTeleopCommand extends Command{
         //Amp State
         } else if (Robot.intake.intakeState == 2) {
             //Wrist stays in safe position (stowed or constrained) until elbow is in target range (between 115 and 140ish)
-            if (Robot.intake.getElbowEncoder() > 140) {
+            if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 20) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too High, Stowed");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            } else if (Robot.intake.getElbowEncoder() < 115){
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp - 5){
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
-                if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint){
-                    Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-                } else {
-                    Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
-                }                
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();              
             } else {
                 SmartDashboard.putString("Wrist Status", "Amp - Success! Setting Amp Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
@@ -129,15 +125,12 @@ public class IntakeTeleopCommand extends Command{
             if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder()) < 10) && PlayerConfigs.armScoringMechanism) {
                 SmartDashboard.putString("Wrist Status", "Stow - Success! Setting Shooting Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
-            } else if(Robot.intake.getElbowEncoder() > 80){
+            } else if(Robot.intake.getElbowEncoder() > IntakeConstants.kElbowDownConstraint){
                 SmartDashboard.putString("Wrist Status", "Stow - Success! Setting Stow Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            } else if(Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint){
+            } else {
                 SmartDashboard.putString("Wrist Status", "Stow - DANGER, Constrain Away From Frame");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
-            } else {
-                SmartDashboard.putString("Wrist Status", "Stow - Elbow Too Low, Constrain");
-                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             }
             
             //Only move elbow all the way to stow position if wrist is already in stowed position

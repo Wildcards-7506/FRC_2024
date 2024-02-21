@@ -28,7 +28,7 @@ public class TestController extends PlayerConfigs {
 
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.intake = Robot.controller1.getAButton();
+        PlayerConfigs.ground = Robot.controller1.getAButton();
         PlayerConfigs.amp = Robot.controller1.getBButton();
         PlayerConfigs.stow = Robot.controller1.getYButton();
 

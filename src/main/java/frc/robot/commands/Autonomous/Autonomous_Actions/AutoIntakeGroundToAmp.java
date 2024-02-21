@@ -13,9 +13,10 @@ public class AutoIntakeGroundToAmp extends SequentialCommandGroup{
         //sets intake to stow, lifts elbow to stow
         addCommands(
             new ParallelCommandGroup(
-                new AutoIntakeWristSet(IntakeConstants.kWristAmp,5),
+                new AutoIntakeWristSet(IntakeConstants.kWristConstraint,5),
                 new AutoIntakeElbowSet(IntakeConstants.kElbowAmp, 10)
-            )
+            ),
+            new AutoIntakeWristSet(IntakeConstants.kWristAmp,5)
         );
     }
 }

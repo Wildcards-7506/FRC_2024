@@ -176,7 +176,7 @@ public final class Constants {
       public static final class IntakeConstants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
-        public static double kPElbow = 0.0002;
+        public static double kPElbow = 0.02;
         public static final double kElbowGround = 0.0;
         public static final double kElbowDownConstraint = 75.0;
         public static final double kElbowTrapPressure = 110.0;
@@ -184,7 +184,7 @@ public final class Constants {
         public static final double kElbowAmp = 110.0;
         public static final double kElbowUpConstraint = 95.0;
         public static final double kElbowStowed = 130.0; // max is 138
-        public static final double kElbowManualOffset = 30.0;
+        public static final double kElbowManualOffset = 45.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
@@ -195,7 +195,7 @@ public final class Constants {
         public static final double kWristTrap = 20.0;
         public static final double kWristShooting = 155.0;
         public static final double kWristStowed = 180.0;
-        public static final double kWristManualOffset = 30.0;
+        public static final double kWristManualOffset = 45.0;
 
         public static final int kIntakeCurrentLimit = 30;
       }

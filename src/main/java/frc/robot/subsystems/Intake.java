@@ -35,8 +35,8 @@ public class Intake extends SubsystemBase {
     public boolean fcControlWrist;
 
     public Intake() {
-        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
-        elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
+        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
+        elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
         intake = new CANSparkMax(CANID.INTAKE, MotorType.kBrushless);
 
@@ -52,6 +52,7 @@ public class Intake extends SubsystemBase {
         elbowPIDF = elbowRotatorLeader.getPIDController();
         wristPIDF = wristRotator.getPIDController();
 
+        elbowRotatorLeader.setInverted(false);
         wristRotator.setInverted(false);
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
 
@@ -72,7 +73,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, -160);
         wristRotator.setSoftLimit(SoftLimitDirection.kForward, 190);
-        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -90);
+        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -80);
 
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);

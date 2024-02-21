@@ -73,7 +73,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, -160);
         wristRotator.setSoftLimit(SoftLimitDirection.kForward, 190);
-        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -90);
+        wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -30);
 
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);

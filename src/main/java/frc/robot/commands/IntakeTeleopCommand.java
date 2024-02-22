@@ -15,11 +15,11 @@ public class IntakeTeleopCommand extends Command{
     
     @Override
     public void execute () {
-        if(PlayerConfigs.ground){
+        if(PlayerConfigs.ground && Robot.intake.intakeState != 3){
             Robot.intake.intakeState = 1;
             Robot.intake.pieceAcquired = false;
             Robot.intake.running = false;
-        } else if(PlayerConfigs.amp){
+        } else if(PlayerConfigs.amp && Robot.intake.intakeState != 3){
             Robot.intake.intakeState = 2;
         } else if(!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
             //Only climber control can initiate trap position, no manual triggering allowed, must start from stow position
@@ -129,17 +129,17 @@ public class IntakeTeleopCommand extends Command{
                 SmartDashboard.putString("Wrist Status", "Stow - Success! Setting Stow Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             } else {
-                SmartDashboard.putString("Wrist Status", "Stow - DANGER, Constrain Away From Frame");
+                SmartDashboard.putString("Wrist Status", "Stow - Elbow Too Low, Constrain Away From Frame");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
             }
             
             //Only move elbow all the way to stow position if wrist is already in stowed position
-            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristShooting - 5 && !PlayerConfigs.armScoringMechanism) {
-                SmartDashboard.putString("Elbow Status", "Stow - Wrist Exposed, Constrain");
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint;
-            } else {
+            if (Robot.intake.getWristEncoder() > IntakeConstants.kWristStowed - 5 || Robot.intake.elbowSetPoint == IntakeConstants.kElbowStowed) {
                 SmartDashboard.putString("Elbow Status", "Stow - Success! Setting Stow Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
+            } else {
+                SmartDashboard.putString("Elbow Status", "Stow - Wrist Exposed, Constrain");
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint;
             }
         }
 

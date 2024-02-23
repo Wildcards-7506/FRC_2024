@@ -212,6 +212,7 @@ public final class Constants {
         public static final int kClimberCurrentLimit = 50;
         public static final int downLimit = 24;
         public static final int upLimit = 0;
+        public static final int scoringHeight = 23;
       }
 
       public static final class LimelightConstants {

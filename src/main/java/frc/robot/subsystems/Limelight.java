@@ -6,6 +6,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
@@ -66,14 +67,15 @@ public class Limelight implements AutoCloseable{
     public double limelightSetpoint;
 
     public NetworkTable table;
-    private NetworkTableEntry tx;
-    private NetworkTableEntry ta;
-    private NetworkTableEntry tv;
-    private NetworkTableEntry ty;
+    private double tx;
     private NetworkTableEntry tid;
+
+    private Timer time = new Timer();
 
     public Limelight () {
         m_limelightEncoder.setDistancePerPulse(1.0/15);
+        time.reset();
+        time.start();
     }
 
         /** Update the simulation model. */
@@ -119,7 +121,6 @@ public class Limelight implements AutoCloseable{
 
         } else {
             limelightSetpoint = LimelightConstants.kIntakePosition;
-            
         }
 
         SmartDashboard.putNumber("Limelight Setpoint", limelightSetpoint);
@@ -132,31 +133,13 @@ public class Limelight implements AutoCloseable{
     public void updateData() {
         // update table, then update from updated table
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        ta = table.getEntry("ta");
-        tv = table.getEntry("tv");
-        tx = table.getEntry("tx");
-        ty = table.getEntry("ty");
+        tx = time.get()%10 > 9 ? 1.0 : 10.0;
         tid = table.getEntry("tid");
     }
 
     public double getTX() {
         updateData();
-        return tx.getDouble(0.0);
-    }
-
-    public double getTY() {
-        updateData();
-        return ty.getDouble(0.0);
-    }
-
-    public double getTA() {
-        updateData();
-        return ta.getDouble(0.0);
-    }
-
-    public double getTV() {
-        updateData();
-        return tv.getDouble(0.0);
+        return tx;
     }
 
     public double getID() {

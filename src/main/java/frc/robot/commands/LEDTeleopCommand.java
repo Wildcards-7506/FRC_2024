@@ -49,7 +49,7 @@ public class LEDTeleopCommand extends Command{
 
         if(Robot.climbers.getClimberEncoder() > 1){
             if(Robot.climbers.getClimberEncoder() < ClimberConstants.scoringHeight){
-                Robot.ledSystem.solid(offState, LEDConstants.SV_FULL, (int)Robot.climbers.getClimberEncoder()*60/22);
+                Robot.ledSystem.solid(offState, LEDConstants.SV_FULL, (int)Robot.climbers.getClimberEncoder()*255/ClimberConstants.scoringHeight);
             } else {
                 Robot.ledSystem.rainbow();
             }

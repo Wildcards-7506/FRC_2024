@@ -111,7 +111,6 @@ public final class AutoRoutines {
     NamedCommands.registerCommand("AutoIntakeGroundToStow", new AutoIntakeGroundToStow());
     NamedCommands.registerCommand("AutoIntakeGroundToAmp", new AutoIntakeGroundToAmp());
     NamedCommands.registerCommand("AutoIntakeAmpToGround", new AutoIntakeAmpToGround());
-    NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false));
     NamedCommands.registerCommand("AutoAmpSet", new AutoAmpSet());
     NamedCommands.registerCommand("AutoAmpScore", new AutoIntake_Trigger(0.5, true));
   }

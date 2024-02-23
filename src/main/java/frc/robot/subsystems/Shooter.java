@@ -4,7 +4,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -35,17 +34,11 @@ public class Shooter extends SubsystemBase{
 
         shooterL.setSmartCurrentLimit(Constants.ShooterConstants.kShooterCurrentLimit);
         shooterR.setSmartCurrentLimit(Constants.ShooterConstants.kShooterCurrentLimit);
-        
-        shooterL.setInverted(false);
-        shooterR.setInverted(false);
 
         shooterLPIDF.setP(ShooterConstants.kPShooter);
         shooterRPIDF.setP(ShooterConstants.kPShooter);
         shooterLPIDF.setFF(ShooterConstants.kVShooter);
         shooterRPIDF.setFF(ShooterConstants.kVShooter);
-
-        shooterL.setIdleMode(IdleMode.kCoast);
-        shooterR.setIdleMode(IdleMode.kCoast);
 
         shooterL.burnFlash();
         shooterR.burnFlash();

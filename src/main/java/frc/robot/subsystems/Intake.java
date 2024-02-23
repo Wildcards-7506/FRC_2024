@@ -21,16 +21,13 @@ public class Intake extends SubsystemBase {
     
     private RelativeEncoder elbowEncoder;
     private RelativeEncoder wristEncoder;
-    private RelativeEncoder intakeEncoder;
 
     public SparkPIDController elbowPIDF;
     public SparkPIDController wristPIDF;
 
     public double wristSetPoint;
     public double elbowSetPoint;
-    public int intakeState = 0; //<- CHANGE THIS TO ZERO BEFORE COMPS
-    public boolean running = false;
-    public boolean pieceAcquired = false;
+    public int intakeState = 4; //<- CHANGE THIS TO ZERO BEFORE COMPS
     public boolean fcControlElbow;
     public boolean fcControlWrist;
 
@@ -47,13 +44,10 @@ public class Intake extends SubsystemBase {
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
         wristEncoder = wristRotator.getEncoder();
-        intakeEncoder = intake.getEncoder();
 
         elbowPIDF = elbowRotatorLeader.getPIDController();
         wristPIDF = wristRotator.getPIDController();
 
-        elbowRotatorLeader.setInverted(false);
-        wristRotator.setInverted(false);
         elbowRotatorFollower.follow(elbowRotatorLeader, true);
 
         elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kForward, true);
@@ -63,9 +57,6 @@ public class Intake extends SubsystemBase {
     
         wristRotator.enableSoftLimit(SoftLimitDirection.kForward, true);
         wristRotator.enableSoftLimit(SoftLimitDirection.kReverse, true);
-
-        intake.enableSoftLimit(SoftLimitDirection.kForward, false);
-        intake.enableSoftLimit(SoftLimitDirection.kReverse, false);
 
         // Will need to test these angle parameters when testing
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 160);
@@ -105,10 +96,6 @@ public class Intake extends SubsystemBase {
 
     public double getIntakeCurrent() {
         return intake.getOutputCurrent();
-    }
-
-    public double getIntakeSpeed() {
-        return intakeEncoder.getVelocity();
     }
     
     public void setElbowPosition(double setPoint) {

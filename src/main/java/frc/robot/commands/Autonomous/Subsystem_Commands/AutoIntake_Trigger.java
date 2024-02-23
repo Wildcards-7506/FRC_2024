@@ -32,7 +32,6 @@ public class AutoIntake_Trigger extends Command{
         if(!Robot.skipNonPath){  
             Logger.info("INTKE", Double.toString(Robot.intake.getIntakeCurrent()) + " Amps");
             Robot.intake.setIntakeVoltage(12);
-            Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : false;
         }
     }
 
@@ -40,21 +39,23 @@ public class AutoIntake_Trigger extends Command{
     @Override
     public void end(boolean interrupted) {
         if(!Robot.skipNonPath){  
-            if(time.get() > 3){
+            if(time.get() > runTime){
                 Logger.info("INTKE", "Piece Missed");
-            } else if(time.get()>0.5 && shooting){
+            } else if(time.get() > 0.5 && shooting){
                 Logger.info("INTKE", "Shot Fired");
             } else {
                 Logger.info("INTKE", "Piece Acquired");
             }
             Robot.intake.setIntakeVoltage(0);
-            Robot.intake.running = false;
         }
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  Robot.skipNonPath || time.get() > 3 || (time.get() > 0.5 && shooting)|| (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20);
+        return  Robot.skipNonPath || 
+                time.get() > runTime || 
+                (time.get() > 0.5 && shooting)|| 
+                (time.get() > 1 && Robot.intake.getIntakeCurrent() > 24);
     }
 }

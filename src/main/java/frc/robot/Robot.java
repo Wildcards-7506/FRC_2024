@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
@@ -109,8 +108,6 @@ public class Robot extends TimedRobot {
     //SmartDashboard PIDF Tuning Setup
     SmartDashboard.putNumber("Elbow P Gain", IntakeConstants.kPElbow);
     SmartDashboard.putNumber("Wrist P Gain", IntakeConstants.kPWrist);
-    SmartDashboard.putNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
-    SmartDashboard.putNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
   }
 
   /**
@@ -122,12 +119,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
+    SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
     //Update PIDF Values and Setpoints
     double kPE = SmartDashboard.getNumber("Elbow P Gain", IntakeConstants.kPElbow);
     double kPW = SmartDashboard.getNumber("Wrist P Gain", IntakeConstants.kPWrist);
-    double SLA = SmartDashboard.getNumber("Shooter Left Armed", ShooterConstants.kLArmedRPM);
-    double SRA = SmartDashboard.getNumber("Shooter Right Armed", ShooterConstants.kRArmedRPM);
 
     // if PIDF coefficients on SmartDashboard have changed, write new values to controller
     if((kPE != IntakeConstants.kPElbow)) {
@@ -136,10 +131,6 @@ public class Robot extends TimedRobot {
     if((kPW != IntakeConstants.kPWrist)) {
       intake.wristPIDF.setP(kPW); 
       IntakeConstants.kPWrist = kPW; }
-    if((SLA != ShooterConstants.kLArmedRPM)) {
-      ShooterConstants.kLArmedRPM = SLA; }
-    if((SRA != ShooterConstants.kRArmedRPM)) {
-      ShooterConstants.kRArmedRPM = SRA; }
   }
 
   @Override

@@ -21,9 +21,6 @@ public class Limelight extends SubsystemBase{
 
     public NetworkTable table;
     private NetworkTableEntry tx;
-    private NetworkTableEntry ta;
-    private NetworkTableEntry tv;
-    private NetworkTableEntry ty;
     private NetworkTableEntry tid;
 
     private SparkPIDController limelightPIDController;
@@ -58,31 +55,13 @@ public class Limelight extends SubsystemBase{
     public void updateData() {
         // update table, then update from updated table
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        ta = table.getEntry("ta");
-        tv = table.getEntry("tv");
         tx = table.getEntry("tx");
-        ty = table.getEntry("ty");
         tid = table.getEntry("tid");
     }
 
     public double getTX() {
         updateData();
         return tx.getDouble(0.0);
-    }
-
-    public double getTY() {
-        updateData();
-        return ty.getDouble(0.0);
-    }
-
-    public double getTA() {
-        updateData();
-        return ta.getDouble(0.0);
-    }
-
-    public double getTV() {
-        updateData();
-        return tv.getDouble(0.0);
     }
 
     public double getID() {

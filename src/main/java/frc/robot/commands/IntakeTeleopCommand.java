@@ -17,8 +17,6 @@ public class IntakeTeleopCommand extends Command{
     public void execute () {
         if(PlayerConfigs.ground && Robot.intake.intakeState != 3){
             Robot.intake.intakeState = 1;
-            Robot.intake.pieceAcquired = false;
-            Robot.intake.running = false;
         } else if(PlayerConfigs.amp && Robot.intake.intakeState != 3){
             Robot.intake.intakeState = 2;
         } else if(!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
@@ -148,20 +146,15 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 
         //Run the intake if a piece has not been acquired in ground position or fire button is pressed
-        if ((Robot.intake.intakeState == 1 && !Robot.intake.pieceAcquired) || (PlayerConfigs.fire)) {
-            SmartDashboard.putString("Intake Status", "Intaking");
-            Robot.intake.setIntakeVoltage(12);
-            //A game piece is considered captured if the intake has passed 200 rpm (gets rid of stall current spike when starting) and a current spike is detected.
-            //Tune current trip point to avoid false positives but also intake the piece securely
-            Robot.intake.running = Robot.intake.getIntakeSpeed() > 200 ? true : Robot.intake.running;
-            Robot.intake.pieceAcquired = (Robot.intake.running && Robot.intake.getIntakeCurrent() > 20) ? true : false;
-        } else if(PlayerConfigs.reject){
+        if(PlayerConfigs.reject){
             SmartDashboard.putString("Intake Status", "Rejecting");
             Robot.intake.setIntakeVoltage(-12);
+        } else if (Robot.intake.intakeState == 1  || PlayerConfigs.fire) {
+            SmartDashboard.putString("Intake Status", "Intaking");
+            Robot.intake.setIntakeVoltage(12);
         } else {
             SmartDashboard.putString("Intake Status", "Holding");
             Robot.intake.setIntakeVoltage(0);
-            Robot.intake.running = false;
         }
 
         SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
@@ -169,7 +162,7 @@ public class IntakeTeleopCommand extends Command{
         SmartDashboard.putNumber("Wrist Position: ", Robot.intake.getWristEncoder());
         SmartDashboard.putNumber("Elbow Position: ", Robot.intake.getElbowEncoder());
         SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
-        SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.pieceAcquired);
+        SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.getIntakeCurrent() > 20);
 
         Robot.intake.intakeLog();
     }

@@ -202,8 +202,8 @@ public final class Constants {
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static double kLArmedRPM = 3500;
-        public static double kRArmedRPM = 4000;
+        public static final double kLArmedRPM = 3500;
+        public static final double kRArmedRPM = 4000;
         public static final double kPrimeRPM = 200;
         public static final double kPShooter = 6e-5;
         public static final double kVShooter = 0.00013;
@@ -214,7 +214,7 @@ public final class Constants {
         public static final int kClimberCurrentLimit = 50;
         public static final int downLimit = 24;
         public static final int upLimit = 0;
-        public static final int scoringHeight = 18;
+        public static final int scoringHeight = 23;
       }
 
       public static final class LimelightConstants {
@@ -229,6 +229,8 @@ public final class Constants {
       public static final class LEDConstants {
         public static final int pwmPort = 0;
         public static final int bufferSize = 30;
+
+        public static final int BLUE_OFFSET = 90;
 
         public static final int RED = 0;
         public static final int ORANGE = 15;

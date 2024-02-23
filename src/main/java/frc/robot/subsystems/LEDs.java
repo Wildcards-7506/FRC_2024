@@ -8,8 +8,6 @@ import frc.robot.Constants.LEDConstants;
 public class LEDs extends SubsystemBase{
     private AddressableLED ledString;
     private AddressableLEDBuffer ledBuffer;
-
-    // Store what the last hue of the first pixel is
     private int m_rainbowFirstPixelHue;
 
     public LEDs(){
@@ -42,18 +40,14 @@ public class LEDs extends SubsystemBase{
     }
 
     public void solid(int hue, int sat, int val) {
-        // For every pixel
         for (var i = 0; i < LEDConstants.bufferSize; i++) {
-          // Set the value
           ledBuffer.setHSV(i, hue, sat, val);
         }
         update();
     }
 
     public void section(int start, int finish, int hue, int sat, int val) {
-        // For every pixel
         for (var i = start; i <= finish; i++) {
-          // Set the value
           ledBuffer.setHSV(i, hue, sat, val);
         }
         update();

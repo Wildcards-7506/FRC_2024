@@ -62,12 +62,12 @@ public class IntakeTeleopCommand extends Command{
         //Amp State
         } else if (Robot.intake.intakeState == 2) {
             //Wrist stays in safe position (stowed or constrained) until elbow is in target range (between 115 and 140ish)
-            if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 25) {
+            if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 3) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too High, Stowed");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp - 5) {
-                SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
-                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
+            // } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp + 15) {
+            //     SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
+            //     Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
             } else {
                 SmartDashboard.putString("Wrist Status", "Amp - Success! Setting Amp Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
@@ -142,8 +142,8 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint;
             }
         }
-
-        //Once setpoints have been chosen, pass to controllers
+        
+                //Once setpoints have been chosen, pass to controllers
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 

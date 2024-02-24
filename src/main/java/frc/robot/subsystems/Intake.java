@@ -28,6 +28,7 @@ public class Intake extends SubsystemBase {
     public double wristSetPoint;
     public double elbowSetPoint;
     public int intakeState = 0; //<- CHANGE THIS TO ZERO BEFORE COMPS
+    public int intakeCurrentLimit = IntakeConstants.kIntakeUseCurrentLimit;
     public boolean fcControlElbow;
     public boolean fcControlWrist;
 
@@ -69,7 +70,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
-        intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+        intake.setSmartCurrentLimit(intakeCurrentLimit);
 
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
@@ -108,6 +109,11 @@ public class Intake extends SubsystemBase {
 
     public void setIntakeVoltage(double setPoint) {
         intake.setVoltage(setPoint);
+    }
+
+    public void setIntakeCurrentLimit(int setPoint) {
+        intakeCurrentLimit = setPoint;
+        intake.setSmartCurrentLimit(intakeCurrentLimit);
     }
 
     public void intakeLog(){

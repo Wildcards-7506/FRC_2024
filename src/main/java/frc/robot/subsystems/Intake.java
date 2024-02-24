@@ -27,7 +27,7 @@ public class Intake extends SubsystemBase {
 
     public double wristSetPoint;
     public double elbowSetPoint;
-    public int intakeState = 4; //<- CHANGE THIS TO ZERO BEFORE COMPS
+    public int intakeState = 0; //<- CHANGE THIS TO ZERO BEFORE COMPS
     public boolean fcControlElbow;
     public boolean fcControlWrist;
 
@@ -63,7 +63,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, -160);
-        wristRotator.setSoftLimit(SoftLimitDirection.kForward, 190);
+        wristRotator.setSoftLimit(SoftLimitDirection.kForward, 170);
         wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -80);
 
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);

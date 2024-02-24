@@ -15,32 +15,34 @@ public class IntakeTeleopCommand extends Command{
     
     @Override
     public void execute () {
-        if(PlayerConfigs.ground && Robot.intake.intakeState != 3){
+        if (PlayerConfigs.ground && Robot.intake.intakeState != 3) {
             Robot.intake.intakeState = 1;
-        } else if(PlayerConfigs.amp && Robot.intake.intakeState != 3){
+        } else if (PlayerConfigs.amp && Robot.intake.intakeState != 3) {
             Robot.intake.intakeState = 2;
-        } else if(!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
+        } else if (!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)) {
             //Only climber control can initiate trap position, no manual triggering allowed, must start from stow position
             //To activate trap, disable shooter and run climber down
             Robot.intake.intakeState = 3;
-        } else if(PlayerConfigs.fcEnable){
+        } else if (PlayerConfigs.fcEnable) {
             //When fine control is enabled, grab current positions to hold
             Robot.intake.intakeState = 4;
             Robot.intake.fcControlElbow = false;
             Robot.intake.fcControlWrist = false;
             Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
             Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
-        } else if(PlayerConfigs.stow){
+        } else if (PlayerConfigs.stow) {
             Robot.intake.intakeState = 0;
         }
 
         //Ground State
         if (Robot.intake.intakeState == 1) {
             //Hold intake to stowed or contrained position to avoid damage or extension rule until low enough to open to ground position
-            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint) {
+            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint + 5) {
+                // for the condition ^^^: may need to increase value when bumpers come on
+                // was getting caught on just the frame coming down
                 SmartDashboard.putString("Wrist Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint + 5){
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint + 5) {
                 SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Constrain");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else {
@@ -50,7 +52,7 @@ public class IntakeTeleopCommand extends Command{
             
             // Only move to ground when wrist is constrained to not break extension rule
             // Prevent fluttering as wrist comes out to ground position by locking elbow setpoint to ground once triggered
-            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristConstraint || Robot.intake.elbowSetPoint == IntakeConstants.kElbowGround){
+            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristConstraint || Robot.intake.elbowSetPoint == IntakeConstants.kElbowGround) {
                 SmartDashboard.putString("Elbow Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
             } else {
@@ -63,9 +65,9 @@ public class IntakeTeleopCommand extends Command{
             if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 20) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too High, Stowed");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp - 5){
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp - 5) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
-                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();              
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
             } else {
                 SmartDashboard.putString("Wrist Status", "Amp - Success! Setting Amp Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
@@ -76,7 +78,7 @@ public class IntakeTeleopCommand extends Command{
         //Trap State
         } else if (Robot.intake.intakeState == 3) {
             //Elbow goes to pressure setting if actively climbing. Once high enough to rest on static structural member, elbow moves to trap scoring position
-            if(Robot.climbers.getClimberEncoder() > ClimberConstants.scoringHeight){
+            if (Robot.climbers.getClimberEncoder() > ClimberConstants.scoringHeight) {
                 SmartDashboard.putString("Elbow Status", "Trap - Success! Setting Scoring Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapScoring;
             } else {
@@ -93,25 +95,25 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
         //Fine Control
-        } else if(Robot.intake.intakeState == 4) {
+        } else if (Robot.intake.intakeState == 4) {
             //If joysticks are outside of deadband, move individual sections up or down
             //If joysticks are no longer outside of deadband and control is still active, disable control and grab the current position to hold
             //Grabbing position once eliminates gradual sinking due to gravity
-            if(Math.abs(PlayerConfigs.fcElbow) > 0.25){
+            if (Math.abs(PlayerConfigs.fcElbow) > 0.25) {
                 SmartDashboard.putString("Elbow Status", "Fine Control, Moving");
                 Robot.intake.fcControlElbow = true;
                 Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow; 
-            } else if(Robot.intake.fcControlElbow){
+            } else if (Robot.intake.fcControlElbow) {
                 SmartDashboard.putString("Elbow Status", "Fine Control, Holding");
                 Robot.intake.fcControlElbow = false;
                 Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
             }
 
-            if(Math.abs(PlayerConfigs.fcWrist) > 0.25){
+            if (Math.abs(PlayerConfigs.fcWrist) > 0.25) {
                 SmartDashboard.putString("Wrist Status", "Fine Control, Moving");
                 Robot.intake.fcControlWrist = true;
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + IntakeConstants.kWristManualOffset * PlayerConfigs.fcWrist;
-            } else if(Robot.intake.fcControlWrist){
+            } else if (Robot.intake.fcControlWrist) {
                 SmartDashboard.putString("Wrist Status", "Fine Control, Holding");
                 Robot.intake.fcControlWrist = false;
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
@@ -123,7 +125,7 @@ public class IntakeTeleopCommand extends Command{
             if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder()) < 10) && PlayerConfigs.armScoringMechanism) {
                 SmartDashboard.putString("Wrist Status", "Stow - Success! Setting Shooting Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
-            } else if(Robot.intake.getElbowEncoder() > IntakeConstants.kElbowDownConstraint){
+            } else if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowDownConstraint) {
                 SmartDashboard.putString("Wrist Status", "Stow - Success! Setting Stow Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             } else {
@@ -146,7 +148,7 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 
         //Run the intake if a piece has not been acquired in ground position or fire button is pressed
-        if(PlayerConfigs.reject){
+        if (PlayerConfigs.reject) {
             SmartDashboard.putString("Intake Status", "Rejecting");
             Robot.intake.setIntakeVoltage(-12);
         } else if (Robot.intake.intakeState == 1  || PlayerConfigs.fire) {

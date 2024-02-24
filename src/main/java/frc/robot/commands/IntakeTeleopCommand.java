@@ -37,7 +37,7 @@ public class IntakeTeleopCommand extends Command{
         //Ground State
         if (Robot.intake.intakeState == 1) {
             //Hold intake to stowed or contrained position to avoid damage or extension rule until low enough to open to ground position
-            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint + 15) {
+            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint) {
                 // for the condition ^^^: may need to increase value when bumpers come on
                 // was getting caught on just the frame coming down
                 SmartDashboard.putString("Wrist Status", "Ground - Success! Setting Ground Position");
@@ -65,9 +65,9 @@ public class IntakeTeleopCommand extends Command{
             if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 3) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too High, Stowed");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            // } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp + 15) {
-            //     SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
-            //     Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp + 15) {
+                SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
             } else {
                 SmartDashboard.putString("Wrist Status", "Amp - Success! Setting Amp Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
@@ -147,22 +147,18 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 
-        //Run the intake if a piece has not been acquired in ground position or fire button is pressed
-        if (Robot.intake.intakeState == 1 && !PlayerConfigs.reject && !PlayerConfigs.fire) {
-            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeGrabCurrentLimit);
-            Robot.intake.setIntakeVoltage(6);
-        } else if (PlayerConfigs.reject) {
-            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeUseCurrentLimit);
+        //Reject Piece if button is pressed, regardless of intake state
+        if (PlayerConfigs.reject) {
             SmartDashboard.putString("Intake Status", "Rejecting");
             Robot.intake.setIntakeVoltage(-12);
-        } else if (PlayerConfigs.fire) {
-            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeUseCurrentLimit);
+        //If intake is on the ground or firing, run at full speed
+        } else if (Robot.intake.intakeState == 1 || PlayerConfigs.fire) {
             SmartDashboard.putString("Intake Status", "Intaking");
             Robot.intake.setIntakeVoltage(12);
+        //Maintain idle spin for positive hold (think cones sliding out of the intake last year)
         } else {
-            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeGrabCurrentLimit);
             SmartDashboard.putString("Intake Status", "Holding");
-            Robot.intake.setIntakeVoltage(0);
+            Robot.intake.setIntakeVoltage(1);
         }
 
         SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);
@@ -171,8 +167,7 @@ public class IntakeTeleopCommand extends Command{
         SmartDashboard.putNumber("Elbow Position: ", Robot.intake.getElbowEncoder());
         SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
         SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.getIntakeCurrent() > 20);
-        SmartDashboard.putNumber("Intake Current: ", Robot.intake.getIntakeCurrent());
-        SmartDashboard.putNumber("Intake Current Limit: ", Robot.intake.intakeCurrentLimit);
+        SmartDashboard.putNumber("Intake Current: ", Robot.intake.getIntakeCurrent()); //<-Valueable for testing, can be removed before competition if space is needed.
 
         Robot.intake.intakeLog();
     }

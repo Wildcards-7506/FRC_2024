@@ -10,7 +10,6 @@ import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Robot;
 import frc.robot.Constants.CANID;
 import frc.robot.util.Logger;
 
@@ -28,8 +27,7 @@ public class Intake extends SubsystemBase {
 
     public double wristSetPoint;
     public double elbowSetPoint;
-    public int intakeState = 0; //<- CHANGE THIS TO ZERO BEFORE COMPS
-    public int intakeCurrentLimit = IntakeConstants.kIntakeUseCurrentLimit;
+    public int intakeState = 0;
     public boolean fcControlElbow;
     public boolean fcControlWrist;
 
@@ -42,7 +40,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorLeader.setIdleMode(IdleMode.kCoast);
         elbowRotatorFollower.setIdleMode(IdleMode.kCoast);
         wristRotator.setIdleMode(IdleMode.kCoast);
-        intake.setIdleMode(IdleMode.kCoast);
+        intake.setIdleMode(IdleMode.kBrake);
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
         wristEncoder = wristRotator.getEncoder();
@@ -60,7 +58,6 @@ public class Intake extends SubsystemBase {
         wristRotator.enableSoftLimit(SoftLimitDirection.kForward, true);
         wristRotator.enableSoftLimit(SoftLimitDirection.kReverse, true);
 
-        // Will need to test these angle parameters when testing
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 160);
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
@@ -71,7 +68,7 @@ public class Intake extends SubsystemBase {
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
-        intake.setSmartCurrentLimit(intakeCurrentLimit);
+        intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
 
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
@@ -110,11 +107,6 @@ public class Intake extends SubsystemBase {
 
     public void setIntakeVoltage(double setPoint) {
         intake.setVoltage(setPoint);
-    }
-
-    public void setIntakeCurrentLimit(int setPoint) {
-        intakeCurrentLimit = setPoint;
-        intake.setSmartCurrentLimit(intakeCurrentLimit);
     }
 
     public void intakeLog(){

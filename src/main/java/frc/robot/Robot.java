@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.IntakeConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
@@ -104,10 +103,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(m_field);
 
     Logger.info("SYSTEM","Robot Started");
-
-    //SmartDashboard PIDF Tuning Setup
-    SmartDashboard.putNumber("Elbow P Gain", IntakeConstants.kPElbow);
-    SmartDashboard.putNumber("Wrist P Gain", IntakeConstants.kPWrist);
   }
 
   /**
@@ -120,17 +115,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
-    //Update PIDF Values and Setpoints
-    double kPE = SmartDashboard.getNumber("Elbow P Gain", IntakeConstants.kPElbow);
-    double kPW = SmartDashboard.getNumber("Wrist P Gain", IntakeConstants.kPWrist);
-
-    // if PIDF coefficients on SmartDashboard have changed, write new values to controller
-    if((kPE != IntakeConstants.kPElbow)) {
-      intake.elbowPIDF.setP(kPE); 
-      IntakeConstants.kPElbow = kPE; }
-    if((kPW != IntakeConstants.kPWrist)) {
-      intake.wristPIDF.setP(kPW); 
-      IntakeConstants.kPWrist = kPW; }
   }
 
   @Override

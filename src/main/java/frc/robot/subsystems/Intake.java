@@ -10,6 +10,7 @@ import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Robot;
 import frc.robot.Constants.CANID;
 import frc.robot.util.Logger;
 
@@ -27,7 +28,8 @@ public class Intake extends SubsystemBase {
 
     public double wristSetPoint;
     public double elbowSetPoint;
-    public int intakeState = 4; //<- CHANGE THIS TO ZERO BEFORE COMPS
+    public int intakeState = 0; //<- CHANGE THIS TO ZERO BEFORE COMPS
+    public int intakeCurrentLimit = IntakeConstants.kIntakeUseCurrentLimit;
     public boolean fcControlElbow;
     public boolean fcControlWrist;
 
@@ -63,13 +65,13 @@ public class Intake extends SubsystemBase {
         elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 0);
         elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, -160);
-        wristRotator.setSoftLimit(SoftLimitDirection.kForward, 190);
+        wristRotator.setSoftLimit(SoftLimitDirection.kForward, 170);
         wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -80);
 
         elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
-        intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+        intake.setSmartCurrentLimit(intakeCurrentLimit);
 
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
@@ -108,6 +110,11 @@ public class Intake extends SubsystemBase {
 
     public void setIntakeVoltage(double setPoint) {
         intake.setVoltage(setPoint);
+    }
+
+    public void setIntakeCurrentLimit(int setPoint) {
+        intakeCurrentLimit = setPoint;
+        intake.setSmartCurrentLimit(intakeCurrentLimit);
     }
 
     public void intakeLog(){

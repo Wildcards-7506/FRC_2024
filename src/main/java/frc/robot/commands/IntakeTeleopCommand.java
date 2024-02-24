@@ -143,7 +143,7 @@ public class IntakeTeleopCommand extends Command{
             }
         }
         
-                //Once setpoints have been chosen, pass to controllers
+        //Once setpoints have been chosen, pass to controllers
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 

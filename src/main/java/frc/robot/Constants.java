@@ -190,7 +190,7 @@ public final class Constants {
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
         public static double kPWrist = 0.02; // 0.0002
         public static final double kWristConstraint = -75.0;
-        public static final double kWristAmp = -30.0; // -30
+        public static final double kWristAmp = 0.0; // -30
         public static final double kWristGround = 0.0;
         public static final double kWristTrap = 20.0;
         public static final double kWristShooting = 155.0;

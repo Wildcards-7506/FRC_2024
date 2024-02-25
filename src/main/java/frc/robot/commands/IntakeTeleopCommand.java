@@ -67,7 +67,7 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp + 15) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
-                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
+                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else {
                 SmartDashboard.putString("Wrist Status", "Amp - Success! Setting Amp Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;

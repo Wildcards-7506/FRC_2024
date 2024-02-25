@@ -37,12 +37,12 @@ public class IntakeTeleopCommand extends Command{
         //Ground State
         if (Robot.intake.intakeState == 1) {
             //Hold intake to stowed or contrained position to avoid damage or extension rule until low enough to open to ground position
-            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint) {
+            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint + 5) {
                 // for the condition ^^^: may need to increase value when bumpers come on
                 // was getting caught on just the frame coming down
                 SmartDashboard.putString("Wrist Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint + 5) {
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint + 10) {
                 SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Constrain");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else {
@@ -61,13 +61,13 @@ public class IntakeTeleopCommand extends Command{
             }  
         //Amp State
         } else if (Robot.intake.intakeState == 2) {
-            //Wrist stays in safe position (stowed or constrained) until elbow is in target range (between 115 and 140ish)
+            //Wrist stays in safe position (stowed or constrained) until elbow is in target range
             if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 3) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too High, Stowed");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowAmp + 15) {
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint) {
                 SmartDashboard.putString("Wrist Status", "Amp - Elbow Too Low, Constrain");
-                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
             } else {
                 SmartDashboard.putString("Wrist Status", "Amp - Success! Setting Amp Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;

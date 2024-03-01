@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShootBottom"
+            "name": "AutoShoot"
           }
         },
         {
@@ -33,7 +33,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShootBottom"
+            "name": "AutoShoot"
           }
         },
         {
@@ -52,7 +52,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShootBottom"
+            "name": "AutoShoot"
           }
         }
       ]

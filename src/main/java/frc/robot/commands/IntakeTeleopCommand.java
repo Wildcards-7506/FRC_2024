@@ -87,7 +87,7 @@ public class IntakeTeleopCommand extends Command{
             }
             
             //Intake stays stowed and out of danger until high enough to rest on static structural member
-            if (Robot.climbers.getClimberEncoder() < ClimberConstants.scoringHeight) {
+            if (Robot.climbers.getClimberEncoder() > ClimberConstants.scoringHeight) {
                 SmartDashboard.putString("Wrist Status", "Trap - Success! Setting Scoring Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
             } else {

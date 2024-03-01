@@ -134,7 +134,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
-    ledSystem.rainbow(ledSystem.teamRainbow);
   }
 
   /** This function is called once when teleop is enabled. */

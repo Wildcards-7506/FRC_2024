@@ -1,6 +1,7 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
 import frc.robot.Robot;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -28,6 +29,7 @@ public class AutoIntakeElbowSet extends Command{
         if(!Robot.skipNonPath){  
             Logger.info("ELBOW", Double.toString(Robot.intake.getElbowEncoder()) + " Degrees");
             Robot.intake.setElbowPosition(setpoint);
+            Robot.ledSystem.section(0, 14, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         }
     }
 
@@ -35,6 +37,8 @@ public class AutoIntakeElbowSet extends Command{
     @Override
     public void end(boolean interrupted) {
         Logger.info("ELBOW", "Elbow In Position");
+        Robot.ledSystem.section(0, 14, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+
     }
 
     // Returns true when the command should end.

@@ -1,6 +1,7 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
 import frc.robot.Robot;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,6 +31,7 @@ public class AutoIntake_Trigger extends Command{
     @Override
     public void execute() {
         if(!Robot.skipNonPath){  
+            Robot.ledSystem.solid(LEDConstants.YELLOW,255,255);
             Logger.info("INTKE", Double.toString(Robot.intake.getIntakeCurrent()) + " Amps");
             Robot.intake.setIntakeVoltage(12);
         }
@@ -40,10 +42,12 @@ public class AutoIntake_Trigger extends Command{
     public void end(boolean interrupted) {
         if(!Robot.skipNonPath){  
             if(time.get() > runTime){
+                Robot.ledSystem.solid(LEDConstants.RED,255,255);
                 Logger.info("INTKE", "Piece Missed");
             } else if(time.get() > 0.5 && shooting){
                 Logger.info("INTKE", "Shot Fired");
             } else {
+                Robot.ledSystem.solid(LEDConstants.GREEN,255,255);
                 Logger.info("INTKE", "Piece Acquired");
             }
             Robot.intake.setIntakeVoltage(0);

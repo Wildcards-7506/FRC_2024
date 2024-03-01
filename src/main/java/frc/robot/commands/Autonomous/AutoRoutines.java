@@ -102,9 +102,7 @@ public final class AutoRoutines {
     NamedCommands.registerCommand("Checkpoint 1", Commands.print("Checkpoint 1"));
     NamedCommands.registerCommand("Checkpoint 2", Commands.print("Checkpoint 2"));
     NamedCommands.registerCommand("Checkpoint 3", Commands.print("Checkpoint 3"));
-    NamedCommands.registerCommand("AutoShootTop", new AutoShoot(0));
-    NamedCommands.registerCommand("AutoShootCenter", new AutoShoot(1));
-    NamedCommands.registerCommand("AutoShootBottom", new AutoShoot(2));
+    NamedCommands.registerCommand("AutoShoot", new AutoShoot());
     NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false));
     NamedCommands.registerCommand("AutoShooterSpinup", new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM));
     NamedCommands.registerCommand("AutoIntakeStowToGround", new AutoIntakeStowToGround());

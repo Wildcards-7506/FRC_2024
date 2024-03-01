@@ -1,5 +1,6 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
+import frc.robot.Constants.LEDConstants;
 import frc.robot.Robot;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,6 +29,7 @@ public class AutoIntakeWristSet extends Command{
         if(!Robot.skipNonPath){  
             Logger.info("WRIST", Double.toString(Robot.intake.getWristEncoder()) + " Degrees");
             Robot.intake.setWristPosition(setpoint);
+            Robot.ledSystem.section(15, 29, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
         }
     }
 
@@ -35,6 +37,7 @@ public class AutoIntakeWristSet extends Command{
     @Override
     public void end(boolean interrupted) {
         Logger.info("WRIST", "Wrist In Position");
+        Robot.ledSystem.section(15, 29, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
     }
 
     // Returns true when the command should end.

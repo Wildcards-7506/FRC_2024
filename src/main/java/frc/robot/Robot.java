@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
@@ -124,15 +125,16 @@ public class Robot extends TimedRobot {
     teamColor = DriverStation.getAlliance();
     autoMode.resetAutoHeading();
     autoMode.getAutonomousCommand().schedule();
-    Robot.drivetrain.idleSwerve(IdleMode.kBrake);
+    drivetrain.idleSwerve(IdleMode.kBrake);
     skipNonPath = SmartDashboard.getBoolean("Skip Non-Path Commands", false);
+    ledSystem.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
-    ledSystem.rainbow();
+    ledSystem.rainbow(ledSystem.teamRainbow);
   }
 
   /** This function is called once when teleop is enabled. */
@@ -143,15 +145,19 @@ public class Robot extends TimedRobot {
     driver = driver_chooser.getSelected();
     operator = operator_chooser.getSelected();
     teamColor = DriverStation.getAlliance();
-    Robot.intake.setDefaultCommand(new IntakeTeleopCommand());
-    Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
-    Robot.climbers.setDefaultCommand(new ClimberTeleopCommand());
-    Robot.shooter.setDefaultCommand(new ShooterTeleopCommand());
-    Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
-    Robot.limelight.setDefaultCommand(new LimelightTeleopCommand());
-    Robot.drivetrain.idleSwerve(IdleMode.kBrake);
-    Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
-    Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
+    intake.setDefaultCommand(new IntakeTeleopCommand());
+    drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
+    climbers.setDefaultCommand(new ClimberTeleopCommand());
+    shooter.setDefaultCommand(new ShooterTeleopCommand());
+    ledSystem.setDefaultCommand(new LEDTeleopCommand());
+    limelight.setDefaultCommand(new LimelightTeleopCommand());
+    drivetrain.idleSwerve(IdleMode.kBrake);
+    intake.elbowSetPoint = intake.getElbowEncoder();
+    intake.wristSetPoint = intake.getWristEncoder();
+    ledSystem.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
+    ledSystem.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
+    ledSystem.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
+    ledSystem.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
   }
 
   /** This function is called periodically during operator control. */
@@ -167,13 +173,13 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     Logger.info("SYSTEM", "Robot Disabled");
     CommandScheduler.getInstance().cancelAll();
-    Robot.drivetrain.idleSwerve(IdleMode.kCoast);
+    drivetrain.idleSwerve(IdleMode.kCoast);
   }
 
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
-    ledSystem.rainbow();
+    ledSystem.rainbow(3);
   }
 
   /** This function is called once when test mode is enabled. */

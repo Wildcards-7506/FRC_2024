@@ -9,6 +9,10 @@ public class LEDs extends SubsystemBase{
     private AddressableLED ledString;
     private AddressableLEDBuffer ledBuffer;
     private int m_rainbowFirstPixelHue;
+    public int teamRainbow;
+    public int alignOOB;
+    public int offState;
+    public int shooterLo;
 
     public LEDs(){
         ledString = new AddressableLED(LEDConstants.pwmPort);
@@ -23,7 +27,32 @@ public class LEDs extends SubsystemBase{
       ledString.setData(ledBuffer);
     }
 
-    public void rainbow() {
+    public void rainbow(int colorScheme) {
+      if(colorScheme == 1){
+        //150 through 15
+        // For every pixel
+        for (var i = 0; i < LEDConstants.bufferSize; i++) {
+          final var hue = 150+(m_rainbowFirstPixelHue + (i * 45 / LEDConstants.bufferSize)) % 45;
+          // Set the value
+          ledBuffer.setHSV(i, hue, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+        }
+        // Increase by to make the rainbow "move"
+        m_rainbowFirstPixelHue += 45 / LEDConstants.bufferSize;
+        // Check bounds
+        m_rainbowFirstPixelHue %= 45;
+      } else if(colorScheme == 2){
+        //90 through 135
+        // For every pixel
+        for (var i = 0; i < LEDConstants.bufferSize; i++) {
+          final var hue = 90+(m_rainbowFirstPixelHue + (i * 45 / LEDConstants.bufferSize)) % 45;
+          // Set the value
+          ledBuffer.setHSV(i, hue, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+        }
+        // Increase by to make the rainbow "move"
+        m_rainbowFirstPixelHue += 45 / LEDConstants.bufferSize;
+        // Check bounds
+        m_rainbowFirstPixelHue %= 45;
+      } else {
         // For every pixel
         for (var i = 0; i < LEDConstants.bufferSize; i++) {
           // Calculate the hue - hue is easier for rainbows because the color
@@ -36,6 +65,7 @@ public class LEDs extends SubsystemBase{
         m_rainbowFirstPixelHue += 3;
         // Check bounds
         m_rainbowFirstPixelHue %= 180;
+      }
         update();
     }
 

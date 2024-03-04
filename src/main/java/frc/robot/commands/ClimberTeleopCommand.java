@@ -6,6 +6,8 @@ import frc.robot.Robot;
 import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class ClimberTeleopCommand extends Command{
+
+    private boolean prev_SplitButton = false;
     
     public ClimberTeleopCommand(){
         addRequirements(Robot.climbers);
@@ -13,15 +15,43 @@ public class ClimberTeleopCommand extends Command{
     
     @Override
     public void execute (){
+        if(PlayerConfigs.splitClimberControl != prev_SplitButton){
+            prev_SplitButton = PlayerConfigs.splitClimberControl;
+            if(PlayerConfigs.splitClimberControl){
+                Robot.climbers.splitControlMode = !Robot.climbers.splitControlMode;
+            }
+        }
+
         //VERIFY DIRECTION
         if(!Robot.shooter.shootingMode && (Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3)){
-            if (PlayerConfigs.climberDown) {
-                Robot.climbers.setClimbers(12);
-            } else if (PlayerConfigs.climberUp) {
-                Robot.climbers.setClimbers(-12);
+            if(Robot.climbers.splitControlMode){
+                if (PlayerConfigs.climberLDown) {
+                    Robot.climbers.setLClimber(12);
+                } else if (PlayerConfigs.climberLUp) {
+                    Robot.climbers.setLClimber(-12);
+                } else {
+                    Robot.climbers.setLClimber(0);
+                }
+                if (PlayerConfigs.climberRDown) {
+                    Robot.climbers.setRClimber(12);
+                } else if (PlayerConfigs.climberRUp) {
+                    Robot.climbers.setRClimber(-12);
+                } else {
+                    Robot.climbers.setRClimber(0);
+                }
             } else {
-                Robot.climbers.setClimbers(0);
+                if (PlayerConfigs.climberLDown || PlayerConfigs.climberRDown) {
+                    Robot.climbers.setLClimber(12);
+                    Robot.climbers.setRClimber(12);
+                } else if (PlayerConfigs.climberLUp || PlayerConfigs.climberRUp) {
+                    Robot.climbers.setLClimber(-12);
+                    Robot.climbers.setRClimber(-12);
+                } else {
+                    Robot.climbers.setLClimber(0);
+                    Robot.climbers.setRClimber(0);
+                }
             }
+            
         }
 
         Robot.climbers.climberLog();

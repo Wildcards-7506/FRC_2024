@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Robot;
 import frc.robot.ControlConfigs.PlayerConfigs;
@@ -19,7 +18,7 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.intakeState = 1;
         } else if (PlayerConfigs.amp && Robot.intake.intakeState != 3) {
             Robot.intake.intakeState = 2;
-        } else if (!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)) {
+        } else if (!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberLDown || PlayerConfigs.climberLUp || PlayerConfigs.climberRUp || PlayerConfigs.climberRUp)) {
             //Only climber control can initiate trap position, no manual triggering allowed, must start from stow position
             //To activate trap, disable shooter and run climber down
             Robot.intake.intakeState = 3;
@@ -78,7 +77,7 @@ public class IntakeTeleopCommand extends Command{
         //Trap State
         } else if (Robot.intake.intakeState == 3) {
             //Elbow goes to pressure setting if actively climbing. Once high enough to rest on static structural member, elbow moves to trap scoring position
-            if (Robot.climbers.getClimberEncoder() > ClimberConstants.scoringHeight) {
+            if (PlayerConfigs.armScoringMechanism) {
                 SmartDashboard.putString("Elbow Status", "Trap - Success! Setting Scoring Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapScoring;
             } else {
@@ -87,7 +86,7 @@ public class IntakeTeleopCommand extends Command{
             }
             
             //Intake stays stowed and out of danger until high enough to rest on static structural member
-            if (Robot.climbers.getClimberEncoder() > ClimberConstants.scoringHeight) {
+            if (PlayerConfigs.armScoringMechanism) {
                 SmartDashboard.putString("Wrist Status", "Trap - Success! Setting Scoring Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
             } else {

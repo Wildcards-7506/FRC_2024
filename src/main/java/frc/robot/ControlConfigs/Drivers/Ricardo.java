@@ -29,9 +29,9 @@ public class Ricardo extends PlayerConfigs {
 
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.ground = Robot.controller1.getLeftTriggerAxis()>0.2;
-        PlayerConfigs.amp = Robot.controller1.getBButton();
-        PlayerConfigs.stow = Robot.controller1.getLeftBumper();
+        PlayerConfigs.ground = Robot.controller1.getPOV() == 0;
+        PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
+        PlayerConfigs.stow = Robot.controller1.getPOV() == 180;
 
         //Intake Fine Control
         PlayerConfigs.fcEnable = Robot.controller1.getStartButton();
@@ -39,11 +39,14 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.fcWrist = Robot.controller1.getRightY();
 
         //Shooter Spin up
-        PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;
-        PlayerConfigs.shooterActive = Robot.controller1.getRightBumper();
+        PlayerConfigs.armScoringMechanism = Robot.controller1.getBButton();
+        PlayerConfigs.shooterActive = Robot.controller1.getAButton();
         
         //Climbers
-        PlayerConfigs.climberUp = Robot.controller1.getPOV() == 180;
-        PlayerConfigs.climberDown = Robot.controller1.getPOV() == 0;
+        PlayerConfigs.splitClimberControl = Robot.controller1.getYButton();
+        PlayerConfigs.climberLUp = Robot.controller1.getLeftBumper();
+        PlayerConfigs.climberLDown = Robot.controller1.getLeftTriggerAxis() > 0.2;
+        PlayerConfigs.climberRUp = Robot.controller1.getRightBumper();
+        PlayerConfigs.climberRDown = Robot.controller1.getRightTriggerAxis() > 0.2;
     }
 }

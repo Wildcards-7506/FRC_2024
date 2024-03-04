@@ -177,13 +177,13 @@ public final class Constants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
         public static final double kPElbow = 0.02;
-        public static final double kElbowGround = 5.0;
+        public static final double kElbowGround = 15.0;
         public static final double kElbowDownConstraint = 75.0;
-        public static final double kElbowTrapPressure = 110.0;
+        public static final double kElbowTrapPressure = 100.0;
         public static final double kElbowTrapScoring = 128.0;
         public static final double kElbowAmp = 110.0;
         public static final double kElbowUpConstraint = 95.0;
-        public static final double kElbowStowed = 135.0; // max is 138
+        public static final double kElbowStowed = 140.0;
         public static final double kElbowManualOffset = 45.0;
 
         public static final int kWristCurrentLimit = 40;
@@ -191,7 +191,7 @@ public final class Constants {
         public static final double kPWrist = 0.02;
         public static final double kWristConstraint = -75.0;
         public static final double kWristAmp = 0.0;
-        public static final double kWristGround = 0.0;
+        public static final double kWristGround = 0.5;
         public static final double kWristTrap = 20.0;
         public static final double kWristShooting = 155.0;
         public static final double kWristStowed = 160.0;
@@ -206,7 +206,7 @@ public final class Constants {
         public static final double kRArmedRPM = 4000;
         public static final double kPrimeRPM = 200;
         public static final double kPShooter = 6e-5;
-        public static final double kVShooter = 0.00013;
+        public static final double kVShooter = 0.00022;
       }
 
       public static final class ClimberConstants {

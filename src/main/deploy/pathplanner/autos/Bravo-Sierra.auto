@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BottomBottom"
+            "pathName": "BW3"
           }
         },
         {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BottomC4"
+            "pathName": "BC4"
           }
         },
         {
@@ -50,6 +50,6 @@
       ]
     }
   },
-  "folder": "3",
+  "folder": "Speaker",
   "choreoAuto": false
 }

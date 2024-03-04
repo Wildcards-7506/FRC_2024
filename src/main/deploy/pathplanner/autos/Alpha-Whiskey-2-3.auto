@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.62,
+      "y": 7.35
+    },
+    "rotation": 90.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Corner"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAmpSet"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAmpScore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AC2A"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAmpScore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AC3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Amp",
+  "choreoAuto": false
+}

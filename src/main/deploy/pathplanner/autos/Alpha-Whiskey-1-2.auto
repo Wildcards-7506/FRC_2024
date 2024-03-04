@@ -2,29 +2,29 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8,
-      "y": 4.45
+      "x": 1.62,
+      "y": 7.35
     },
-    "rotation": -60.0
+    "rotation": 90.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BottomC4"
+                  "pathName": "Corner"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoAmpSet"
                 }
               }
             ]
@@ -33,20 +33,25 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": "AutoAmpScore"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "BottomC5"
-                }
-              }
-            ]
+            "pathName": "AC1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAmpScore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AC2S"
           }
         },
         {
@@ -58,6 +63,6 @@
       ]
     }
   },
-  "folder": "3",
+  "folder": "Amp",
   "choreoAuto": false
 }

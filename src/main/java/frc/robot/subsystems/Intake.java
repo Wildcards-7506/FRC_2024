@@ -222,109 +222,101 @@ public class Intake implements AutoCloseable {
     }
 
   public void teleopCommand(){
-    if(PlayerConfigs.intake){
-            Robot.intake.intakeState = 1;
-        } else if(PlayerConfigs.amp){
-            Robot.intake.intakeState = 2;
-            Robot.intake.pieceAcquired = false;
-        } else if(!Robot.shooter.shootingMode && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)){
-            Robot.intake.intakeState = 3;
-        } else if(PlayerConfigs.fcEnable){
-            Robot.intake.intakeState = 4;
-            Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28 + 20.0 * PlayerConfigs.fcElbow;
-            Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 + 20.0 * PlayerConfigs.fcWrist;
-            Robot.intake.fcControlElbow = false;   
-            Robot.intake.fcControlWrist = false;   
-        } else if(PlayerConfigs.stow){
-            Robot.intake.intakeState = 0;
-            Robot.intake.pieceAcquired = false;
+    if (PlayerConfigs.intake && Robot.intake.intakeState != 3) {
+        Robot.intake.intakeState = 1;
+    } else if (PlayerConfigs.amp && Robot.intake.intakeState != 3) {
+        Robot.intake.intakeState = 2;
+    } else if (!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)) {
+        //Only climber control can initiate trap position, no manual triggering allowed, must start from stow position
+        //To activate trap, disable shooter and run climber down
+        Robot.intake.intakeState = 3;
+    } else if (PlayerConfigs.fcEnable) {
+        //When fine control is enabled, grab current positions to hold
+        Robot.intake.intakeState = 4;
+        Robot.intake.fcControlElbow = false;
+        Robot.intake.fcControlWrist = false;
+        Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
+        Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
+    } else if (PlayerConfigs.stow) {
+        Robot.intake.intakeState = 0;
+    }
+
+        //Ground State
+        if (Robot.intake.intakeState == 1) {
+            if (Robot.intake.getElbowEncoder() + 28 < IntakeConstants.kElbowDownConstraint + 5) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            }
+
+            Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
+        //Amp State
+        } else if (Robot.intake.intakeState == 2) {
+            if (Robot.intake.getElbowEncoder() + 28 > 110) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
+            }
+
+            Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
+        //Trap State
+        } else if (Robot.intake.intakeState == 3) {
+            if(PlayerConfigs.armScoringMechanism){
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapScoring;
+            } else{
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapPressure;
+            }
+            
+            if (PlayerConfigs.armScoringMechanism) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            }
+        //Fine Control
+        } else if(Robot.intake.intakeState == 4) {
+            if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
+                Robot.intake.fcControlElbow = true;
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28 + 20.0 * PlayerConfigs.fcElbow;
+            } else if(Robot.intake.fcControlElbow){
+                Robot.intake.fcControlElbow = false;
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28;
+            }
+
+            if(Math.abs(PlayerConfigs.fcWrist) > 0.5){
+                Robot.intake.fcControlWrist = true;
+                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 + 20.0 * PlayerConfigs.fcWrist;
+            } else if(Robot.intake.fcControlWrist){
+                Robot.intake.fcControlWrist = false;
+                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62;
+            }
+        //Stow and Shoot
+        } else {
+            if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder() - 28) < 10) && PlayerConfigs.armScoringMechanism) {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
+            } else {
+                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+            }
+
+            if (Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62  > IntakeConstants.kWristShooting - 5){
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
+            }   
         }
-
-                //Ground State
-                if (Robot.intake.intakeState == 1) {
-                    if (Robot.intake.getElbowEncoder() + 28 < IntakeConstants.kElbowDownConstraint) {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-                    } else if (Robot.intake.getElbowEncoder() + 28 < 140){
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
-                    } else {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-                    }
-                    if (Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 < -60 || Robot.intake.elbowSetPoint == IntakeConstants.kElbowGround){
-                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
-                    } else {
-                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowConstraint;
-                    }  
-                //Amp State
-                } else if (Robot.intake.intakeState == 2) {
-                    if (Robot.intake.getElbowEncoder() + 28 > 110) {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-                    } else if (Robot.intake.getElbowEncoder() + 28 < 100){
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
-                    } else {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
-                    }
-        
-                    Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
-                //Trap State
-                } else if (Robot.intake.intakeState == 3) {
-                    if(Robot.climbers.getClimberEncoder() > 20){
-                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapScoring;
-                    } else{
-                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapPressure;
-                    }
-                    
-                    if (Robot.climbers.getClimberEncoder() > 20) {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
-                    } else if (Robot.intake.getElbowEncoder() + 28 < 105){
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
-                    } else {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-                    }
-                //Fine Control
-                } else if(Robot.intake.intakeState == 4) {
-                    if(Math.abs(PlayerConfigs.fcElbow) > 0.5){
-                        Robot.intake.fcControlElbow = true;
-                        Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28 + 20.0 * PlayerConfigs.fcElbow;
-                    } else if(Robot.intake.fcControlElbow){
-                        Robot.intake.fcControlElbow = false;
-                        Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + 28;
-                    }
-        
-                    if(Math.abs(PlayerConfigs.fcWrist) > 0.5){
-                        Robot.intake.fcControlWrist = true;
-                        Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62 + 20.0 * PlayerConfigs.fcWrist;
-                    } else if(Robot.intake.fcControlWrist){
-                        Robot.intake.fcControlWrist = false;
-                        Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62;
-                    }
-                //Stow and Shoot
-                } else {
-                    if ((Math.abs(IntakeConstants.kElbowStowed - Robot.intake.getElbowEncoder() - 28) < 10) && PlayerConfigs.armScoringMechanism) {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
-                    } else if(Robot.intake.getElbowEncoder() + 28 > 80){
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-                    } else {
-                        Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
-                    }
-
-                    if (Robot.intake.getWristEncoder() - Robot.intake.getElbowEncoder() + 62  < IntakeConstants.kWristShooting - 5 &! PlayerConfigs.armScoringMechanism){
-                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowConstraint;
-                    } else {
-                        Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
-                    }
-                        
-                }
 
         reachElbowSetpoint(Robot.intake.elbowSetPoint);
         reachWristSetpoint(Robot.intake.elbowSetPoint + Robot.intake.wristSetPoint);
 
-        if ((Robot.intake.intakeState == 1 &! Robot.intake.pieceAcquired) || (PlayerConfigs.fire)) {
+        //Reject Piece if button is pressed, regardless of intake state
+        if (PlayerConfigs.reject) {
+            SmartDashboard.putString("Intake Status", "Rejecting");
+            Robot.intake.setIntakeVoltage(-12);
+        //If intake is on the ground or firing, run at full speed
+        } else if (Robot.intake.intakeState == 1 || PlayerConfigs.fire) {
+            SmartDashboard.putString("Intake Status", "Intaking");
             Robot.intake.setIntakeVoltage(12);
-            running = Robot.intake.getSpeed() > 200 ? true : false;
-            Robot.intake.pieceAcquired = (running && time.get()%10 > 9) ? true : false;
+        //Maintain idle spin for positive hold (think cones sliding out of the intake last year)
         } else {
-            Robot.intake.setIntakeVoltage(0);
-            Robot.intake.running = false;
+            SmartDashboard.putString("Intake Status", "Holding");
+            Robot.intake.setIntakeVoltage(1);
         }
   }
 

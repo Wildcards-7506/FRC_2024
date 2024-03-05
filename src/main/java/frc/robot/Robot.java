@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Controller;
 import frc.robot.commands.DrivetrainTeleopCommand;
@@ -108,13 +109,17 @@ public class Robot extends TimedRobot {
     teamColor = DriverStation.getAlliance();
     autoMode.getAutonomousCommand().schedule();
     skipNonPath = SmartDashboard.getBoolean("Skip Non-Path Commands", false);
+    ledSystem.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
+    ledSystem.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
+    ledSystem.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
+    ledSystem.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
+    ledSystem.solid(ledSystem.offState, LEDConstants.SATURATED, LEDConstants.FULL);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
-    ledSystem.rainbow();
     Robot.intake.reachElbowSetpoint(Robot.intake.elbowSetPoint);
     Robot.intake.reachWristSetpoint(Robot.intake.wristSetPoint + Robot.intake.elbowSetPoint);
     Robot.limelight.reachSetpoint(Robot.limelight.limelightSetpoint);
@@ -128,6 +133,10 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
     Robot.drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     Robot.ledSystem.setDefaultCommand(new LEDTeleopCommand());
+    ledSystem.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
+    ledSystem.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
+    ledSystem.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
+    ledSystem.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
   }
 
   /** This function is called periodically during operator control. */
@@ -154,7 +163,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     teamColor = DriverStation.getAlliance();
-    ledSystem.rainbow();
+    ledSystem.rainbow(3);
   }
 
   /** This function is called once when test mode is enabled. */

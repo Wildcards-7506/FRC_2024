@@ -1,5 +1,6 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
+import frc.robot.Constants.LEDConstants;
 import frc.robot.Robot;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,6 +28,7 @@ public class AutoShooterSpinUp extends Command{
         if(!Robot.skipNonPath){  
             Logger.info("SHOOT", Double.toString(Robot.shooter.getSpeed()));
             Robot.shooter.setpoint = lSpeed;
+            Robot.ledSystem.section(0,LEDConstants.bufferSize/5-1,Robot.ledSystem.shooterLo,LEDConstants.SATURATED,LEDConstants.FULL);
         }
     }
 
@@ -34,6 +36,7 @@ public class AutoShooterSpinUp extends Command{
     @Override
     public void end(boolean interrupted) {
         Logger.info("SHOOT", "Shooter Up To Speed");
+        Robot.ledSystem.section(0,LEDConstants.bufferSize/5-1,LEDConstants.GREEN,LEDConstants.SATURATED,LEDConstants.FULL);
     }
 
     // Returns true when the command should end.

@@ -1,5 +1,6 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
+import frc.robot.Constants.LEDConstants;
 import frc.robot.Robot;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +25,7 @@ public class AutoLimelightRotate extends Command{
     public void execute() {
         if(!Robot.skipNonPath){
             Robot.limelight.limelightSetpoint = setpoint;
+            Robot.ledSystem.section(4*LEDConstants.bufferSize/5,LEDConstants.bufferSize-1,Robot.ledSystem.shooterLo,LEDConstants.SATURATED,LEDConstants.FULL);
         }
     }
 
@@ -31,6 +33,7 @@ public class AutoLimelightRotate extends Command{
     @Override
     public void end(boolean interrupted) {
         Logger.info("LLROT", "Limelight In Position");
+        Robot.ledSystem.section(4*LEDConstants.bufferSize/5,LEDConstants.bufferSize-1,LEDConstants.GREEN,LEDConstants.SATURATED,LEDConstants.FULL);
     }
 
     // Returns true when the command should end.

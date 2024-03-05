@@ -32,6 +32,7 @@ public class Controller extends PlayerConfigs {
         PlayerConfigs.intake = Robot.controller1.getAButton();
         PlayerConfigs.amp = Robot.controller1.getXButton();
         PlayerConfigs.stow = Robot.controller1.getYButton();
+        PlayerConfigs.reject = Robot.controller1.getBButton();
 
         //Intake Fine Control
         PlayerConfigs.fcEnable = Robot.controller1.getStartButton();

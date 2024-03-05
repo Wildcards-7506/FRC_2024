@@ -21,9 +21,9 @@ public class PlayerConfigs {
 
     //Intake
     public static boolean intake;
-    public static boolean trap;
     public static boolean amp;
     public static boolean stow;
+    public static boolean reject;
     public static boolean fcEnable;
     public static double fcElbow;
     public static double fcWrist;

@@ -245,9 +245,13 @@ public final class Constants {
         public static final int MAGENTA = 150;
         public static final int PINK = 165;
 
-        public static final int SV_FULL = 255;
-        public static final int SV_MID = 170;
-        public static final int SV_LOW = 85;
-        public static final int SV_OFF = 0;
+        public static final int SATURATED = 255;
+        public static final int LIGHT = 120;
+        public static final int WHITE = 0;
+
+        public static final int FULL = 255;
+        public static final int MID = 170;
+        public static final int LOW = 85;
+        public static final int OFF = 0;
       }
 }

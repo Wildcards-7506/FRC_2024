@@ -22,7 +22,8 @@ public class AutoShoot extends SequentialCommandGroup{
                 new AutoIntakeWristSet(IntakeConstants.kWristShooting, 5),
                 new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM)
             ),
-            new AutoIntake_Trigger(0.5,true)
+            new AutoIntake_Trigger(0.5,true),
+            new AutoIntakeWristSet(IntakeConstants.kWristStowed, 5)
         );
     }
 }

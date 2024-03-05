@@ -30,6 +30,12 @@ import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.commands.LimelightTeleopCommand;
 import frc.robot.commands.ShooterTeleopCommand;
 import frc.robot.commands.Autonomous.AutoRoutines;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeAmpToGround;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToAmp;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToStow;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToAmp;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToGround;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -65,7 +71,7 @@ public class Robot extends TimedRobot {
   public static final Shooter shooter = new Shooter();
   public static final Climbers climbers = new Climbers();  
   public static final Limelight limelight = new Limelight();
-  public static final LEDs ledSystem = new LEDs();
+  public static final LEDs lightStrip = new LEDs();
 
   //Controllers
   public static final XboxController controller0 = new XboxController(Constants.IOConstants.DRIVER_CONTROLLER_0);
@@ -75,6 +81,8 @@ public class Robot extends TimedRobot {
   Timer timer = new Timer();
   public static Optional<Alliance> teamColor;
   public final static Field2d m_field = new Field2d();
+  public int testStep = 0;
+  public boolean newCommand = false;
 
   /*
    * This function is run when the robot is first started up and should be used for any
@@ -127,7 +135,11 @@ public class Robot extends TimedRobot {
     autoMode.getAutonomousCommand().schedule();
     drivetrain.idleSwerve(IdleMode.kBrake);
     skipNonPath = SmartDashboard.getBoolean("Skip Non-Path Commands", false);
-    ledSystem.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
+    lightStrip.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
+    lightStrip.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
+    lightStrip.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
+    lightStrip.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
+    lightStrip.solid(lightStrip.offState,LEDConstants.SATURATED,LEDConstants.FULL);
   }
 
   /** This function is called periodically during autonomous. */
@@ -148,15 +160,15 @@ public class Robot extends TimedRobot {
     drivetrain.setDefaultCommand(new DrivetrainTeleopCommand());
     climbers.setDefaultCommand(new ClimberTeleopCommand());
     shooter.setDefaultCommand(new ShooterTeleopCommand());
-    ledSystem.setDefaultCommand(new LEDTeleopCommand());
+    lightStrip.setDefaultCommand(new LEDTeleopCommand());
     limelight.setDefaultCommand(new LimelightTeleopCommand());
     drivetrain.idleSwerve(IdleMode.kBrake);
     intake.elbowSetPoint = intake.getElbowEncoder();
     intake.wristSetPoint = intake.getWristEncoder();
-    ledSystem.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
-    ledSystem.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
-    ledSystem.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
-    ledSystem.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
+    lightStrip.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
+    lightStrip.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
+    lightStrip.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
+    lightStrip.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
   }
 
   /** This function is called periodically during operator control. */
@@ -178,16 +190,70 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
-    ledSystem.rainbow(3);
+    lightStrip.rainbow(3);
   }
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {}
+  public void testInit() {
+    Logger.info("SYSTEM","Test Program Started");
+    CommandScheduler.getInstance().cancelAll();
+    teamColor = DriverStation.getAlliance();
+    skipNonPath = false;
+    driver = driver_chooser.getSelected();
+    operator = operator_chooser.getSelected();
+    lightStrip.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
+    lightStrip.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
+    lightStrip.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
+    lightStrip.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
+    lightStrip.solid(lightStrip.offState,LEDConstants.SATURATED,LEDConstants.FULL);
+  }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    if(controller0.getAButtonReleased()){
+      testStep++;
+      newCommand = true;
+    }
+
+    if(newCommand == true){
+      switch(testStep%8){
+        case 1:
+          new AutoIntakeStowToAmp().schedule();
+          newCommand = false;
+          break;
+        case 2:
+          new AutoIntakeAmpToGround().schedule();
+          newCommand = false;
+          break;
+        case 3:
+          new AutoIntakeGroundToStow().schedule();
+          newCommand = false;
+          break;
+        case 4:
+          new AutoIntakeStowToGround().schedule();
+          newCommand = false;
+          break;
+        case 5:
+          new AutoIntakeGroundToAmp().schedule();
+          newCommand = false;
+          break;
+        case 6:
+          new AutoIntakeAmpToGround().schedule();
+          newCommand = false;
+          break;
+        case 7:
+          new AutoIntakeGroundToStow().schedule();
+          newCommand = false;
+          break;
+        case 0:
+          new AutoShoot().schedule();
+          newCommand = false;
+          break;
+      }
+    }
+  }
 
   /** This function is called once when the robot is first started up. */
   @Override

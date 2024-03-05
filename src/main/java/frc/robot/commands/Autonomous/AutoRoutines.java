@@ -33,7 +33,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoAmpSet;
+import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToAmp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeAmpToGround;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToAmp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToStow;
@@ -109,7 +109,7 @@ public final class AutoRoutines {
     NamedCommands.registerCommand("AutoIntakeGroundToStow", new AutoIntakeGroundToStow());
     NamedCommands.registerCommand("AutoIntakeGroundToAmp", new AutoIntakeGroundToAmp());
     NamedCommands.registerCommand("AutoIntakeAmpToGround", new AutoIntakeAmpToGround());
-    NamedCommands.registerCommand("AutoAmpSet", new AutoAmpSet());
+    NamedCommands.registerCommand("AutoAutoIntakeStowToAmp", new AutoIntakeStowToAmp());
     NamedCommands.registerCommand("AutoAmpScore", new AutoIntake_Trigger(0.5, true));
   }
 

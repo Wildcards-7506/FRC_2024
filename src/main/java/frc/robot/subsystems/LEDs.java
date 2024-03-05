@@ -34,7 +34,7 @@ public class LEDs extends SubsystemBase{
         for (var i = 0; i < LEDConstants.bufferSize; i++) {
           final var hue = 150+(m_rainbowFirstPixelHue + (i * 45 / LEDConstants.bufferSize)) % 45;
           // Set the value
-          ledBuffer.setHSV(i, hue, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+          ledBuffer.setHSV(i, hue, LEDConstants.SATURATED, LEDConstants.FULL);
         }
         // Increase by to make the rainbow "move"
         m_rainbowFirstPixelHue += 45 / LEDConstants.bufferSize;
@@ -46,7 +46,7 @@ public class LEDs extends SubsystemBase{
         for (var i = 0; i < LEDConstants.bufferSize; i++) {
           final var hue = 90+(m_rainbowFirstPixelHue + (i * 45 / LEDConstants.bufferSize)) % 45;
           // Set the value
-          ledBuffer.setHSV(i, hue, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+          ledBuffer.setHSV(i, hue, LEDConstants.SATURATED, LEDConstants.FULL);
         }
         // Increase by to make the rainbow "move"
         m_rainbowFirstPixelHue += 45 / LEDConstants.bufferSize;
@@ -59,7 +59,7 @@ public class LEDs extends SubsystemBase{
           // shape is a circle so only one value needs to precess
           final var hue = (m_rainbowFirstPixelHue + (i * 180 / LEDConstants.bufferSize)) % 180;
           // Set the value
-          ledBuffer.setHSV(i, hue, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+          ledBuffer.setHSV(i, hue, LEDConstants.SATURATED, LEDConstants.FULL);
         }
         // Increase by to make the rainbow "move"
         m_rainbowFirstPixelHue += 3;

@@ -29,7 +29,7 @@ public class AutoIntakeWristSet extends Command{
         if(!Robot.skipNonPath){  
             Logger.info("WRIST", Double.toString(Robot.intake.getWristEncoder()) + " Degrees");
             Robot.intake.setWristPosition(setpoint);
-            Robot.ledSystem.section(15, 29, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+            Robot.lightStrip.section(2*LEDConstants.bufferSize/5, 3*LEDConstants.bufferSize/5-1, Robot.lightStrip.shooterLo, LEDConstants.SATURATED, LEDConstants.FULL);
         }
     }
 
@@ -37,7 +37,7 @@ public class AutoIntakeWristSet extends Command{
     @Override
     public void end(boolean interrupted) {
         Logger.info("WRIST", "Wrist In Position");
-        Robot.ledSystem.section(15, 29, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+        Robot.lightStrip.section(2*LEDConstants.bufferSize/5, 3*LEDConstants.bufferSize/5-1, LEDConstants.GREEN, LEDConstants.SATURATED, LEDConstants.FULL);
     }
 
     // Returns true when the command should end.

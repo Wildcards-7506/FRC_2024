@@ -31,7 +31,7 @@ public class AutoIntake_Trigger extends Command{
     @Override
     public void execute() {
         if(!Robot.skipNonPath){  
-            Robot.ledSystem.solid(LEDConstants.YELLOW,255,255);
+            Robot.lightStrip.section(3*LEDConstants.bufferSize/5,4*LEDConstants.bufferSize/5-1,Robot.lightStrip.shooterLo,LEDConstants.SATURATED,LEDConstants.FULL);
             Logger.info("INTKE", Double.toString(Robot.intake.getIntakeCurrent()) + " Amps");
             Robot.intake.setIntakeVoltage(12);
         }
@@ -42,12 +42,13 @@ public class AutoIntake_Trigger extends Command{
     public void end(boolean interrupted) {
         if(!Robot.skipNonPath){  
             if(time.get() > runTime){
-                Robot.ledSystem.solid(LEDConstants.RED,255,255);
+                Robot.lightStrip.section(3*LEDConstants.bufferSize/5,4*LEDConstants.bufferSize/5-1,LEDConstants.RED,LEDConstants.WHITE,LEDConstants.FULL);
                 Logger.info("INTKE", "Piece Missed");
             } else if(time.get() > 0.5 && shooting){
+                Robot.lightStrip.section(3*LEDConstants.bufferSize/5,4*LEDConstants.bufferSize/5-1,LEDConstants.GREEN,LEDConstants.SATURATED,LEDConstants.FULL);
                 Logger.info("INTKE", "Shot Fired");
             } else {
-                Robot.ledSystem.solid(LEDConstants.GREEN,255,255);
+                Robot.lightStrip.section(3*LEDConstants.bufferSize/5,4*LEDConstants.bufferSize/5-1,Robot.lightStrip.alignOOB,LEDConstants.SATURATED,LEDConstants.FULL);
                 Logger.info("INTKE", "Piece Acquired");
             }
             Robot.intake.setIntakeVoltage(0);

@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CenterTop"
+            "pathName": "CW2"
           }
         },
         {
@@ -44,25 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CenterBottom"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoIntakeStowToGround"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "CenterCenter"
+            "pathName": "CW1"
           }
         },
         {
@@ -74,6 +56,6 @@
       ]
     }
   },
-  "folder": "4",
+  "folder": "Speaker",
   "choreoAuto": false
 }

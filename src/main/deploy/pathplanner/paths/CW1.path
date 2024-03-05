@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3500000000000005,
-        "y": 5.55
+        "x": 2.30636104229298,
+        "y": 7.357969778322952
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.894741011131508,
-        "y": 5.55
+        "x": 3.1040584340963457,
+        "y": 6.799069293684296
       },
       "prevControl": {
-        "x": 2.794741011131508,
-        "y": 5.55
+        "x": 2.773934927012725,
+        "y": 7.1052713241747085
       },
       "nextControl": {
-        "x": 3.894741011131508,
-        "y": 5.55
+        "x": 3.3831169096573266,
+        "y": 6.540232010034915
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.25,
-        "y": 5.55
+        "x": 2.6908650476582667,
+        "y": 6.381536336999913
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "AutoIntakeGroundToStow",
-      "waypointRelativePos": 1.35,
+      "waypointRelativePos": 1.15,
       "command": {
         "type": "sequential",
         "data": {

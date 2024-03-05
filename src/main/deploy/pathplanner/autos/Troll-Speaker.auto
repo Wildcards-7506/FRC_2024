@@ -5,7 +5,7 @@
       "x": 0.8,
       "y": 4.45
     },
-    "rotation": 0.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -16,10 +16,16 @@
           "data": {
             "name": "AutoShoot"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Troll"
+          }
         }
       ]
     }
   },
-  "folder": "Meme",
+  "folder": "Disrupt",
   "choreoAuto": false
 }

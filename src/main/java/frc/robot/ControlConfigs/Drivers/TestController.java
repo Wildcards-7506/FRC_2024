@@ -6,10 +6,10 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 public class TestController extends PlayerConfigs {
     public void getDriverConfig() {
         //Constants
-        PlayerConfigs.turnSpeed = 0.5;
-        PlayerConfigs.driveSpeed = 0.5;
-        PlayerConfigs.fineTurnSpeed = 0.25;
-        PlayerConfigs.fineDriveSpeed = 0.25;
+        PlayerConfigs.turnSpeed = 0.2;
+        PlayerConfigs.driveSpeed = 0.2;
+        PlayerConfigs.fineTurnSpeed = 0.1;
+        PlayerConfigs.fineDriveSpeed = 0.1;
 
         //Driving and rotation
         PlayerConfigs.xMovement = Robot.controller0.getLeftX();
@@ -24,13 +24,14 @@ public class TestController extends PlayerConfigs {
 
         //Scoring and grabbing objects
         PlayerConfigs.fire = Robot.controller0.getRightTriggerAxis() > 0.2;
+        PlayerConfigs.reject = Robot.controller0.getRightTriggerAxis() > 0.2;
     } 
 
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.ground = Robot.controller1.getAButton();
-        PlayerConfigs.amp = Robot.controller1.getBButton();
-        PlayerConfigs.stow = Robot.controller1.getYButton();
+        PlayerConfigs.ground = Robot.controller1.getPOV() == 0;
+        PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
+        PlayerConfigs.stow = Robot.controller1.getPOV() == 180;
 
         //Intake Fine Control
         PlayerConfigs.fcEnable = Robot.controller1.getStartButton();
@@ -38,11 +39,14 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.fcWrist = Robot.controller1.getRightY();
 
         //Shooter Spin up
-        PlayerConfigs.armScoringMechanism = Robot.controller1.getRightTriggerAxis() > 0.2;
-        PlayerConfigs.shooterActive = Robot.controller1.getRightBumper();
+        PlayerConfigs.armScoringMechanism = Robot.controller1.getBButton();
+        PlayerConfigs.shooterActive = Robot.controller1.getAButton();
         
         //Climbers
-        PlayerConfigs.climberUp = Robot.controller1.getPOV() == 180;
-        PlayerConfigs.climberDown = Robot.controller1.getPOV() == 0;
+        PlayerConfigs.splitClimberControl = Robot.controller1.getYButton();
+        PlayerConfigs.climberLUp = Robot.controller1.getLeftBumper();
+        PlayerConfigs.climberLDown = Robot.controller1.getLeftTriggerAxis() > 0.2;
+        PlayerConfigs.climberRUp = Robot.controller1.getRightBumper();
+        PlayerConfigs.climberRDown = Robot.controller1.getRightTriggerAxis() > 0.2;
     }
 }

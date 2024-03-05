@@ -4,16 +4,15 @@
   "holonomicMode": true,
   "pathFolders": [
     "Amp",
-    "Meme",
     "Bottom",
     "Center",
+    "Disrupt",
     "Top"
   ],
   "autoFolders": [
-    "3",
-    "4",
+    "Speaker",
     "Amp",
-    "Meme"
+    "Disrupt"
   ],
   "defaultMaxVel": 4.5,
   "defaultMaxAccel": 4.5,

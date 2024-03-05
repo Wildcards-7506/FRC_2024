@@ -16,6 +16,7 @@ public class Climbers extends SubsystemBase{
     
     private RelativeEncoder climbLEncoder;
     private RelativeEncoder climbREncoder;
+    public boolean splitControlMode = false;;
     
     public Climbers () {
         climberRight = new CANSparkMax(CANID.CLIMBER_RIGHT, MotorType.kBrushless);
@@ -56,8 +57,11 @@ public class Climbers extends SubsystemBase{
         return climbLEncoder.getPosition();
     }
 
-    public void setClimbers (double volts) {
+    public void setLClimber (double volts) {
         climberLeft.setVoltage(volts);
+    }
+
+    public void setRClimber (double volts) {
         climberRight.setVoltage(volts);
     }
 

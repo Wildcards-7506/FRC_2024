@@ -33,8 +33,11 @@ public class PlayerConfigs {
     public static boolean reject;
 
     //Climbers
-    public static boolean climberUp;
-    public static boolean climberDown;
+    public static boolean splitClimberControl;
+    public static boolean climberLUp;
+    public static boolean climberLDown;
+    public static boolean climberRUp;
+    public static boolean climberRDown;
 
     public void getDriverConfig(){}
 

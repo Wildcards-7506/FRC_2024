@@ -18,7 +18,7 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.intakeState = 1;
         } else if (PlayerConfigs.amp && Robot.intake.intakeState != 3) {
             Robot.intake.intakeState = 2;
-        } else if (!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberDown || PlayerConfigs.climberUp)) {
+        } else if (!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberLDown || PlayerConfigs.climberLUp || PlayerConfigs.climberRUp || PlayerConfigs.climberRUp)) {
             //Only climber control can initiate trap position, no manual triggering allowed, must start from stow position
             //To activate trap, disable shooter and run climber down
             Robot.intake.intakeState = 3;

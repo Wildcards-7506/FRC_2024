@@ -2,15 +2,21 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.62,
-      "y": 7.35
+      "x": 0.8,
+      "y": 4.45
     },
-    "rotation": 90.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
         {
           "type": "parallel",
           "data": {
@@ -18,13 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Corner Amp"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAmpSet"
+                  "pathName": "BC4"
                 }
               }
             ]
@@ -33,25 +33,20 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoAmpScore"
+            "name": "AutoShoot"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "C1Amp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoAmpScore"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "C2Speaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BC5"
+                }
+              }
+            ]
           }
         },
         {
@@ -63,6 +58,6 @@
       ]
     }
   },
-  "folder": "Amp",
+  "folder": "Speaker",
   "choreoAuto": false
 }

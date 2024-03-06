@@ -29,7 +29,7 @@ public class AutoIntakeElbowSet extends Command{
         if(!Robot.skipNonPath){  
             Logger.info("ELBOW", Double.toString(Robot.intake.getElbowEncoder()) + " Degrees");
             Robot.intake.setElbowPosition(setpoint);
-            Robot.ledSystem.section(0, 14, LEDConstants.ORANGE, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+            Robot.lightStrip.section(LEDConstants.bufferSize/5, 2*LEDConstants.bufferSize/5-1, Robot.lightStrip.shooterLo, LEDConstants.SATURATED, LEDConstants.FULL);
         }
     }
 
@@ -37,7 +37,7 @@ public class AutoIntakeElbowSet extends Command{
     @Override
     public void end(boolean interrupted) {
         Logger.info("ELBOW", "Elbow In Position");
-        Robot.ledSystem.section(0, 14, LEDConstants.GREEN, LEDConstants.SV_FULL, LEDConstants.SV_FULL);
+        Robot.lightStrip.section(LEDConstants.bufferSize/5, 2*LEDConstants.bufferSize/5-1, LEDConstants.GREEN, LEDConstants.SATURATED, LEDConstants.FULL);
 
     }
 

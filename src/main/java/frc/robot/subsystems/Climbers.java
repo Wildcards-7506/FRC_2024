@@ -57,12 +57,9 @@ public class Climbers extends SubsystemBase{
         return climbLEncoder.getPosition();
     }
 
-    public void setLClimber (double volts) {
-        climberLeft.setVoltage(volts);
-    }
-
-    public void setRClimber (double volts) {
-        climberRight.setVoltage(volts);
+    public void setClimbers (double lVolts, double rVolts) {
+        climberLeft.setVoltage(lVolts);
+        climberRight.setVoltage(rVolts);
     }
 
     public void climberLog(){

@@ -8,10 +8,10 @@ import frc.robot.commands.Autonomous.Subsystem_Commands.AutoLimelightRotate;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class AutoAmpSet extends SequentialCommandGroup{
+public class AutoIntakeStowToAmp extends SequentialCommandGroup{
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
-    public AutoAmpSet() {
+    public AutoIntakeStowToAmp() {
         addCommands(
             //Rotate elbow and bot to amp scoring position
             new ParallelCommandGroup(

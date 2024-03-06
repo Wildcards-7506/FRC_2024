@@ -109,7 +109,7 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
             
-            if (Robot.intake.getWristEncoder() > IntakeConstants.kWristShooting - 5) {
+            if (Robot.intake.getWristEncoder() > IntakeConstants.kWristShooting - 10) {
                 SmartDashboard.putString("Elbow Status", "Stow - Stow Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
             }

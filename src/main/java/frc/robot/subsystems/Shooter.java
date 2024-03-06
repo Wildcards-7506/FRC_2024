@@ -47,11 +47,11 @@ public class Shooter extends SubsystemBase{
     }
 
     public double getRSpeed(){
-            return shooterREncoder.getVelocity();
+        return shooterREncoder.getVelocity();
     }
 
     public double getLSpeed(){
-            return shooterLEncoder.getVelocity();
+        return shooterLEncoder.getVelocity();
     }
 
     public void setShooterSpeed(double lSpeed, double rSpeed) {

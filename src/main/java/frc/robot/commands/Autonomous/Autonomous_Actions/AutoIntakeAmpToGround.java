@@ -7,12 +7,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class AutoIntakeAmpToGround extends SequentialCommandGroup{
 
-    /** Creates a new Drivetrain Snap-to-angle Command. */
     public AutoIntakeAmpToGround() {
         //Sets intake at stow, moves elbow to ground, drops intake to ground
         addCommands(
-            new AutoIntakeWristSet(IntakeConstants.kWristGround,5),
-            new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 40)
+            new AutoIntakeWristSet(IntakeConstants.kWristGround,10),
+            new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 10)
         );
     }
 }

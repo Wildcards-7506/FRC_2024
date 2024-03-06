@@ -13,17 +13,16 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class AutoShoot extends SequentialCommandGroup{
 
-    /** Creates a new Drivetrain Snap-to-angle Command. */
     public AutoShoot() {
         addCommands(
             new ParallelCommandGroup(
                 new AutoLimelightRotate(LimelightConstants.kShooterPosition),
-                new AutoIntakeElbowSet(IntakeConstants.kElbowStowed, 50),
-                new AutoIntakeWristSet(IntakeConstants.kWristShooting, 5),
+                new AutoIntakeElbowSet(IntakeConstants.kElbowStowed, 10),
+                new AutoIntakeWristSet(IntakeConstants.kWristShooting, 10),
                 new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM)
             ),
             new AutoIntake_Trigger(0.5,true),
-            new AutoIntakeWristSet(IntakeConstants.kWristStowed, 5)
+            new AutoIntakeWristSet(IntakeConstants.kWristStowed, 10)
         );
     }
 }

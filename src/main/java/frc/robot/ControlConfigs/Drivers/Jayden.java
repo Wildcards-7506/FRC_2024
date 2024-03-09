@@ -29,9 +29,9 @@ public class Jayden extends PlayerConfigs {
 
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.ground = Robot.controller1.getPOV() == 0;
+        PlayerConfigs.ground = Robot.controller1.getPOV() == 180;
         PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
-        PlayerConfigs.stow = Robot.controller1.getPOV() == 180;
+        PlayerConfigs.stow = Robot.controller1.getPOV() == 0;
 
         //Intake Fine Control
         PlayerConfigs.fcEnable = Robot.controller1.getStartButton();

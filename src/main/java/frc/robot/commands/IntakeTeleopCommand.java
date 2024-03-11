@@ -93,7 +93,7 @@ public class IntakeTeleopCommand extends Command{
             if (Math.abs(PlayerConfigs.fcElbow) > 0.25) {
                 SmartDashboard.putString("Elbow Status", "Fine Control, Moving");
                 Robot.intake.fcControlElbow = true;
-                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow; 
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow;
             } else if (Robot.intake.fcControlElbow) {
                 SmartDashboard.putString("Elbow Status", "Fine Control, Holding");
                 Robot.intake.fcControlElbow = false;

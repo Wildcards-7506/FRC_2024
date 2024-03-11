@@ -183,7 +183,7 @@ public final class Constants {
         public static final double kElbowTrapScoring = 128.0;
         public static final double kElbowAmp = 110.0;
         public static final double kElbowUpConstraint = 115.0;
-        public static final double kElbowStowed = 150.0;
+        public static final double kElbowStowed = 140.0;
         public static final double kElbowManualOffset = 20.0;
 
         public static final int kWristCurrentLimit = 40;

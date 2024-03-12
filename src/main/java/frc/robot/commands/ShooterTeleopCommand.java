@@ -9,6 +9,7 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 public class ShooterTeleopCommand extends Command{
 
     private boolean prev_ActiveButton = false;
+    private boolean prev_ArmScoringMechanism = false;
 
     public ShooterTeleopCommand(){
         addRequirements(Robot.shooter);
@@ -16,15 +17,31 @@ public class ShooterTeleopCommand extends Command{
     
     @Override
     public void execute (){
+        // primes shooter
         if(PlayerConfigs.shooterActive != prev_ActiveButton){
             prev_ActiveButton = PlayerConfigs.shooterActive;
             if(PlayerConfigs.shooterActive){
                 Robot.shooter.shootingMode = !Robot.shooter.shootingMode;
             }
         }
+        
+        // arms shooter
+        if(PlayerConfigs.armScoringMechanism != prev_ArmScoringMechanism){
+            prev_ArmScoringMechanism = PlayerConfigs.armScoringMechanism;
+            if(PlayerConfigs.armScoringMechanism){
+                Robot.shooter.armScoringMode = !Robot.shooter.armScoringMode;
+            }
+        }
+        
+        // when primed, shooter can be toggled between prime (false) and armed (true)
+        // when not primed, both shooter and prime are disabled (false), and toggle is reset for arming
+        if (!Robot.shooter.shootingMode) {
+            prev_ArmScoringMechanism = false;
+            Robot.shooter.armScoringMode = false;
+        }
 
         //If in shooting mode and intake is in shooting position, high speed
-        if(Robot.shooter.shootingMode && PlayerConfigs.armScoringMechanism){
+        if(Robot.shooter.shootingMode && Robot.shooter.armScoringMode){
             SmartDashboard.putString("Shooter Status", "DANGER - Armed");
             Robot.shooter.setShooterSpeed(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM);
         //If in shooting mode but not actively shooting, idle speed

@@ -22,6 +22,7 @@ public class Shooter extends SubsystemBase{
     private final RelativeEncoder shooterREncoder;
     public final SparkPIDController shooterRPIDF;
     public boolean shootingMode;
+    public boolean armScoringMode;
 
     public Shooter () {
         shooterL = new CANSparkMax(CANID.shooter_LEFT, MotorType.kBrushless);
@@ -44,6 +45,7 @@ public class Shooter extends SubsystemBase{
         shooterR.burnFlash();
 
         shootingMode = false;
+        armScoringMode = false;
     }
 
     public double getRSpeed(){

@@ -90,8 +90,13 @@ public class Intake extends SubsystemBase {
         intake.burnFlash();
     }
 
-    public Timer getTimer() {
-        return intakeTimer;
+    public double getTimer() {
+        return intakeTimer.get();
+    }
+
+    public void resetTimer() {
+        intakeTimer.reset();
+	intakeTimer.start();
     }
 
     public double getElbowEncoder() {

@@ -199,14 +199,14 @@ public final class Constants {
 
         public static final int kIntakeCurrentLimit = 40;
         public static final double kIntakeDecompressionTime = 0.5;
-        public static final double kIntakeDecompressionVoltage = -1;
+        public static final double kIntakeDecompressionVoltage = 0;
       }
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static final double kLArmedRPM = 3500;
-        public static final double kRArmedRPM = 4000;
-        public static final double kPrimeRPM = 200;
+        public static final double kLArmedRPM = 5200;
+        public static final double kRArmedRPM = 5700;
+        public static final double kPrimeRPM = 400;
         public static final double kPShooter = 6e-5;
         public static final double kVShooter = 0.00022;
       }

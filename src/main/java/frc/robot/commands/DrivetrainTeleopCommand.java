@@ -35,7 +35,9 @@ public class DrivetrainTeleopCommand extends Command{
         // middle of the field.
         // xInputSpeed = -xInputSpeed;
         // yInputSpeed = -yInputSpeed;
-        // inputRot = -inputRot;
+        inputRot = -inputRot;
+
+        System.out.println("ROBOT HEADING: " + Robot.drivetrain.getHeading());
 
         //Snap or align if needed, set drive if joystick inputs available, otherwise X
         if(PlayerConfigs.snapUp){
@@ -56,7 +58,7 @@ public class DrivetrainTeleopCommand extends Command{
             Robot.drivetrain.drive(yInputSpeed, xInputSpeed, inputRot, true, true);
         } else {
             Robot.drivetrain.setX();
-        }
+        } // 90.4
 
         //Report Joysticks to Logger
         payload = df.format(yInputSpeed)

@@ -138,6 +138,8 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 
+        
+
         //Reject Piece if button is pressed, regardless of intake state
         if (PlayerConfigs.reject) {
             SmartDashboard.putString("Intake Status", "Rejecting");
@@ -146,7 +148,7 @@ public class IntakeTeleopCommand extends Command{
             SmartDashboard.putString("Intake Status", "Firing");
             Robot.intake.setIntakeVoltage(12);
         // Less volts for intaking to avoid pushing disk in too far
-        } else if (Robot.intake.intakeState == 1) {
+        } else if (Robot.intake.intakeState == 1 && Robot.intake.getIntakeCurrent() <= 20) {
             SmartDashboard.putString("Intake Status", "Intaking");
             Robot.intake.setIntakeVoltage(6.5);
         //Maintain idle spin for positive hold (think cones sliding out of the intake last year)

@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.CANID;
@@ -21,6 +22,8 @@ public class Intake extends SubsystemBase {
     
     private RelativeEncoder elbowEncoder;
     private RelativeEncoder wristEncoder;
+
+    private Timer intakeTimer;
 
     public SparkPIDController elbowPIDF;
     public SparkPIDController wristPIDF;
@@ -79,10 +82,16 @@ public class Intake extends SubsystemBase {
         elbowPIDF.setOutputRange(-0.85, 0.85);
         wristPIDF.setOutputRange(-1, 1);
 
+        intakeTimer = new Timer();
+
         elbowRotatorLeader.burnFlash();
         // elbowRotatorFollower.burnFlash();
         wristRotator.burnFlash();
         intake.burnFlash();
+    }
+
+    public Timer getTimer() {
+        return intakeTimer;
     }
 
     public double getElbowEncoder() {

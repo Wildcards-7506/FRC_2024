@@ -41,9 +41,9 @@ public class IntakeTeleopCommand extends Command{
                 // was getting caught on just the frame coming down
                 SmartDashboard.putString("Wrist Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint + 10) {
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint - 2) { // when changing, may also need to change on line 57 for elbow
                 SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Constrain");
-                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
+                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint - 5;
             } else {
                 SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Stowed");
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
@@ -54,7 +54,7 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
             } else {
                 SmartDashboard.putString("Elbow Status", "Ground - Wrist Out Of Bounds, Constrain");
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint;
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint - 5; // when changing, may also need to change on line 44 for wrist
             }
         //Amp State
         } else if (Robot.intake.intakeState == 2) {

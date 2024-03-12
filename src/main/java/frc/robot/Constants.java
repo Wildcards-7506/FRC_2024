@@ -198,8 +198,8 @@ public final class Constants {
         public static final double kWristManualOffset = 20.0;
 
         public static final int kIntakeCurrentLimit = 40;
-        public static final double kIntakeDecompressTime = 0.5;
-        public static final double kIntakeDecompressVoltage = -1;
+        public static final double kIntakeDecompressionTime = 0.5;
+        public static final double kIntakeDecompressionVoltage = -1;
       }
 
       public static final class ShooterConstants {

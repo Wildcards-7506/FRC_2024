@@ -148,10 +148,10 @@ public class IntakeTeleopCommand extends Command{
         } else if (PlayerConfigs.reject) {
             SmartDashboard.putString("Intake Status", "Rejecting");
             Robot.intake.setIntakeVoltage(-12);
-        } else if(intaking = true && !PlayerConfigs.fire)
+        } else if(Robot.intake.intaking == true && !PlayerConfigs.fire) {
             Robot.intake.resetTimer();
             Robot.intake.intaking = false;
-        } else if (Robot.intake.intaking = false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime){
+        } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime){
             Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
         } else {
             SmartDashboard.putString("Intake Status", "Holding");

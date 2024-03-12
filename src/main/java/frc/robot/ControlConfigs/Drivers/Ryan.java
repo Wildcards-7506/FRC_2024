@@ -22,9 +22,8 @@ public class Ryan extends PlayerConfigs {
         PlayerConfigs.snapLeft = Robot.controller0.getPOV() == 270;
         PlayerConfigs.align = Robot.controller0.getLeftTriggerAxis() > 0.2;
 
-        //Scoring and grabbing objects
+        //Scoring
         PlayerConfigs.fire = Robot.controller0.getRightBumper();
-        PlayerConfigs.reject = Robot.controller0.getRightTriggerAxis() > 0.2;
     } 
 
     public void getoperatorConfig() {
@@ -32,6 +31,10 @@ public class Ryan extends PlayerConfigs {
         PlayerConfigs.ground = Robot.controller1.getPOV() == 0;
         PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
         PlayerConfigs.stow = Robot.controller1.getPOV() == 180;
+        
+        // Grabbing and rejecting objects
+        PlayerConfigs.intake = Robot.controller1.getXButton();
+        PlayerConfigs.reject = Robot.controller1.getBButton();
 
         //Intake Fine Control
         PlayerConfigs.fcEnable = Robot.controller1.getStartButton();
@@ -39,8 +42,8 @@ public class Ryan extends PlayerConfigs {
         PlayerConfigs.fcWrist = Robot.controller1.getRightY();
 
         //Shooter Spin up
-        PlayerConfigs.armScoringMechanism = Robot.controller1.getBButton();
-        PlayerConfigs.shooterActive = Robot.controller1.getAButton();
+        PlayerConfigs.armScoringMechanism = Robot.controller1.getAButton();
+        PlayerConfigs.shooterActive = Robot.controller1.getBackButton();
         
         //Climbers
         PlayerConfigs.splitClimberControl = Robot.controller1.getYButton();

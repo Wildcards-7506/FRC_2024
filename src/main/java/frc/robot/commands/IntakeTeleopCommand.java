@@ -143,16 +143,19 @@ public class IntakeTeleopCommand extends Command{
         //Reject Piece if button is pressed, regardless of intake state
         if (PlayerConfigs.fire) {
             SmartDashboard.putString("Intake Status", "Firing");
-            Robot.intake.intaking = true;
+            // Robot.intake.intaking = true;
+            Robot.intake.setIntakeVoltage(12);
+        } else if (PlayerConfigs.intake) {
+            SmartDashboard.putString("Intake Status", "Intaking");
             Robot.intake.setIntakeVoltage(12);
         } else if (PlayerConfigs.reject) {
             SmartDashboard.putString("Intake Status", "Rejecting");
-            Robot.intake.setIntakeVoltage(-12);
-        } else if(Robot.intake.intaking == true && !PlayerConfigs.fire) {
-            Robot.intake.resetTimer();
-            Robot.intake.intaking = false;
-        } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime){
-            Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
+            Robot.intake.setIntakeVoltage(-2.4);
+        // } else if(Robot.intake.intaking == true && !PlayerConfigs.fire <--) { // won't work for new driver/codriver controls
+        //     Robot.intake.resetTimer();
+        //     Robot.intake.intaking = false;
+        // } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime) {
+        //     Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
         } else {
             SmartDashboard.putString("Intake Status", "Holding");
             Robot.intake.setIntakeVoltage(0);

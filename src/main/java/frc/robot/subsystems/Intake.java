@@ -31,6 +31,7 @@ public class Intake extends SubsystemBase {
     public double wristSetPoint;
     public double elbowSetPoint;
     public int intakeState = 0;
+    public boolean intaking = false;
     public boolean fcControlElbow;
     public boolean fcControlWrist;
 

@@ -37,9 +37,9 @@ public class Intake extends SubsystemBase {
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
         intake = new CANSparkMax(CANID.INTAKE, MotorType.kBrushless);
 
-        elbowRotatorLeader.setIdleMode(IdleMode.kCoast);
+        elbowRotatorLeader.setIdleMode(IdleMode.kBrake);
         // elbowRotatorFollower.setIdleMode(IdleMode.kCoast);
-        wristRotator.setIdleMode(IdleMode.kCoast);
+        wristRotator.setIdleMode(IdleMode.kBrake);
         intake.setIdleMode(IdleMode.kBrake);
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
@@ -76,7 +76,7 @@ public class Intake extends SubsystemBase {
         elbowPIDF.setP(IntakeConstants.kPElbow);
         wristPIDF.setP(IntakeConstants.kPWrist);
 
-        elbowPIDF.setOutputRange(-1, 1);
+        elbowPIDF.setOutputRange(-0.85, 0.85);
         wristPIDF.setOutputRange(-1, 1);
 
         elbowRotatorLeader.burnFlash();

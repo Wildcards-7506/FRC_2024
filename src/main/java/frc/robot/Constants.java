@@ -197,7 +197,7 @@ public final class Constants {
         public static final double kWristStowed = 160.0;
         public static final double kWristManualOffset = 20.0;
 
-        public static final int kIntakeCurrentLimit = 30;
+        public static final int kIntakeCurrentLimit = 40;
         public static final double kIntakeDecompressTime = 0.5;
         public static final double kIntakeDecompressVoltage = -1;
       }

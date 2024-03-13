@@ -91,6 +91,10 @@ public class Intake extends SubsystemBase {
         intake.burnFlash();
     }
 
+    public void setIntakeCurrentLimit(int lim) {
+        intake.setSmartCurrentLimit(lim);
+    }
+
     public double getTimer() {
         return intakeTimer.get();
     }

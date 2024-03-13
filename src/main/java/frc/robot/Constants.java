@@ -95,7 +95,7 @@ public final class Constants {
         public static final double kBackLeftChassisAngularOffset = Math.PI;
         public static final double kBackRightChassisAngularOffset = Math.PI / 2;
     
-        public static final boolean kGyroReversed = false;
+        public static final boolean kGyroReversed = true;
         
         //Tune these to the new drivebase
         public static final double kSnapRange = 1;

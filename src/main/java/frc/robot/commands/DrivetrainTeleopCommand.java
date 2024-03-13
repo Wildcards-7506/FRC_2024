@@ -24,8 +24,8 @@ public class DrivetrainTeleopCommand extends Command{
             PlayerConfigs.fineDriveSpeed * PlayerConfigs.xMovement :
             PlayerConfigs.driveSpeed * PlayerConfigs.xMovement;
         yInputSpeed = PlayerConfigs.fineControlToggle ? 
-            PlayerConfigs.fineDriveSpeed * PlayerConfigs.yMovement : 
-            PlayerConfigs.driveSpeed * PlayerConfigs.yMovement;
+            -PlayerConfigs.fineDriveSpeed * PlayerConfigs.yMovement : 
+            -PlayerConfigs.driveSpeed * PlayerConfigs.yMovement;
         inputRot = PlayerConfigs.fineControlToggle ? 
             PlayerConfigs.fineTurnSpeed * PlayerConfigs.turnMovement : 
             PlayerConfigs.turnSpeed * PlayerConfigs.turnMovement;
@@ -33,9 +33,6 @@ public class DrivetrainTeleopCommand extends Command{
         // This change makes the intake as the front of the robot, therefore
         // we will need to power the robot so that the intake points to the
         // middle of the field.
-        // xInputSpeed = -xInputSpeed;
-        // yInputSpeed = -yInputSpeed;
-        inputRot = -inputRot;
 
         System.out.println("ROBOT HEADING: " + Robot.drivetrain.getHeading());
 
@@ -58,7 +55,7 @@ public class DrivetrainTeleopCommand extends Command{
             Robot.drivetrain.drive(yInputSpeed, xInputSpeed, inputRot, true, true);
         } else {
             Robot.drivetrain.setX();
-        } // 90.4
+        }
 
         //Report Joysticks to Logger
         payload = df.format(yInputSpeed)

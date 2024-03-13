@@ -141,12 +141,9 @@ public class IntakeTeleopCommand extends Command{
         
 
         //Reject Piece if button is pressed, regardless of intake state
-        if (PlayerConfigs.fire) {
-            SmartDashboard.putString("Intake Status", "Firing");
+        if (PlayerConfigs.fire || PlayerConfigs.intake || Robot.intake.intakeState == 1) {
+            SmartDashboard.putString("Intake Status", "Wheels Moving Inward");
             // Robot.intake.intaking = true;
-            Robot.intake.setIntakeVoltage(12);
-        } else if (PlayerConfigs.intake) {
-            SmartDashboard.putString("Intake Status", "Intaking");
             Robot.intake.setIntakeVoltage(12);
         } else if (PlayerConfigs.reject) {
             SmartDashboard.putString("Intake Status", "Rejecting");

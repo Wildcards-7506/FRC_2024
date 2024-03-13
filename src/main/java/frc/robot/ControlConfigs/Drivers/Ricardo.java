@@ -12,9 +12,9 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.fineDriveSpeed = 0.15;
 
         //Driving and rotation
-        PlayerConfigs.xMovement = Robot.controller0.getLeftX();
+        PlayerConfigs.xMovement = -Robot.controller0.getLeftX();
         PlayerConfigs.yMovement = Robot.controller0.getLeftY();
-        PlayerConfigs.turnMovement = Robot.controller0.getRightX();
+        PlayerConfigs.turnMovement = -Robot.controller0.getRightX();
         PlayerConfigs.fineControlToggle = Robot.controller0.getLeftBumper();
         PlayerConfigs.snapUp = Robot.controller0.getPOV() == 0;
         PlayerConfigs.snapRight = Robot.controller0.getPOV() == 90;

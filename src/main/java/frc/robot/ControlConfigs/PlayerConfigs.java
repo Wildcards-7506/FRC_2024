@@ -31,6 +31,7 @@ public class PlayerConfigs {
     public static boolean shooterActive;
     public static boolean fire;
     public static boolean reject;
+    public static boolean intake;
 
     //Climbers
     public static boolean splitClimberControl;

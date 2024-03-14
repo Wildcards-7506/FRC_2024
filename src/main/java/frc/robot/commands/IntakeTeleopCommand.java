@@ -35,16 +35,27 @@ public class IntakeTeleopCommand extends Command{
 
         //Ground State
         if (Robot.intake.intakeState == 1) {
-            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowGround + 5) {
-                SmartDashboard.putString("Wrist Status", "Ground - Ground Position");
+            //Hold intake to stowed or contrained position to avoid damage or extension rule until low enough to open to ground position
+            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint + 5) {
+                // for the condition ^^^: may need to increase value when bumpers come on
+                // was getting caught on just the frame coming down
+                SmartDashboard.putString("Wrist Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint - 2) { // when changing, may also need to change on line 57 for elbow
+                SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Constrain");
+                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint - 5;
             } else {
-                SmartDashboard.putString("Wrist Status", "Ground - Stowed");
-                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
+                SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Stowed");
+                Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
             }
 
-            SmartDashboard.putString("Elbow Status", "Ground - Ground Position");
-            Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
+            if (Robot.intake.getWristEncoder() < IntakeConstants.kWristConstraint + 10 || Robot.intake.wristSetPoint == IntakeConstants.kWristGround) {
+                SmartDashboard.putString("Elbow Status", "Ground - Success! Setting Ground Position");
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
+            } else {
+                SmartDashboard.putString("Elbow Status", "Ground - Wrist Out Of Bounds, Constrain");
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint - 5; // when changing, may also need to change on line 44 for wrist
+            }
         //Amp State
         } else if (Robot.intake.intakeState == 2) {
             if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 5) {
@@ -82,7 +93,7 @@ public class IntakeTeleopCommand extends Command{
             if (Math.abs(PlayerConfigs.fcElbow) > 0.25) {
                 SmartDashboard.putString("Elbow Status", "Fine Control, Moving");
                 Robot.intake.fcControlElbow = true;
-                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow; 
+                Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow;
             } else if (Robot.intake.fcControlElbow) {
                 SmartDashboard.putString("Elbow Status", "Fine Control, Holding");
                 Robot.intake.fcControlElbow = false;
@@ -101,17 +112,25 @@ public class IntakeTeleopCommand extends Command{
             
         //Stow and Shoot
         } else {
-            if (PlayerConfigs.armScoringMechanism) {
+
+            // SCARY MAY NEED TO CHECK IF PAST BUMPER WHILE KEEPING IN MIND THE BOUNDARY
+            
+            if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint - 10) {
+                // SmartDashboard.putString("Wrist Status", "Stow - Shooting Position");
+                Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
+            } else if (PlayerConfigs.armScoringMechanism) {
                 SmartDashboard.putString("Wrist Status", "Stow - Shooting Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
             } else {
                 SmartDashboard.putString("Wrist Status", "Stow - Stow Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
-            
-            if (Robot.intake.getWristEncoder() > IntakeConstants.kWristShooting - 10) {
-                SmartDashboard.putString("Elbow Status", "Stow - Stow Position");
+
+            // if (Robot.intake.wristSetPoint == IntakeConstants.kWristStowed || Robot.intake.wristSetPoint == IntakeConstants.kWristShooting) {
+            if (Robot.intake.getWristEncoder() > IntakeConstants.kWristShooting - 10 || Robot.intake.getWristEncoder() > IntakeConstants.kWristStowed - 10) {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
+            } else {
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint;
             }
         }
         
@@ -119,18 +138,31 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 
+        
+
         //Reject Piece if button is pressed, regardless of intake state
-        if (PlayerConfigs.reject) {
-            SmartDashboard.putString("Intake Status", "Rejecting");
-            Robot.intake.setIntakeVoltage(-12);
-        //If intake is on the ground or firing, run at full speed
-        } else if (Robot.intake.intakeState == 1 || PlayerConfigs.fire) {
+        if (PlayerConfigs.intake) {
             SmartDashboard.putString("Intake Status", "Intaking");
+            // Robot.intake.intaking = true;
+            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
             Robot.intake.setIntakeVoltage(12);
-        //Maintain idle spin for positive hold (think cones sliding out of the intake last year)
+        } else if (PlayerConfigs.fire) {
+            SmartDashboard.putString("Intake Status", "Firing");
+            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
+            Robot.intake.setIntakeVoltage(12);
+        } else if (PlayerConfigs.reject) {
+            SmartDashboard.putString("Intake Status", "Rejecting");
+            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
+            Robot.intake.setIntakeVoltage(-2.4);
+        // } else if(Robot.intake.intaking == true && !PlayerConfigs.fire <--) { // won't work for new driver/codriver controls
+        //     Robot.intake.resetTimer();
+        //     Robot.intake.intaking = false;
+        // } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime) {
+        //     Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
         } else {
             SmartDashboard.putString("Intake Status", "Holding");
-            Robot.intake.setIntakeVoltage(1);
+            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+            Robot.intake.setIntakeVoltage(0);
         }
 
         SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);

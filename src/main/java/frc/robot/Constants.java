@@ -168,7 +168,7 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
       }
-    
+
       public static final class NeoMotorConstants {
         public static final double kFreeSpeedRpm = 5676;
       }
@@ -177,14 +177,14 @@ public final class Constants {
         public static final int kElbowCurrentLimit = 40;
         public static final double kElbowEncoderDistancePerPulse = 1.0/125 * 360;
         public static final double kPElbow = 0.02;
-        public static final double kElbowGround = 15.0;
+        public static final double kElbowGround = 3.0;
         public static final double kElbowDownConstraint = 75.0;
-        public static final double kElbowTrapPressure = 100.0;
+        public static final double kElbowTrapPressure = 80.0;
         public static final double kElbowTrapScoring = 128.0;
         public static final double kElbowAmp = 110.0;
-        public static final double kElbowUpConstraint = 95.0;
+        public static final double kElbowUpConstraint = 115.0;
         public static final double kElbowStowed = 140.0;
-        public static final double kElbowManualOffset = 45.0;
+        public static final double kElbowManualOffset = 20.0;
 
         public static final int kWristCurrentLimit = 40;
         public static final double kWristEncoderDistancePerPulse = 1.0/125 * 360;
@@ -194,17 +194,20 @@ public final class Constants {
         public static final double kWristGround = 0.5;
         public static final double kWristTrap = 20.0;
         public static final double kWristShooting = 155.0;
-        public static final double kWristStowed = 160.0;
-        public static final double kWristManualOffset = 45.0;
+        public static final double kWristStowed = 150.0;
+        public static final double kWristManualOffset = 20.0;
 
-        public static final int kIntakeCurrentLimit = 50;
+        public static final int kIntakeCurrentLimit = 20;
+        public static final int kIntakeShootingLimit = 30;
+        public static final double kIntakeDecompressionTime = 0.5;
+        public static final double kIntakeDecompressionVoltage = 0;
       }
 
       public static final class ShooterConstants {
         public static final int kShooterCurrentLimit = 50;
-        public static final double kLArmedRPM = 3500;
-        public static final double kRArmedRPM = 4000;
-        public static final double kPrimeRPM = 200;
+        public static final double kLArmedRPM = 5200;
+        public static final double kRArmedRPM = 5700;
+        public static final double kPrimeRPM = 400;
         public static final double kPShooter = 6e-5;
         public static final double kVShooter = 0.00022;
       }

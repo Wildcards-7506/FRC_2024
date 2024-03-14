@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.CANID;
@@ -22,24 +23,27 @@ public class Intake extends SubsystemBase {
     private RelativeEncoder elbowEncoder;
     private RelativeEncoder wristEncoder;
 
+    private Timer intakeTimer;
+
     public SparkPIDController elbowPIDF;
     public SparkPIDController wristPIDF;
 
     public double wristSetPoint;
     public double elbowSetPoint;
     public int intakeState = 0;
+    public boolean intaking = false;
     public boolean fcControlElbow;
     public boolean fcControlWrist;
 
     public Intake() {
-        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_LEFT, MotorType.kBrushless);
+        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
         // elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
         intake = new CANSparkMax(CANID.INTAKE, MotorType.kBrushless);
 
-        elbowRotatorLeader.setIdleMode(IdleMode.kCoast);
+        elbowRotatorLeader.setIdleMode(IdleMode.kBrake);
         // elbowRotatorFollower.setIdleMode(IdleMode.kCoast);
-        wristRotator.setIdleMode(IdleMode.kCoast);
+        wristRotator.setIdleMode(IdleMode.kBrake);
         intake.setIdleMode(IdleMode.kBrake);
 
         elbowEncoder = elbowRotatorLeader.getEncoder();
@@ -76,13 +80,28 @@ public class Intake extends SubsystemBase {
         elbowPIDF.setP(IntakeConstants.kPElbow);
         wristPIDF.setP(IntakeConstants.kPWrist);
 
-        elbowPIDF.setOutputRange(-1, 1);
+        elbowPIDF.setOutputRange(-0.85, 0.85);
         wristPIDF.setOutputRange(-1, 1);
+
+        intakeTimer = new Timer();
 
         elbowRotatorLeader.burnFlash();
         // elbowRotatorFollower.burnFlash();
         wristRotator.burnFlash();
         intake.burnFlash();
+    }
+
+    public void setIntakeCurrentLimit(int lim) {
+        intake.setSmartCurrentLimit(lim);
+    }
+
+    public double getTimer() {
+        return intakeTimer.get();
+    }
+
+    public void resetTimer() {
+        intakeTimer.reset();
+	intakeTimer.start();
     }
 
     public double getElbowEncoder() {

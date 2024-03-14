@@ -12,9 +12,9 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.fineDriveSpeed = 0.25;
 
         //Driving and rotation
-        PlayerConfigs.xMovement = Robot.controller0.getLeftX();
+        PlayerConfigs.xMovement = -Robot.controller0.getLeftX();
         PlayerConfigs.yMovement = Robot.controller0.getLeftY();
-        PlayerConfigs.turnMovement = Robot.controller0.getRightX();
+        PlayerConfigs.turnMovement = -Robot.controller0.getRightX();
         PlayerConfigs.fineControlToggle = Robot.controller0.getLeftBumper();
         PlayerConfigs.snapUp = Robot.controller0.getPOV() == 0;
         PlayerConfigs.snapRight = Robot.controller0.getPOV() == 90;
@@ -22,25 +22,28 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.snapLeft = Robot.controller0.getPOV() == 270;
         PlayerConfigs.align = Robot.controller0.getLeftTriggerAxis() > 0.2;
 
-        //Scoring and grabbing objects
+        //Scoring
         PlayerConfigs.fire = Robot.controller0.getRightBumper();
-        PlayerConfigs.reject = Robot.controller0.getRightTriggerAxis() > 0.2;
     } 
-
+    
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.ground = Robot.controller1.getPOV() == 0;
+        PlayerConfigs.ground = Robot.controller1.getPOV() == 180;
         PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
-        PlayerConfigs.stow = Robot.controller1.getPOV() == 180;
-
+        PlayerConfigs.stow = Robot.controller1.getPOV() == 0;
+        
+        // Grabbing and rejecting objects
+        PlayerConfigs.intake = Robot.controller1.getXButton();
+        PlayerConfigs.reject = Robot.controller1.getBButton();
+        
         //Intake Fine Control
         PlayerConfigs.fcEnable = Robot.controller1.getStartButton();
         PlayerConfigs.fcElbow = Robot.controller1.getLeftY();
         PlayerConfigs.fcWrist = Robot.controller1.getRightY();
-
+        
         //Shooter Spin up
-        PlayerConfigs.armScoringMechanism = Robot.controller1.getBButton();
-        PlayerConfigs.shooterActive = Robot.controller1.getAButton();
+        PlayerConfigs.armScoringMechanism = Robot.controller1.getAButton();
+        PlayerConfigs.shooterActive = Robot.controller1.getBackButton();
         
         //Climbers
         PlayerConfigs.splitClimberControl = Robot.controller1.getYButton();

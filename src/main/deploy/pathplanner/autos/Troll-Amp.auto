@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8,
-      "y": 4.45
+      "x": 0.5988912262724809,
+      "y": 6.548726487766366
     },
-    "rotation": 0.0
+    "rotation": 59.74356283647072
   },
   "command": {
     "type": "sequential",
@@ -15,6 +15,12 @@
           "type": "named",
           "data": {
             "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TrollIK"
           }
         }
       ]

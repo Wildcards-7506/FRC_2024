@@ -30,12 +30,6 @@ public class DrivetrainTeleopCommand extends Command{
             PlayerConfigs.fineTurnSpeed * PlayerConfigs.turnMovement : 
             PlayerConfigs.turnSpeed * PlayerConfigs.turnMovement;
 
-        // This change makes the intake as the front of the robot, therefore
-        // we will need to power the robot so that the intake points to the
-        // middle of the field.
-
-        System.out.println("ROBOT HEADING: " + Robot.drivetrain.getHeading());
-
         //Snap or align if needed, set drive if joystick inputs available, otherwise X
         if(PlayerConfigs.snapUp){
             double angle = Robot.teamColor.get() == Alliance.Red ? 180 : 0;

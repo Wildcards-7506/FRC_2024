@@ -138,12 +138,10 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setElbowPosition(Robot.intake.elbowSetPoint);
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 
-        
-
         //Reject Piece if button is pressed, regardless of intake state
         if (PlayerConfigs.intake) {
             SmartDashboard.putString("Intake Status", "Intaking");
-            // Robot.intake.intaking = true;
+            Robot.intake.intaking = true;
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
             Robot.intake.setIntakeVoltage(12);
         } else if (PlayerConfigs.fire) {
@@ -154,11 +152,11 @@ public class IntakeTeleopCommand extends Command{
             SmartDashboard.putString("Intake Status", "Rejecting");
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
             Robot.intake.setIntakeVoltage(-2.4);
-        // } else if(Robot.intake.intaking == true && !PlayerConfigs.fire <--) { // won't work for new driver/codriver controls
-        //     Robot.intake.resetTimer();
-        //     Robot.intake.intaking = false;
-        // } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime) {
-        //     Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
+        } else if(Robot.intake.intaking == true && !PlayerConfigs.intake) {
+            Robot.intake.resetTimer();
+            Robot.intake.intaking = false;
+        } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime) {
+            Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
         } else {
             SmartDashboard.putString("Intake Status", "Holding");
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
@@ -169,7 +167,7 @@ public class IntakeTeleopCommand extends Command{
         SmartDashboard.putNumber("Elbow Setpoint: ", Robot.intake.elbowSetPoint);
         SmartDashboard.putNumber("Wrist Position: ", Robot.intake.getWristEncoder());
         SmartDashboard.putNumber("Elbow Position: ", Robot.intake.getElbowEncoder());
-        SmartDashboard.putNumber("Intake State: ",Robot.intake.intakeState);
+        SmartDashboard.putNumber("Intake State: ", Robot.intake.intakeState);
         SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.getIntakeCurrent() > 20);
         SmartDashboard.putNumber("Intake Current: ", Robot.intake.getIntakeCurrent());
 

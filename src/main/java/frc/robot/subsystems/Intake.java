@@ -101,7 +101,7 @@ public class Intake extends SubsystemBase {
 
     public void resetTimer() {
         intakeTimer.reset();
-	intakeTimer.start();
+	    intakeTimer.start();
     }
 
     public double getElbowEncoder() {

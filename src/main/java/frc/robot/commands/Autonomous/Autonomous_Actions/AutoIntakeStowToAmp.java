@@ -16,7 +16,7 @@ public class AutoIntakeStowToAmp extends SequentialCommandGroup{
             new ParallelCommandGroup(
                 new AutoLimelightRotate(LimelightConstants.kIntakePosition),
                 new AutoIntakeElbowSet(IntakeConstants.kElbowAmp, 10),
-                new AutoIntakeWristSet(IntakeConstants.kWristAmp, 10)
+                new AutoIntakeWristSet(IntakeConstants.kWristAmp, 5)
             )
         );
     }

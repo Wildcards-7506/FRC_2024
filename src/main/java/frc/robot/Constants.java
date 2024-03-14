@@ -200,7 +200,7 @@ public final class Constants {
         public static final int kIntakeCurrentLimit = 20;
         public static final int kIntakeShootingLimit = 30;
         public static final double kIntakeDecompressionTime = 0.5;
-        public static final double kIntakeDecompressionVoltage = 0;
+        public static final double kIntakeDecompressionVoltage = -2.4;
       }
 
       public static final class ShooterConstants {

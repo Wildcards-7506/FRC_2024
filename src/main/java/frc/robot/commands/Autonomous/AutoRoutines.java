@@ -99,9 +99,6 @@ public final class AutoRoutines {
   }
 
   private void buildEventMap() {
-    NamedCommands.registerCommand("Checkpoint 1", Commands.print("Checkpoint 1"));
-    NamedCommands.registerCommand("Checkpoint 2", Commands.print("Checkpoint 2"));
-    NamedCommands.registerCommand("Checkpoint 3", Commands.print("Checkpoint 3"));
     NamedCommands.registerCommand("AutoShoot", new AutoShoot());
     NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false));
     NamedCommands.registerCommand("AutoShooterSpinup", new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM));

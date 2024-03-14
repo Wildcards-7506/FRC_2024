@@ -10,8 +10,11 @@ public class AutoIntakeStowToGround extends SequentialCommandGroup{
     public AutoIntakeStowToGround() {
         //Sets intake at stow, moves elbow to ground, drops intake to ground
         addCommands(
-            new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 10),
-            new AutoIntakeWristSet(IntakeConstants.kWristGround,5)
+            new AutoIntakeWristSet(IntakeConstants.kWristStowed,5),
+            new AutoIntakeElbowSet(IntakeConstants.kElbowDownConstraint, 20),
+            new AutoIntakeWristSet(IntakeConstants.kWristConstraint,5),
+            new AutoIntakeWristSet(IntakeConstants.kWristGround,60),
+            new AutoIntakeElbowSet(IntakeConstants.kElbowGround, 10)
         );
     }
 }  

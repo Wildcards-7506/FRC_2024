@@ -68,19 +68,19 @@
       "name": "AutoIntakeStowToGround",
       "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "AutoIntake"
+                "name": "AutoIntakeStowToGround"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "AutoIntakeStowToGround"
+                "name": "AutoIntake"
               }
             }
           ]

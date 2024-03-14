@@ -48,7 +48,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "AutoIntakeGroundToStow",
+      "name": "AutoIntakeGroundToAmp",
       "waypointRelativePos": 1.2000000000000002,
       "command": {
         "type": "sequential",
@@ -68,13 +68,19 @@
       "name": "AutoAmpToGround",
       "waypointRelativePos": 0.1,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
                 "name": "AutoIntakeAmpToGround"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
               }
             }
           ]

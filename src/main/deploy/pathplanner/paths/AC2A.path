@@ -68,13 +68,19 @@
       "name": "AutoIntakeAmpToGround",
       "waypointRelativePos": 0.1,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
                 "name": "AutoIntakeAmpToGround"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
               }
             }
           ]

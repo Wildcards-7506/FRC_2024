@@ -179,8 +179,7 @@ public final class Constants {
         public static final double kPElbow = 0.02;
         public static final double kElbowGround = 3.0;
         public static final double kElbowDownConstraint = 75.0;
-        public static final double kElbowTrapPressure = 80.0;
-        public static final double kElbowTrapScoring = 128.0;
+        public static final double kElbowTrap = 80.0;
         public static final double kElbowAmp = 110.0;
         public static final double kElbowUpConstraint = 115.0;
         public static final double kElbowStowed = 140.0;
@@ -199,8 +198,8 @@ public final class Constants {
 
         public static final int kIntakeCurrentLimit = 20;
         public static final int kIntakeShootingLimit = 30;
-        public static final double kIntakeDecompressionTime = 0.5;
-        public static final double kIntakeDecompressionVoltage = -2.4;
+        public static final double kIntakeDecompressionTime = 0.25;
+        public static final double kIntakeDecompressionVoltage = -1;
       }
 
       public static final class ShooterConstants {
@@ -215,9 +214,9 @@ public final class Constants {
       public static final class ClimberConstants {
         public static final double kClimberEncoderDistancePerPulse = 1.0/4 * 0.125;
         public static final int kClimberCurrentLimit = 50;
-        public static final int downLimit = 24;
+        public static final int downLimit = 21;
         public static final int upLimit = 0;
-        public static final int scoringHeight = 23;
+        public static final int scoringHeight = 20;
       }
 
       public static final class LimelightConstants {

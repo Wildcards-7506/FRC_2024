@@ -43,8 +43,8 @@ public class Climbers extends SubsystemBase{
         climberLeft.setInverted(true);
         // climberRight.follow(climberLeft, false);
 
-        climberLeft.setOpenLoopRampRate(1);
-        climberRight.setOpenLoopRampRate(1);
+        climberLeft.setOpenLoopRampRate(0);
+        climberRight.setOpenLoopRampRate(0);
 
         climberLeft.setIdleMode(IdleMode.kBrake);
         climberRight.setIdleMode(IdleMode.kBrake);

@@ -73,13 +73,8 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
         //Trap State
         } else if (Robot.intake.intakeState == 3) {
-            if (PlayerConfigs.armScoringMechanism) {
-                SmartDashboard.putString("Elbow Status", "Trap - Scoring Position");
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapScoring;
-            } else {
-                SmartDashboard.putString("Elbow Status", "Trap - Pressure");
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrapPressure;
-            }
+                SmartDashboard.putString("Elbow Status", "Trap - Trap Position");
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
             
             if (PlayerConfigs.armScoringMechanism) {
                 SmartDashboard.putString("Wrist Status", "Trap - Scoring Position");

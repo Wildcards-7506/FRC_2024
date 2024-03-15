@@ -124,6 +124,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
+
   }
 
   @Override
@@ -191,6 +192,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     lightStrip.rainbow(3);
+        System.out.println(intake.getElbowEncoder());
+    System.out.println(intake.getWristEncoder());
   }
 
   /** This function is called once when test mode is enabled. */
@@ -213,46 +216,55 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     if(controller0.getAButtonReleased()){
-      testStep++;
+      testStep = testStep + 1;
       newCommand = true;
     }
 
     if(newCommand == true){
       switch(testStep%8){
         case 1:
+          System.out.println("ONE");
           new AutoIntakeStowToAmp().schedule();
           newCommand = false;
           break;
         case 2:
+        System.out.println("TWO");
           new AutoIntakeAmpToGround().schedule();
           newCommand = false;
           break;
         case 3:
+        System.out.println("THREE");
           new AutoIntakeGroundToStow().schedule();
           newCommand = false;
           break;
         case 4:
+        System.out.println("FOUR");
           new AutoIntakeStowToGround().schedule();
           newCommand = false;
           break;
         case 5:
+        System.out.println("FIVE");
           new AutoIntakeGroundToAmp().schedule();
           newCommand = false;
           break;
         case 6:
+        System.out.println("SIX");
           new AutoIntakeAmpToGround().schedule();
           newCommand = false;
           break;
         case 7:
+        System.out.println("SEVEN");
           new AutoIntakeGroundToStow().schedule();
           newCommand = false;
           break;
         case 0:
+        System.out.println("ZERO");
           new AutoShoot().schedule();
           newCommand = false;
           break;
       }
     }
+    CommandScheduler.getInstance().run();
   }
 
   /** This function is called once when the robot is first started up. */

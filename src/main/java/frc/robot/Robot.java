@@ -33,9 +33,9 @@ import frc.robot.commands.Autonomous.AutoRoutines;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeAmpToGround;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToAmp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToStow;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToAmp;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToGround;
 import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
+import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -192,7 +192,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     lightStrip.rainbow(3);
-        System.out.println(intake.getElbowEncoder());
+
+    System.out.println(intake.getElbowEncoder());
     System.out.println(intake.getWristEncoder());
   }
 
@@ -209,7 +210,7 @@ public class Robot extends TimedRobot {
     lightStrip.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
     lightStrip.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
     lightStrip.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
-    lightStrip.solid(lightStrip.offState,LEDConstants.SATURATED,LEDConstants.FULL);
+    lightStrip.solid(lightStrip.offState,LEDConstants.SATURATED,LEDConstants.OFF);
   }
 
   /** This function is called periodically during test mode. */
@@ -221,44 +222,32 @@ public class Robot extends TimedRobot {
     }
 
     if(newCommand == true){
-      switch(testStep%8){
+      switch(testStep%7){
         case 1:
-          System.out.println("ONE");
-          new AutoIntakeStowToAmp().schedule();
-          newCommand = false;
-          break;
-        case 2:
-        System.out.println("TWO");
-          new AutoIntakeAmpToGround().schedule();
-          newCommand = false;
-          break;
-        case 3:
-        System.out.println("THREE");
-          new AutoIntakeGroundToStow().schedule();
-          newCommand = false;
-          break;
-        case 4:
-        System.out.println("FOUR");
           new AutoIntakeStowToGround().schedule();
           newCommand = false;
           break;
-        case 5:
-        System.out.println("FIVE");
+        case 2:
           new AutoIntakeGroundToAmp().schedule();
           newCommand = false;
           break;
-        case 6:
-        System.out.println("SIX");
+        case 3:
+          new AutoIntake_Trigger(2,true).schedule();
+          newCommand = false;
+          break;
+        case 4:
           new AutoIntakeAmpToGround().schedule();
           newCommand = false;
           break;
-        case 7:
-        System.out.println("SEVEN");
+        case 5:
+          new AutoIntake_Trigger(5,false).schedule();
+          newCommand = false;
+          break;
+        case 6:
           new AutoIntakeGroundToStow().schedule();
           newCommand = false;
           break;
         case 0:
-        System.out.println("ZERO");
           new AutoShoot().schedule();
           newCommand = false;
           break;

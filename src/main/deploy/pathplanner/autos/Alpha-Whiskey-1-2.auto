@@ -12,19 +12,19 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoIntakeStowToAmp"
+                }
+              },
               {
                 "type": "path",
                 "data": {
                   "pathName": "Corner"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAutoIntakeStowToAmp"
                 }
               }
             ]

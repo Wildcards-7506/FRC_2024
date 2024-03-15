@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class AutoIntake_Trigger extends Command{
     
     double runTime;
+    double intakeTime = 0;
     boolean shooting;
     Timer time = new Timer();
 
@@ -34,6 +35,9 @@ public class AutoIntake_Trigger extends Command{
             Robot.lightStrip.section(3*LEDConstants.bufferSize/5,4*LEDConstants.bufferSize/5-1,Robot.lightStrip.shooterLo,LEDConstants.SATURATED,LEDConstants.FULL);
             Logger.info("INTKE", Double.toString(Robot.intake.getIntakeCurrent()) + " Amps");
             Robot.intake.setIntakeVoltage(12);
+            if(time.get() > 1 && Robot.intake.getIntakeCurrent() > 24){
+                intakeTime = time.get();
+            }
         }
     }
 
@@ -61,6 +65,6 @@ public class AutoIntake_Trigger extends Command{
         return  Robot.skipNonPath || 
                 time.get() > runTime || 
                 (time.get() > 0.5 && shooting)|| 
-                (time.get() > 1 && Robot.intake.getIntakeCurrent() > 24);
+                (Robot.intake.getIntakeCurrent() > 24 && time.get() - intakeTime > 0.5);
     }
 }

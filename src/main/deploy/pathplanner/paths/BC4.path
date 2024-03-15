@@ -68,19 +68,19 @@
       "name": "AutoIntake",
       "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "AutoIntake"
+                "name": "AutoIntakeStowToGround"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "AutoIntakeStowToGround"
+                "name": "AutoIntake"
               }
             }
           ]
@@ -89,7 +89,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.5,
+    "maxVelocity": 4.0,
     "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0

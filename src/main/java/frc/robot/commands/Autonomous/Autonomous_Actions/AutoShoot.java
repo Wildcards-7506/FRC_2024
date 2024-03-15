@@ -1,12 +1,10 @@
 package frc.robot.commands.Autonomous.Autonomous_Actions;
 
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.LimelightConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeElbowSet;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntakeWristSet;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
-import frc.robot.commands.Autonomous.Subsystem_Commands.AutoLimelightRotate;
 import frc.robot.commands.Autonomous.Subsystem_Commands.AutoShooterSpinUp;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -16,7 +14,6 @@ public class AutoShoot extends SequentialCommandGroup{
     public AutoShoot() {
         addCommands(
             new ParallelCommandGroup(
-                new AutoLimelightRotate(LimelightConstants.kShooterPosition),
                 new AutoIntakeElbowSet(IntakeConstants.kElbowStowed, 10),
                 new AutoIntakeWristSet(IntakeConstants.kWristShooting, 10),
                 new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM)

@@ -95,10 +95,6 @@ public final class AutoRoutines {
   }
 
   private void setMarkers() {
-    buildEventMap();
-  }
-
-  private void buildEventMap() {
     NamedCommands.registerCommand("AutoShoot", new AutoShoot());
     NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false));
     NamedCommands.registerCommand("AutoShooterSpinup", new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM));
@@ -106,7 +102,7 @@ public final class AutoRoutines {
     NamedCommands.registerCommand("AutoIntakeGroundToStow", new AutoIntakeGroundToStow());
     NamedCommands.registerCommand("AutoIntakeGroundToAmp", new AutoIntakeGroundToAmp());
     NamedCommands.registerCommand("AutoIntakeAmpToGround", new AutoIntakeAmpToGround());
-    NamedCommands.registerCommand("AutoAutoIntakeStowToAmp", new AutoIntakeStowToAmp());
+    NamedCommands.registerCommand("AutoIntakeStowToAmp", new AutoIntakeStowToAmp());
     NamedCommands.registerCommand("AutoAmpScore", new AutoIntake_Trigger(0.5, true));
   }
 

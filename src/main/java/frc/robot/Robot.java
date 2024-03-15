@@ -217,12 +217,13 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     if(controller0.getAButtonReleased()){
-      testStep = testStep + 1;
+      //testStep = testStep + 1;
+      testStep = 0;
       newCommand = true;
     }
 
     if(newCommand == true){
-      switch(testStep%7){
+      switch(testStep){
         case 1:
           new AutoIntakeStowToGround().schedule();
           newCommand = false;

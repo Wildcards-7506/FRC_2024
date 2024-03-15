@@ -212,10 +212,10 @@ public final class Constants {
       }
 
       public static final class ClimberConstants {
-        public static final double kClimberEncoderDistancePerPulse = 1.0/4 * 0.125;
-        public static final int kClimberCurrentLimit = 50;
-        public static final int downLimit = 21;
-        public static final int upLimit = 0;
+        public static final double kClimberEncoderDistancePerPulse = 1.0/5 * 0.125;
+        public static final int kClimberCurrentLimit = 80;
+        public static final int downLimit = 15;
+        public static final int upLimit = 5;
         public static final int scoringHeight = 20;
       }
 

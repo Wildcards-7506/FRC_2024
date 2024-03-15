@@ -17,6 +17,7 @@ public class PlayerConfigs {
     public static boolean snapDown;
     public static boolean snapLeft;
     public static boolean align;
+    public static boolean zeroGyro;
 
     //Intake
     public static boolean ground;

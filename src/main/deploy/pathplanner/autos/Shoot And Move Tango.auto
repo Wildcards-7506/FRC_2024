@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6542860479085884,
-      "y": 4.445081117650386
+      "x": 0.65,
+      "y": 6.65
     },
-    "rotation": -60.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -20,12 +20,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Clearout"
+            "pathName": "Clearout Tango"
           }
         }
       ]
     }
   },
-  "folder": "Simple",
+  "folder": null,
   "choreoAuto": false
 }

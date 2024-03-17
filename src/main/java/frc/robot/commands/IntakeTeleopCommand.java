@@ -18,10 +18,6 @@ public class IntakeTeleopCommand extends Command{
             Robot.intake.intakeState = 1;
         } else if (PlayerConfigs.amp && Robot.intake.intakeState != 3) {
             Robot.intake.intakeState = 2;
-        } else if (!Robot.shooter.shootingMode && Robot.intake.intakeState == 0 && (PlayerConfigs.climberLDown || PlayerConfigs.climberLUp || PlayerConfigs.climberRUp || PlayerConfigs.climberRDown)) {
-            //Only climber control can initiate trap position, no manual triggering allowed, must start from stow position
-            //To activate trap, disable shooter and run climber down
-            Robot.intake.intakeState = 3;
         } else if (PlayerConfigs.fcEnable) {
             //When fine control is enabled, grab current positions to hold
             Robot.intake.intakeState = 4;
@@ -57,15 +53,6 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
             }
             Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
-        //Trap State
-        } else if (Robot.intake.intakeState == 3) {
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
-            
-            if (PlayerConfigs.armScoringMechanism) {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
-            } else {
-                Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            }
         //Fine Control
         } else if (Robot.intake.intakeState == 4) {
             if (Math.abs(PlayerConfigs.fcElbow) > 0.25) {
@@ -84,7 +71,7 @@ public class IntakeTeleopCommand extends Command{
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
             }
             
-        //Stow and Shoot
+        //Stow, Shoot, and Climb
         } else {            
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint - 10) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;

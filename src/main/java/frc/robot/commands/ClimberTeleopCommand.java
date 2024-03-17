@@ -3,13 +3,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class ClimberTeleopCommand extends Command{
 
-    private boolean prev_SplitButton = false;
-    private double lClimberVoltage = 0;
-    private double rClimberVoltage = 0;
+    private boolean prev_climberEngage = false;
     
     public ClimberTeleopCommand(){
         addRequirements(Robot.climbers);
@@ -17,27 +16,24 @@ public class ClimberTeleopCommand extends Command{
     
     @Override
     public void execute (){
-        if(PlayerConfigs.splitClimberControl != prev_SplitButton){
-            prev_SplitButton = PlayerConfigs.splitClimberControl;
-            if(PlayerConfigs.splitClimberControl){
-                Robot.climbers.splitControlMode = !Robot.climbers.splitControlMode;
+        if(PlayerConfigs.climberEngage != prev_climberEngage){
+            prev_climberEngage = PlayerConfigs.climberEngage;
+            if(PlayerConfigs.climberEngage){
+                Robot.climbers.climberEngage = !Robot.climbers.climberEngage;
             }
         }
 
         //VERIFY DIRECTION
         if(!Robot.shooter.shootingMode && (Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3)){
-            if(Robot.climbers.splitControlMode){
-                lClimberVoltage = PlayerConfigs.climberLDown ? 12 : PlayerConfigs.climberLUp ? -12 : 0;
-                rClimberVoltage = PlayerConfigs.climberRDown ? 12 : PlayerConfigs.climberRUp ? -12 : 0;
-            } else {
-                lClimberVoltage = PlayerConfigs.climberLDown || PlayerConfigs.climberRDown ? 12 : PlayerConfigs.climberLUp || PlayerConfigs.climberRUp ? -12 : 0;
-                rClimberVoltage = lClimberVoltage;
+            if(Robot.climbers.climberEngage){
+                Robot.climbers.setClimbers(ClimberConstants.kClimbPosition);
+            } else{
+                Robot.climbers.setClimbers(ClimberConstants.kRetractPosition);
             }
-            Robot.climbers.setClimbers(lClimberVoltage, rClimberVoltage);
         }
 
         Robot.climbers.climberLog();
-        SmartDashboard.putNumber("Climber Position", Robot.climbers.getClimberEncoder());
-        SmartDashboard.putBoolean("Split Control", Robot.climbers.splitControlMode);
+        SmartDashboard.putNumber("Left Climber Position", Robot.climbers.getClimberLEncoder());
+        SmartDashboard.putNumber("Right Climber Position", Robot.climbers.getClimberREncoder());
     } 
 }

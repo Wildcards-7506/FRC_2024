@@ -21,7 +21,6 @@ import frc.robot.Constants.LEDConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 import frc.robot.ControlConfigs.Drivers.Jayden;
 import frc.robot.ControlConfigs.Drivers.Ricardo;
-import frc.robot.ControlConfigs.Drivers.Ryan;
 import frc.robot.ControlConfigs.Drivers.TestController;
 import frc.robot.commands.ClimberTeleopCommand;
 import frc.robot.commands.DrivetrainTeleopCommand;
@@ -30,12 +29,6 @@ import frc.robot.commands.LEDTeleopCommand;
 import frc.robot.commands.LimelightTeleopCommand;
 import frc.robot.commands.ShooterTeleopCommand;
 import frc.robot.commands.Autonomous.AutoRoutines;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeAmpToGround;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToAmp;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeGroundToStow;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoIntakeStowToGround;
-import frc.robot.commands.Autonomous.Autonomous_Actions.AutoShoot;
-import frc.robot.commands.Autonomous.Subsystem_Commands.AutoIntake_Trigger;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -60,7 +53,6 @@ public class Robot extends TimedRobot {
   public static SendableChooser<PlayerConfigs> driver_chooser = new SendableChooser<>();
   public static SendableChooser<PlayerConfigs> operator_chooser = new SendableChooser<>();
 
-  public static PlayerConfigs ryan = new Ryan();
   public static PlayerConfigs jayden = new Jayden();
   public static PlayerConfigs ricardo = new Ricardo();
   public static PlayerConfigs test = new TestController();
@@ -96,13 +88,11 @@ public class Robot extends TimedRobot {
     // Driver choosers
     driver_chooser.setDefaultOption("Ricardo", ricardo);
     driver_chooser.addOption("Jayden", jayden);
-    driver_chooser.addOption("Ryan", ryan);  
     driver_chooser.addOption("Test", test);       
 
     // Operator choosers
     operator_chooser.setDefaultOption("Jayden", jayden);
     operator_chooser.addOption("Ricardo", ricardo);
-    operator_chooser.addOption("Ryan", ryan);    
     operator_chooser.addOption("Test", test);  
 
     // Put the choosers on the dashboard
@@ -177,7 +167,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
     driver.getDriverConfig();
-    operator.getoperatorConfig();
+    operator.getOperatorConfig();
   }
 
   /** This function is called once when the robot is disabled. */
@@ -202,58 +192,17 @@ public class Robot extends TimedRobot {
   public void testInit() {
     Logger.info("SYSTEM","Test Program Started");
     CommandScheduler.getInstance().cancelAll();
-    teamColor = DriverStation.getAlliance();
-    skipNonPath = false;
     driver = driver_chooser.getSelected();
     operator = operator_chooser.getSelected();
-    lightStrip.teamRainbow = teamColor.get() == Alliance.Red ? 1 : 2;
-    lightStrip.alignOOB = teamColor.get() == Alliance.Red ? LEDConstants.PINK : LEDConstants.VIOLET;
-    lightStrip.shooterLo = teamColor.get() == Alliance.Red ? LEDConstants.ORANGE : LEDConstants.AZURE;
-    lightStrip.offState = teamColor.get() == Alliance.Red ? LEDConstants.RED : LEDConstants.BLUE;
-    lightStrip.solid(lightStrip.offState,LEDConstants.SATURATED,LEDConstants.OFF);
+    climbers.setDefaultCommand(new ClimberTeleopCommand());
+    shooter.shootingMode = false;
+    intake.intakeState = 3;
   }
 
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    if(controller0.getAButtonReleased()){
-      //testStep = testStep + 1;
-      testStep = 0;
-      newCommand = true;
-    }
-
-    if(newCommand == true){
-      switch(testStep){
-        case 1:
-          new AutoIntakeStowToGround().schedule();
-          newCommand = false;
-          break;
-        case 2:
-          new AutoIntakeGroundToAmp().schedule();
-          newCommand = false;
-          break;
-        case 3:
-          new AutoIntake_Trigger(2,true).schedule();
-          newCommand = false;
-          break;
-        case 4:
-          new AutoIntakeAmpToGround().schedule();
-          newCommand = false;
-          break;
-        case 5:
-          new AutoIntake_Trigger(5,false).schedule();
-          newCommand = false;
-          break;
-        case 6:
-          new AutoIntakeGroundToStow().schedule();
-          newCommand = false;
-          break;
-        case 0:
-          new AutoShoot().schedule();
-          newCommand = false;
-          break;
-      }
-    }
+    operator.getOperatorConfig();
     CommandScheduler.getInstance().run();
   }
 

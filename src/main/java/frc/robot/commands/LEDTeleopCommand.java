@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.ShooterConstants;
 
@@ -31,12 +30,8 @@ public class LEDTeleopCommand extends Command{
             Robot.lightStrip.rainbow(Robot.lightStrip.teamRainbow);
         }
 
-        if(Robot.climbers.getClimberEncoder() > 1){
-            if(Robot.climbers.getClimberEncoder() < ClimberConstants.scoringHeight){
-                Robot.lightStrip.solid(Robot.lightStrip.offState, LEDConstants.SATURATED, (int)Robot.climbers.getClimberEncoder()*255/ClimberConstants.scoringHeight);
-            } else {
-                Robot.lightStrip.rainbow(3);
-            }
+        if(Robot.climbers.getClimberREncoder() > 10){
+            Robot.lightStrip.rainbow(3);
         }
 
         if(Robot.shooter.getLSpeed() > ShooterConstants.kLArmedRPM - 200){

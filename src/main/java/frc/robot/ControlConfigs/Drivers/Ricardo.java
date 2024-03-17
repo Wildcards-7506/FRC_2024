@@ -6,8 +6,8 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 public class Ricardo extends PlayerConfigs {
     public void getDriverConfig() {
         //Constants
-        PlayerConfigs.turnSpeed = 0.65;
-        PlayerConfigs.driveSpeed = 0.75;
+        PlayerConfigs.turnSpeed = 0.9;
+        PlayerConfigs.driveSpeed = 0.9;
         PlayerConfigs.fineTurnSpeed = 0.15;
         PlayerConfigs.fineDriveSpeed = 0.15;
 

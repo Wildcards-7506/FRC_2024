@@ -27,10 +27,10 @@ public class Climbers extends SubsystemBase{
         climbLEncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
         climbREncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
     
-        climberLeft.enableSoftLimit(SoftLimitDirection.kForward, true);
-        climberLeft.enableSoftLimit(SoftLimitDirection.kReverse, true);
-        climberRight.enableSoftLimit(SoftLimitDirection.kForward, true);
-        climberRight.enableSoftLimit(SoftLimitDirection.kReverse, true);
+        climberLeft.enableSoftLimit(SoftLimitDirection.kForward, false);
+        climberLeft.enableSoftLimit(SoftLimitDirection.kReverse, false);
+        climberRight.enableSoftLimit(SoftLimitDirection.kForward, false);
+        climberRight.enableSoftLimit(SoftLimitDirection.kReverse, false);
 
         climberLeft.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
         climberRight.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);

@@ -34,13 +34,9 @@ public class PlayerConfigs {
     public static boolean intake;
 
     //Climbers
-    public static boolean splitClimberControl;
-    public static boolean climberLUp;
-    public static boolean climberLDown;
-    public static boolean climberRUp;
-    public static boolean climberRDown;
+    public static boolean climberEngage;
 
     public void getDriverConfig(){}
 
-    public void getoperatorConfig(){}
+    public void getOperatorConfig(){}
 }

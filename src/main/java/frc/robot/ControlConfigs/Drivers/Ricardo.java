@@ -46,10 +46,6 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.shooterActive = Robot.controller1.getBackButton();
         
         //Climbers
-        PlayerConfigs.splitClimberControl = Robot.controller1.getYButton();
-        PlayerConfigs.climberLUp = Robot.controller1.getLeftBumper();
-        PlayerConfigs.climberLDown = Robot.controller1.getLeftTriggerAxis() > 0.2;
-        PlayerConfigs.climberRUp = Robot.controller1.getRightBumper();
-        PlayerConfigs.climberRDown = Robot.controller1.getRightTriggerAxis() > 0.2;
+        PlayerConfigs.climberEngage = Robot.controller1.getYButton();
     }
 }

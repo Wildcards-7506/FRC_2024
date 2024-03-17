@@ -16,7 +16,7 @@ public class Climbers extends SubsystemBase{
     
     private RelativeEncoder climbLEncoder;
     private RelativeEncoder climbREncoder;
-    public boolean splitControlMode = false;;
+    public boolean splitControlMode = false;
     
     public Climbers () {
         climberRight = new CANSparkMax(CANID.CLIMBER_RIGHT, MotorType.kBrushless);
@@ -41,7 +41,7 @@ public class Climbers extends SubsystemBase{
         climberRight.setSoftLimit(SoftLimitDirection.kReverse, ClimberConstants.upLimit);
 
         climberLeft.setInverted(true);
-        // climberRight.follow(climberLeft, false);
+        climberRight.setInverted(true);
 
         climberLeft.setOpenLoopRampRate(0);
         climberRight.setOpenLoopRampRate(0);
@@ -64,8 +64,8 @@ public class Climbers extends SubsystemBase{
 
     public void climberLog(){
         Logger.info("CLIMB", Double.toString(getClimberEncoder()) + " Inches");
-        if(climberLeft.getFaults()!=0){Logger.warn("CLBLT: " + Short.toString(climberLeft.getFaults()));}
-        if(climberRight.getFaults()!=0){Logger.warn("CLBRT: " + Short.toString(climberRight.getFaults()));}
+        if(climberLeft.getFaults()!=0){Logger.warn("CLMBL: " + Short.toString(climberLeft.getFaults()));}
+        if(climberRight.getFaults()!=0){Logger.warn("CLMBR: " + Short.toString(climberRight.getFaults()));}
     }
         
     

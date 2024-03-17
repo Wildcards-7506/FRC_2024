@@ -15,8 +15,7 @@ import frc.robot.Constants.CANID;
 import frc.robot.util.Logger;
 
 public class Intake extends SubsystemBase {
-    private CANSparkMax elbowRotatorLeader;
-    // private CANSparkMax elbowRotatorFollower;
+    private CANSparkMax elbowRotator;
     private CANSparkMax wristRotator;
     private CANSparkMax intake;
     
@@ -36,41 +35,32 @@ public class Intake extends SubsystemBase {
     public boolean fcControlWrist;
 
     public Intake() {
-        elbowRotatorLeader = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
-        // elbowRotatorFollower = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
+        elbowRotator = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
         intake = new CANSparkMax(CANID.INTAKE, MotorType.kBrushless);
 
-        elbowRotatorLeader.setIdleMode(IdleMode.kBrake);
-        // elbowRotatorFollower.setIdleMode(IdleMode.kCoast);
+        elbowRotator.setIdleMode(IdleMode.kBrake);
         wristRotator.setIdleMode(IdleMode.kBrake);
         intake.setIdleMode(IdleMode.kBrake);
 
-        elbowEncoder = elbowRotatorLeader.getEncoder();
+        elbowEncoder = elbowRotator.getEncoder();
         wristEncoder = wristRotator.getEncoder();
 
-        elbowPIDF = elbowRotatorLeader.getPIDController();
+        elbowPIDF = elbowRotator.getPIDController();
         wristPIDF = wristRotator.getPIDController();
 
-        // elbowRotatorFollower.follow(elbowRotatorLeader, true);
-
-        elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kForward, true);
-        elbowRotatorLeader.enableSoftLimit(SoftLimitDirection.kReverse, true);
-        // elbowRotatorFollower.enableSoftLimit(SoftLimitDirection.kForward, true);
-        // elbowRotatorFollower.enableSoftLimit(SoftLimitDirection.kReverse, true);
+        elbowRotator.enableSoftLimit(SoftLimitDirection.kForward, true);
+        elbowRotator.enableSoftLimit(SoftLimitDirection.kReverse, true);
     
         wristRotator.enableSoftLimit(SoftLimitDirection.kForward, true);
         wristRotator.enableSoftLimit(SoftLimitDirection.kReverse, true);
 
-        elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kForward, 160);
-        elbowRotatorLeader.setSoftLimit(SoftLimitDirection.kReverse, 0);
-        // elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kForward, 160);
-        // elbowRotatorFollower.setSoftLimit(SoftLimitDirection.kReverse, 0);
+        elbowRotator.setSoftLimit(SoftLimitDirection.kForward, 160);
+        elbowRotator.setSoftLimit(SoftLimitDirection.kReverse, 0);
         wristRotator.setSoftLimit(SoftLimitDirection.kForward, 170);
         wristRotator.setSoftLimit(SoftLimitDirection.kReverse, -80);
 
-        elbowRotatorLeader.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
-        // elbowRotatorFollower.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
+        elbowRotator.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
         intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
 
@@ -85,8 +75,7 @@ public class Intake extends SubsystemBase {
 
         intakeTimer = new Timer();
 
-        elbowRotatorLeader.burnFlash();
-        // elbowRotatorFollower.burnFlash();
+        elbowRotator.burnFlash();
         wristRotator.burnFlash();
         intake.burnFlash();
     }
@@ -131,8 +120,7 @@ public class Intake extends SubsystemBase {
     public void intakeLog(){
         Logger.info("ELBOW", Double.toString(getElbowEncoder()) + " Actual Degrees -> " + Double.toString(elbowSetPoint) + " Target Degrees");
         Logger.info("WRIST", Double.toString(getWristEncoder()) + " Actual Degrees -> " + Double.toString(wristSetPoint) + " Target Degrees");
-        if(elbowRotatorLeader.getFaults()!=0){Logger.warn("ELBWL: " + Short.toString(elbowRotatorLeader.getFaults()));}
-        // if(elbowRotatorFollower.getFaults()!=0){Logger.warn("ELBWF: " + Short.toString(elbowRotatorFollower.getFaults()));}
+        if(elbowRotator.getFaults()!=0){Logger.warn("ELBOW: " + Short.toString(elbowRotator.getFaults()));}
         if(wristRotator.getFaults()!=0){Logger.warn("WRIST: " + Short.toString(wristRotator.getFaults()));}
         if(intake.getFaults()!=0){Logger.warn("INTKL: " + Short.toString(intake.getFaults()));}
     }

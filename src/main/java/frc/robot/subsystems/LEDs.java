@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
 
@@ -13,6 +14,8 @@ public class LEDs extends SubsystemBase{
     public int alignOOB;
     public int offState;
     public int shooterLo;
+    public boolean triggered;
+    public Timer lightTimer = new Timer();
 
     public LEDs(){
         ledString = new AddressableLED(LEDConstants.pwmPort);

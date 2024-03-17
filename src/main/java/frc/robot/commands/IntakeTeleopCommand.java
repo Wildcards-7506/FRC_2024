@@ -37,91 +37,63 @@ public class IntakeTeleopCommand extends Command{
         if (Robot.intake.intakeState == 1) {
             //Hold intake to stowed or contrained position to avoid damage or extension rule until low enough to open to ground position
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint + 5) {
-                // for the condition ^^^: may need to increase value when bumpers come on
-                // was getting caught on just the frame coming down
-                SmartDashboard.putString("Wrist Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
-            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint - 2) { // when changing, may also need to change on line 57 for elbow
-                SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Constrain");
+            } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint - 2) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint - 5;
             } else {
-                SmartDashboard.putString("Wrist Status", "Ground - Elbow Too High, Stowed");
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
             }
 
             if (Robot.intake.getWristEncoder() < IntakeConstants.kWristConstraint + 10 || Robot.intake.wristSetPoint == IntakeConstants.kWristGround) {
-                SmartDashboard.putString("Elbow Status", "Ground - Success! Setting Ground Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowGround;
             } else {
-                SmartDashboard.putString("Elbow Status", "Ground - Wrist Out Of Bounds, Constrain");
-                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint - 5; // when changing, may also need to change on line 44 for wrist
+                Robot.intake.elbowSetPoint = IntakeConstants.kElbowUpConstraint - 5;
             }
         //Amp State
         } else if (Robot.intake.intakeState == 2) {
             if (Robot.intake.getElbowEncoder() > IntakeConstants.kElbowAmp + 5) {
-                SmartDashboard.putString("Wrist Status", "Amp - Stowed");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
-            // } else if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint) { <-Add this in if we are breaking rules badly
-            //     SmartDashboard.putString("Wrist Status", "Amp - Constrain");
-            //     Robot.intake.wristSetPoint = IntakeConstants.kWristGround - Robot.intake.getElbowEncoder();
             } else {
-                SmartDashboard.putString("Wrist Status", "Amp - Amp Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristAmp;
             }
-
-            SmartDashboard.putString("Elbow Status", "Amp - Amp Position");
             Robot.intake.elbowSetPoint = IntakeConstants.kElbowAmp;
         //Trap State
         } else if (Robot.intake.intakeState == 3) {
-                SmartDashboard.putString("Elbow Status", "Trap - Trap Position");
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowTrap;
             
             if (PlayerConfigs.armScoringMechanism) {
-                SmartDashboard.putString("Wrist Status", "Trap - Scoring Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristTrap;
             } else {
-                SmartDashboard.putString("Wrist Status", "Trap - Stowed");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
         //Fine Control
         } else if (Robot.intake.intakeState == 4) {
             if (Math.abs(PlayerConfigs.fcElbow) > 0.25) {
-                SmartDashboard.putString("Elbow Status", "Fine Control, Moving");
                 Robot.intake.fcControlElbow = true;
                 Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder() + IntakeConstants.kElbowManualOffset * PlayerConfigs.fcElbow;
             } else if (Robot.intake.fcControlElbow) {
-                SmartDashboard.putString("Elbow Status", "Fine Control, Holding");
                 Robot.intake.fcControlElbow = false;
                 Robot.intake.elbowSetPoint = Robot.intake.getElbowEncoder();
             }
 
             if (Math.abs(PlayerConfigs.fcWrist) > 0.25) {
-                SmartDashboard.putString("Wrist Status", "Fine Control, Moving");
                 Robot.intake.fcControlWrist = true;
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder() + IntakeConstants.kWristManualOffset * PlayerConfigs.fcWrist;
             } else if (Robot.intake.fcControlWrist) {
-                SmartDashboard.putString("Wrist Status", "Fine Control, Holding");
                 Robot.intake.fcControlWrist = false;
                 Robot.intake.wristSetPoint = Robot.intake.getWristEncoder();
             }
             
         //Stow and Shoot
-        } else {
-
-            // SCARY MAY NEED TO CHECK IF PAST BUMPER WHILE KEEPING IN MIND THE BOUNDARY
-            
+        } else {            
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowUpConstraint - 10) {
-                // SmartDashboard.putString("Wrist Status", "Stow - Shooting Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristConstraint;
             } else if (PlayerConfigs.armScoringMechanism) {
-                SmartDashboard.putString("Wrist Status", "Stow - Shooting Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristShooting;
             } else {
-                SmartDashboard.putString("Wrist Status", "Stow - Stow Position");
                 Robot.intake.wristSetPoint = IntakeConstants.kWristStowed;
             }
 
-            // if (Robot.intake.wristSetPoint == IntakeConstants.kWristStowed || Robot.intake.wristSetPoint == IntakeConstants.kWristShooting) {
             if (Robot.intake.getWristEncoder() > IntakeConstants.kWristShooting - 10 || Robot.intake.getWristEncoder() > IntakeConstants.kWristStowed - 10) {
                 Robot.intake.elbowSetPoint = IntakeConstants.kElbowStowed;
             } else {
@@ -135,16 +107,13 @@ public class IntakeTeleopCommand extends Command{
 
         //Reject Piece if button is pressed, regardless of intake state
         if (PlayerConfigs.intake) {
-            SmartDashboard.putString("Intake Status", "Intaking");
             Robot.intake.intaking = true;
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
             Robot.intake.setIntakeVoltage(12);
         } else if (PlayerConfigs.fire) {
-            SmartDashboard.putString("Intake Status", "Firing");
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
             Robot.intake.setIntakeVoltage(12);
         } else if (PlayerConfigs.reject) {
-            SmartDashboard.putString("Intake Status", "Rejecting");
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
             Robot.intake.setIntakeVoltage(-2.4);
         } else if(Robot.intake.intaking == true && !PlayerConfigs.intake) {
@@ -153,7 +122,6 @@ public class IntakeTeleopCommand extends Command{
         } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime) {
             Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
         } else {
-            SmartDashboard.putString("Intake Status", "Holding");
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
             Robot.intake.setIntakeVoltage(0);
         }
@@ -164,7 +132,6 @@ public class IntakeTeleopCommand extends Command{
         SmartDashboard.putNumber("Elbow Position: ", Robot.intake.getElbowEncoder());
         SmartDashboard.putNumber("Intake State: ", Robot.intake.intakeState);
         SmartDashboard.putBoolean("Piece Acquired: ", Robot.intake.getIntakeCurrent() > 20);
-        SmartDashboard.putNumber("Intake Current: ", Robot.intake.getIntakeCurrent());
 
         Robot.intake.intakeLog();
     }

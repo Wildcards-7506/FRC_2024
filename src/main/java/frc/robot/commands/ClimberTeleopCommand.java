@@ -38,5 +38,6 @@ public class ClimberTeleopCommand extends Command{
 
         Robot.climbers.climberLog();
         SmartDashboard.putNumber("Climber Position", Robot.climbers.getClimberEncoder());
+        SmartDashboard.putBoolean("Split Control", Robot.climbers.splitControlMode);
     } 
 }

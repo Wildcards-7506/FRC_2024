@@ -42,15 +42,12 @@ public class ShooterTeleopCommand extends Command{
 
         //If in shooting mode and intake is in shooting position, high speed
         if(Robot.shooter.shootingMode && Robot.shooter.armScoringMode){
-            SmartDashboard.putString("Shooter Status", "DANGER - Armed");
             Robot.shooter.setShooterSpeed(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM);
         //If in shooting mode but not actively shooting, idle speed
         } else if(Robot.shooter.shootingMode){
-            SmartDashboard.putString("Shooter Status", "Idle");
             Robot.shooter.setShooterSpeed(ShooterConstants.kPrimeRPM, ShooterConstants.kPrimeRPM);
         //If climbing, shooter stops
         } else {
-            SmartDashboard.putString("Shooter Status", "Disabled");
             Robot.shooter.setShooterSpeed(0,0);
         }
 

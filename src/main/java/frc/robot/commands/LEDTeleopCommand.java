@@ -5,7 +5,6 @@ import frc.robot.Robot;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class LEDTeleopCommand extends Command{
     
@@ -16,9 +15,19 @@ public class LEDTeleopCommand extends Command{
     @Override
     public void execute (){
 
-        if(Robot.intake.getIntakeCurrent() > 20){
-            Robot.lightStrip.solid(LEDConstants.GREEN, LEDConstants.SATURATED, LEDConstants.FULL);
+        if(Robot.intake.getIntakeCurrent() > 20 || Robot.lightStrip.triggered){
+            Robot.lightStrip.triggered = true;
+            Robot.lightStrip.lightTimer.start();
+            if(Robot.lightStrip.lightTimer.get() % 0.5 < 0.25){
+                Robot.lightStrip.solid(LEDConstants.GREEN, LEDConstants.SATURATED, LEDConstants.FULL);
+            } else{
+                Robot.lightStrip.solid(LEDConstants.GREEN, LEDConstants.WHITE, LEDConstants.FULL);
+            }
+            if(Robot.lightStrip.lightTimer.get() > 2){
+                Robot.lightStrip.triggered = false;
+            }
         } else if(Robot.intake.getIntakeCurrent() < 20 && Robot.intake.getIntakeCurrent() > 0){
+            Robot.lightStrip.lightTimer.reset();
             Robot.lightStrip.rainbow(Robot.lightStrip.teamRainbow);
         }
 
@@ -30,22 +39,12 @@ public class LEDTeleopCommand extends Command{
             }
         }
 
-        if(PlayerConfigs.align){
-            if(Math.abs(Robot.limelight.getTX()) < 2){
-                Robot.lightStrip.section(0, LEDConstants.bufferSize/2-1, LEDConstants.GREEN, LEDConstants.SATURATED, LEDConstants.FULL);
-            } else {
-                Robot.lightStrip.section(0, LEDConstants.bufferSize/2-1, Robot.lightStrip.alignOOB, LEDConstants.SATURATED, LEDConstants.FULL);
-            }
-        } else {
-            Robot.lightStrip.section(0, LEDConstants.bufferSize/2-1, Robot.lightStrip.offState, LEDConstants.SATURATED, LEDConstants.FULL);
-        }
-
         if(Robot.shooter.getLSpeed() > ShooterConstants.kLArmedRPM - 200){
-            Robot.lightStrip.section(LEDConstants.bufferSize/2, LEDConstants.bufferSize-1, LEDConstants.GREEN, LEDConstants.SATURATED, LEDConstants.FULL);
+            Robot.lightStrip.solid(LEDConstants.GREEN, LEDConstants.SATURATED, LEDConstants.FULL);
         } else if(Robot.shooter.getLSpeed() > 150){
-            Robot.lightStrip.section(LEDConstants.bufferSize/2, LEDConstants.bufferSize-1, Robot.lightStrip.shooterLo, LEDConstants.SATURATED, LEDConstants.FULL);
+            Robot.lightStrip.solid(Robot.lightStrip.shooterLo, LEDConstants.SATURATED, LEDConstants.FULL);
         } else{
-            Robot.lightStrip.section(LEDConstants.bufferSize/2, LEDConstants.bufferSize-1, Robot.lightStrip.offState, LEDConstants.SATURATED, LEDConstants.FULL);
+            Robot.lightStrip.solid(Robot.lightStrip.offState, LEDConstants.SATURATED, LEDConstants.FULL);
         }
     } 
 }

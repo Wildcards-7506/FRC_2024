@@ -72,7 +72,7 @@
     },
     {
       "name": "AutoAmpToGround",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {

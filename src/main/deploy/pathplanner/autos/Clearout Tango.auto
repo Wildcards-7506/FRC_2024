@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6542860479085884,
-      "y": 4.445081117650386
+      "x": 0.8,
+      "y": 6.6
     },
-    "rotation": -60.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Clearout"
+            "pathName": "TClear"
           }
         }
       ]

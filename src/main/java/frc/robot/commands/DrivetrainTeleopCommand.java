@@ -19,6 +19,11 @@ public class DrivetrainTeleopCommand extends Command{
 
     @Override
     public void execute(){
+        //Reset Gyro
+        if(PlayerConfigs.zeroGyro){
+            Robot.drivetrain.zeroHeading();
+        }
+
         //Joystick Inputs
         xInputSpeed = PlayerConfigs.fineControlToggle ? 
             PlayerConfigs.fineDriveSpeed * PlayerConfigs.xMovement :

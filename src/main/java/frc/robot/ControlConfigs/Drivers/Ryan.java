@@ -24,6 +24,10 @@ public class Ryan extends PlayerConfigs {
 
         //Scoring
         PlayerConfigs.fire = Robot.controller0.getRightBumper();
+
+        //Gyro Reset
+        PlayerConfigs.zeroGyro = Robot.controller0.getAButton();
+
     } 
 
     public void getoperatorConfig() {

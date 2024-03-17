@@ -13,13 +13,12 @@ public class AutoShoot extends SequentialCommandGroup{
 
     public AutoShoot() {
         addCommands(
+            new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM),
+            new AutoIntake_Trigger(0.5,true),
             new ParallelCommandGroup(
                 new AutoIntakeElbowSet(IntakeConstants.kElbowStowed, 10),
-                new AutoIntakeWristSet(IntakeConstants.kWristShooting, 10),
-                new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM)
-            ),
-            new AutoIntake_Trigger(0.5,true),
-            new AutoIntakeWristSet(IntakeConstants.kWristStowed, 10)
+                new AutoIntakeWristSet(IntakeConstants.kWristStowed,10)
+            )
         );
     }
 }

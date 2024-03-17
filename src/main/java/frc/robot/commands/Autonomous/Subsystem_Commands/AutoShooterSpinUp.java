@@ -29,6 +29,10 @@ public class AutoShooterSpinUp extends Command{
         if(!Robot.skipNonPath){  
             Logger.info("SHOOT", "Right: " + Double.toString(Robot.shooter.getRSpeed()) + " RPM, " + "Left: " + Double.toString(Robot.shooter.getLSpeed()) + " RPM");
             Robot.shooter.setShooterSpeed(lSpeed,rSpeed);
+            System.out.print("RIGHT: ");
+            System.out.print(Robot.shooter.getRSpeed());
+            System.out.print(" LEFT: ");
+            System.out.println(Robot.shooter.getRSpeed());
             Robot.lightStrip.section(0,LEDConstants.bufferSize/5-1,Robot.lightStrip.shooterLo,LEDConstants.SATURATED,LEDConstants.FULL);
         }
     }
@@ -43,6 +47,6 @@ public class AutoShooterSpinUp extends Command{
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return  Robot.skipNonPath || lSpeed - Robot.shooter.getLSpeed() < 1 && rSpeed - Robot.shooter.getRSpeed() < 1;
+        return  Robot.skipNonPath ||  Robot.shooter.getLSpeed() > 4000 && Robot.shooter.getRSpeed() < -4000;
     }
 }

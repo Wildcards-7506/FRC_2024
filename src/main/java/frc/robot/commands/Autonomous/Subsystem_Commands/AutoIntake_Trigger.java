@@ -1,6 +1,7 @@
 package frc.robot.commands.Autonomous.Subsystem_Commands;
 
 import frc.robot.Robot;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.LEDConstants;
 import frc.robot.util.Logger;
 import edu.wpi.first.wpilibj.Timer;
@@ -23,6 +24,11 @@ public class AutoIntake_Trigger extends Command{
     @Override
     public void initialize() {
         Logger.info("INTKE", "Intaking");
+        if(shooting){
+            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
+        } else{
+            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+        }
         time.reset();
         time.start();
     }

@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 0.8,
-      "y": 4.45
+      "y": 6.6
     },
-    "rotation": -60.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -18,16 +18,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "BC4"
-                }
-              }
-            ]
+            "name": "AutoIntakeStowToGround"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TC1"
           }
         },
         {

@@ -27,13 +27,19 @@ public class DrivetrainTeleopCommand extends Command{
         //Joystick Inputs
         xInputSpeed = PlayerConfigs.fineControlToggle ? 
             PlayerConfigs.fineDriveSpeed * PlayerConfigs.xMovement :
-            PlayerConfigs.driveSpeed * PlayerConfigs.xMovement;
+            PlayerConfigs.setupControlToggle ?
+            PlayerConfigs.setupDriveSpeed * PlayerConfigs.xMovement :
+            PlayerConfigs.fullDriveSpeed * PlayerConfigs.xMovement;
         yInputSpeed = PlayerConfigs.fineControlToggle ? 
             -PlayerConfigs.fineDriveSpeed * PlayerConfigs.yMovement : 
-            -PlayerConfigs.driveSpeed * PlayerConfigs.yMovement;
+            PlayerConfigs.setupControlToggle ?
+            -PlayerConfigs.setupDriveSpeed * PlayerConfigs.yMovement :
+            -PlayerConfigs.fullDriveSpeed * PlayerConfigs.yMovement;
         inputRot = PlayerConfigs.fineControlToggle ? 
             PlayerConfigs.fineTurnSpeed * PlayerConfigs.turnMovement : 
-            PlayerConfigs.turnSpeed * PlayerConfigs.turnMovement;
+            PlayerConfigs.setupControlToggle ?
+            -PlayerConfigs.setupTurnSpeed * PlayerConfigs.turnMovement :
+            PlayerConfigs.fullTurnSpeed * PlayerConfigs.turnMovement;
 
         //Snap or align if needed, set drive if joystick inputs available, otherwise X
         if(PlayerConfigs.snapUp){
@@ -48,8 +54,6 @@ public class DrivetrainTeleopCommand extends Command{
         } else if(PlayerConfigs.snapLeft){
             double angle = Robot.teamColor.get() == Alliance.Red ? -90 : 90;
             Robot.drivetrain.snap(angle);
-        } else if((PlayerConfigs.align)){
-            Robot.drivetrain.align(Robot.limelight.getTX(), Robot.limelight.getID());
         } else if (Math.abs(PlayerConfigs.xMovement) > 0.05 || Math.abs(PlayerConfigs.yMovement) > 0.05 || Math.abs(PlayerConfigs.turnMovement) > 0.05) {
             Robot.drivetrain.drive(yInputSpeed, xInputSpeed, inputRot, true, true);
         } else {

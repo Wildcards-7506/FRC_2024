@@ -2,8 +2,10 @@ package frc.robot.ControlConfigs;
 
 public class PlayerConfigs {
     //Constants
-    public static double turnSpeed;
-    public static double driveSpeed;
+    public static double fullTurnSpeed;
+    public static double fullDriveSpeed;
+    public static double setupTurnSpeed;
+    public static double setupDriveSpeed;
     public static double fineTurnSpeed;
     public static double fineDriveSpeed;
     
@@ -12,11 +14,11 @@ public class PlayerConfigs {
     public static double yMovement;
     public static double turnMovement;
     public static boolean fineControlToggle;
+    public static boolean setupControlToggle;
     public static boolean snapUp;
     public static boolean snapRight;
     public static boolean snapDown;
     public static boolean snapLeft;
-    public static boolean align;
     public static boolean zeroGyro;
 
     //Intake

@@ -6,21 +6,23 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 public class Jayden extends PlayerConfigs {
     public void getDriverConfig() {
         //Constants
-        PlayerConfigs.turnSpeed = 0.5;
-        PlayerConfigs.driveSpeed = 0.5;
-        PlayerConfigs.fineTurnSpeed = 0.25;
-        PlayerConfigs.fineDriveSpeed = 0.25;
+        PlayerConfigs.fullTurnSpeed = 1.0;
+        PlayerConfigs.fullDriveSpeed = 1.0;
+        PlayerConfigs.setupTurnSpeed = 0.5;
+        PlayerConfigs.setupDriveSpeed = 0.5;
+        PlayerConfigs.fineTurnSpeed = 0.15;
+        PlayerConfigs.fineDriveSpeed = 0.15;
 
         //Driving and rotation
         PlayerConfigs.xMovement = -Robot.controller0.getLeftX();
         PlayerConfigs.yMovement = Robot.controller0.getLeftY();
         PlayerConfigs.turnMovement = -Robot.controller0.getRightX();
         PlayerConfigs.fineControlToggle = Robot.controller0.getLeftBumper();
+        PlayerConfigs.setupControlToggle = Robot.controller0.getLeftTriggerAxis() > 0.2;
         PlayerConfigs.snapUp = Robot.controller0.getPOV() == 0;
         PlayerConfigs.snapRight = Robot.controller0.getPOV() == 90;
         PlayerConfigs.snapDown = Robot.controller0.getPOV() == 180;
         PlayerConfigs.snapLeft = Robot.controller0.getPOV() == 270;
-        PlayerConfigs.align = Robot.controller0.getLeftTriggerAxis() > 0.2;
 
         //Scoring
         PlayerConfigs.fire = Robot.controller0.getRightBumper();

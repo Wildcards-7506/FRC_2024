@@ -34,28 +34,10 @@
           "data": {
             "name": "AutoShoot"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoIntakeStowToGround"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BW2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
         }
       ]
     }
   },
-  "folder": "Speaker",
+  "folder": "Standard Routes",
   "choreoAuto": false
 }

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5988912262724809,
-      "y": 6.548726487766366
+      "x": 0.8,
+      "y": 6.6
     },
-    "rotation": 59.74356283647072
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -18,14 +18,26 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoIntakeStowToGround"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "TrollIK"
+            "pathName": "TW2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
           }
         }
       ]
     }
   },
-  "folder": "Aux Routes",
+  "folder": "Standard Routes",
   "choreoAuto": false
 }

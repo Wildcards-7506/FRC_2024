@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8,
-      "y": 4.45
+      "x": 1.35,
+      "y": 5.55
     },
-    "rotation": -60.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -26,19 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BW3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BC4"
+            "pathName": "CW3"
           }
         },
         {
@@ -50,6 +38,6 @@
       ]
     }
   },
-  "folder": "Speaker",
+  "folder": "Standard Routes",
   "choreoAuto": false
 }

@@ -24,25 +24,6 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BC4"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
                   "pathName": "BC5"
                 }
               }
@@ -58,6 +39,6 @@
       ]
     }
   },
-  "folder": "Speaker",
+  "folder": "Standard Routes",
   "choreoAuto": false
 }

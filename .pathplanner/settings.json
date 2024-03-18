@@ -3,17 +3,14 @@
   "robotLength": 0.5,
   "holonomicMode": true,
   "pathFolders": [
-    "Amp",
     "Bottom",
     "Center",
-    "Disrupt",
+    "Aux",
     "Top"
   ],
   "autoFolders": [
-    "Amp",
-    "Disrupt",
-    "Simple",
-    "Speaker"
+    "Aux Routes",
+    "Standard Routes"
   ],
   "defaultMaxVel": 4.0,
   "defaultMaxAccel": 4.5,

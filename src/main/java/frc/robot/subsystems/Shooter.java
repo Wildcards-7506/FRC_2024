@@ -44,7 +44,7 @@ public class Shooter extends SubsystemBase{
         shooterL.burnFlash();
         shooterR.burnFlash();
 
-        shootingMode = false;
+        shootingMode = true;
         armScoringMode = false;
     }
 

@@ -22,7 +22,6 @@ public class PlayerConfigs {
     public static boolean zeroGyro;
 
     //Intake
-    public static boolean ground;
     public static boolean amp;
     public static boolean stow;
     public static boolean fcEnable;

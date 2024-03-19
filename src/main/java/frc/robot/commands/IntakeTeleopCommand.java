@@ -14,9 +14,7 @@ public class IntakeTeleopCommand extends Command{
     
     @Override
     public void execute () {
-        if (PlayerConfigs.ground && Robot.intake.intakeState != 3) {
-            Robot.intake.intakeState = 1;
-        } else if (PlayerConfigs.amp && Robot.intake.intakeState != 3) {
+        if (PlayerConfigs.amp && Robot.intake.intakeState != 3) {
             Robot.intake.intakeState = 2;
         } else if (PlayerConfigs.fcEnable) {
             //When fine control is enabled, grab current positions to hold
@@ -30,7 +28,7 @@ public class IntakeTeleopCommand extends Command{
         }
 
         //Ground State
-        if (Robot.intake.intakeState == 1) {
+        if ((PlayerConfigs.intake && Robot.intake.intakeState != 3) || !Robot.shooter.shootingMode) {
             //Hold intake to stowed or contrained position to avoid damage or extension rule until low enough to open to ground position
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint + 5) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;

@@ -33,7 +33,6 @@ public class Jayden extends PlayerConfigs {
     
     public void getoperatorConfig() {
         //Intake
-        PlayerConfigs.ground = Robot.controller1.getPOV() == 180;
         PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
         PlayerConfigs.stow = Robot.controller1.getPOV() == 0;
         
@@ -51,6 +50,6 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.shooterActive = Robot.controller1.getBackButton();
         
         //Climbers
-        PlayerConfigs.climberEngage = Robot.controller1.getYButton();
+        PlayerConfigs.climberEngage = Robot.controller1.getRightBumper();
     }
 }

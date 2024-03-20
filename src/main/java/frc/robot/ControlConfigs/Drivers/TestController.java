@@ -28,8 +28,9 @@ public class TestController extends PlayerConfigs {
         PlayerConfigs.fire = Robot.controller0.getRightBumper();
     } 
 
-    public void getoperatorConfig() {
+    public void getOperatorConfig() {
         //Intake
+        PlayerConfigs.ground = Robot.controller1.getPOV() == 0;
         PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
         PlayerConfigs.stow = Robot.controller1.getPOV() == 180;
         

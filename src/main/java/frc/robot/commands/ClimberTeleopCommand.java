@@ -24,7 +24,7 @@ public class ClimberTeleopCommand extends Command{
         }
 
         //VERIFY DIRECTION
-        if(!Robot.shooter.shootingMode && (Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3)){
+        if(!Robot.shooter.shootingMode){
             if(Robot.climbers.climberEngage){
                 Robot.climbers.setClimbers(ClimberConstants.kClimbPosition);
             } else{

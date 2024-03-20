@@ -31,8 +31,9 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.zeroGyro = Robot.controller0.getAButton();
     } 
     
-    public void getoperatorConfig() {
+    public void getOperatorConfig() {
         //Intake
+        PlayerConfigs.ground = Robot.controller1.getPOV() == 180;
         PlayerConfigs.amp = Robot.controller1.getPOV() == 90;
         PlayerConfigs.stow = Robot.controller1.getPOV() == 0;
         

@@ -114,7 +114,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
-
+    SmartDashboard.putNumber("POV", controller1.getPOV());
+    SmartDashboard.putNumber("Left Climber Position", Robot.climbers.getClimberLEncoder());
+    SmartDashboard.putNumber("Right Climber Position", Robot.climbers.getClimberREncoder());
   }
 
   @Override

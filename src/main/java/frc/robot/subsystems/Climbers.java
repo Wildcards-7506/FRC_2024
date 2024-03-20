@@ -19,7 +19,8 @@ public class Climbers extends SubsystemBase{
     private RelativeEncoder climbLEncoder;
     private RelativeEncoder climbREncoder;
 
-    public SparkPIDController climberPIDF;
+    public SparkPIDController climberLPIDF;
+    public SparkPIDController climberRPIDF;
 
     public boolean climberEngage = false;
     
@@ -32,9 +33,11 @@ public class Climbers extends SubsystemBase{
         climbLEncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
         climbREncoder.setPositionConversionFactor(ClimberConstants.kClimberEncoderDistancePerPulse);
 
-        climberPIDF = climberLeft.getPIDController();
+        climberLPIDF = climberLeft.getPIDController();
+        climberRPIDF = climberRight.getPIDController();
 
-        climberPIDF.setP(ClimberConstants.kPClimber);
+        climberLPIDF.setP(ClimberConstants.kPClimber);
+        climberRPIDF.setP(ClimberConstants.kPClimber);
     
         climberLeft.enableSoftLimit(SoftLimitDirection.kForward, false);
         climberLeft.enableSoftLimit(SoftLimitDirection.kReverse, false);
@@ -44,16 +47,19 @@ public class Climbers extends SubsystemBase{
         climberLeft.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
         climberRight.setSmartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
 
-        climberLeft.setSoftLimit(SoftLimitDirection.kForward, 180);
+        climberLeft.setSoftLimit(SoftLimitDirection.kForward, 125);
         climberLeft.setSoftLimit(SoftLimitDirection.kReverse, 0);
-        climberRight.setSoftLimit(SoftLimitDirection.kForward, 180);
+        climberRight.setSoftLimit(SoftLimitDirection.kForward, 125);
         climberRight.setSoftLimit(SoftLimitDirection.kReverse, 0);
 
         climberLeft.setInverted(false);
-        climberRight.follow(climberLeft, true);
+        climberRight.setInverted(true);
 
         climberLeft.setIdleMode(IdleMode.kBrake);
         climberRight.setIdleMode(IdleMode.kBrake);
+
+        climberLPIDF.setOutputRange(-1.0, 1.0);
+        climberRPIDF.setOutputRange(-1.0, 1.0);
 
         climberLeft.burnFlash();
         climberRight.burnFlash();
@@ -68,7 +74,8 @@ public class Climbers extends SubsystemBase{
     }
 
     public void setClimbers (double setpoint) {
-        climberPIDF.setReference(setpoint, ControlType.kPosition);
+        climberLPIDF.setReference(setpoint, ControlType.kPosition);
+        climberRPIDF.setReference(setpoint, ControlType.kPosition);
     }
 
     public void climberLog(){

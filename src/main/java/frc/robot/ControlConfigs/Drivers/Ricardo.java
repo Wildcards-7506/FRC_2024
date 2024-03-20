@@ -6,12 +6,12 @@ import frc.robot.ControlConfigs.PlayerConfigs;
 public class Ricardo extends PlayerConfigs {
     public void getDriverConfig() {
         //Constants
-        PlayerConfigs.fullTurnSpeed = 1.0;
-        PlayerConfigs.fullDriveSpeed = 1.0;
-        PlayerConfigs.setupTurnSpeed = 0.5;
-        PlayerConfigs.setupDriveSpeed = 0.5;
-        PlayerConfigs.fineTurnSpeed = 0.15;
-        PlayerConfigs.fineDriveSpeed = 0.15;
+        PlayerConfigs.fullTurnSpeed = 0.90;
+        PlayerConfigs.fullDriveSpeed = 0.90;
+        PlayerConfigs.setupTurnSpeed = 0.4;
+        PlayerConfigs.setupDriveSpeed = 0.4;
+        PlayerConfigs.fineTurnSpeed = 0.1;
+        PlayerConfigs.fineDriveSpeed = 0.1;
 
         //Driving and rotation
         PlayerConfigs.xMovement = -Robot.controller0.getLeftX();

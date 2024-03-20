@@ -24,12 +24,14 @@ public class ClimberTeleopCommand extends Command{
         }
 
         //VERIFY DIRECTION
-        if(!Robot.shooter.shootingMode && (Robot.intake.intakeState == 0 || Robot.intake.intakeState == 3)){
+        if(!Robot.shooter.shootingMode){
             if(Robot.climbers.climberEngage){
-                Robot.climbers.setClimbers(ClimberConstants.kClimbPosition);
+                Robot.climbers.setClimbers(ClimberConstants.kEngagePosition);
             } else{
-                Robot.climbers.setClimbers(ClimberConstants.kRetractPosition);
+                Robot.climbers.setClimbers(ClimberConstants.kPrimePosition);
             }
+        } else {
+            Robot.climbers.setClimbers(ClimberConstants.kIdlePosition);
         }
 
         Robot.climbers.climberLog();

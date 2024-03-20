@@ -213,10 +213,11 @@ public final class Constants {
 
       public static final class ClimberConstants {
         public static final double kClimberEncoderDistancePerPulse = 1.0/80 * 360;
-        public static final int kClimberCurrentLimit = 80;
-        public static final double kPClimber = 1;
-        public static final double kClimbPosition = 130;
-        public static final double kRetractPosition = 0;
+        public static final int kClimberCurrentLimit = 50;
+        public static final double kPClimber = 0.2;
+        public static final double kEngagePosition = 125;
+        public static final double kPrimePosition = 30;
+        public static final double kIdlePosition = 0;
       }
 
       public static final class LimelightConstants {

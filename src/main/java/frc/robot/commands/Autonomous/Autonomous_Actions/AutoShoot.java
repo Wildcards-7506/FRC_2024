@@ -14,7 +14,7 @@ public class AutoShoot extends SequentialCommandGroup{
     public AutoShoot() {
         addCommands(
             new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM),
-            new AutoIntake_Trigger(0.5,true),
+            new AutoIntake_Trigger(0.5,true,12,0),
             new ParallelCommandGroup(
                 new AutoIntakeElbowSet(IntakeConstants.kElbowStowed, 10),
                 new AutoIntakeWristSet(IntakeConstants.kWristStowed,10)

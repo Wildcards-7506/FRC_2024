@@ -9,7 +9,7 @@ public class Ricardo extends PlayerConfigs {
         PlayerConfigs.fullTurnSpeed = 0.90;
         PlayerConfigs.fullDriveSpeed = 0.90;
         PlayerConfigs.setupTurnSpeed = 0.4;
-        PlayerConfigs.setupDriveSpeed = 0.4;
+        PlayerConfigs.setupDriveSpeed = 0.3;
         PlayerConfigs.fineTurnSpeed = 0.1;
         PlayerConfigs.fineDriveSpeed = 0.1;
 

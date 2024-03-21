@@ -96,14 +96,13 @@ public final class AutoRoutines {
 
   private void setMarkers() {
     NamedCommands.registerCommand("AutoShoot", new AutoShoot());
-    NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false));
+    NamedCommands.registerCommand("AutoIntake", new AutoIntake_Trigger(5, false,12,2.4));
     NamedCommands.registerCommand("AutoShooterSpinup", new AutoShooterSpinUp(ShooterConstants.kLArmedRPM, ShooterConstants.kRArmedRPM));
     NamedCommands.registerCommand("AutoIntakeStowToGround", new AutoIntakeStowToGround());
     NamedCommands.registerCommand("AutoIntakeGroundToStow", new AutoIntakeGroundToStow());
     NamedCommands.registerCommand("AutoIntakeGroundToAmp", new AutoIntakeGroundToAmp());
     NamedCommands.registerCommand("AutoIntakeAmpToGround", new AutoIntakeAmpToGround());
     NamedCommands.registerCommand("AutoIntakeStowToAmp", new AutoIntakeStowToAmp());
-    NamedCommands.registerCommand("AutoAmpScore", new AutoIntake_Trigger(0.5, true));
   }
 
       /**

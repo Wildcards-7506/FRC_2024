@@ -24,14 +24,14 @@ public final class Constants {
         public static final int ELBOW_RIGHT = 10;
         public static final int WRIST = 11;
         public static final int INTAKE = 12;
+        public static final int UBI_1 = 13;
+        public static final int UBI_2 = 18;
         
         public static final int shooter_LEFT = 14;
         public static final int shooter_RIGHT = 15;
 
         public static final int CLIMBER_LEFT = 16;
         public static final int CLIMBER_RIGHT = 17;
-
-        public static final int LIMELIGHT = 18;
     }
 
     public static final class IOConstants {
@@ -214,9 +214,9 @@ public final class Constants {
       public static final class ClimberConstants {
         public static final double kClimberEncoderDistancePerPulse = 1.0/80 * 360;
         public static final int kClimberCurrentLimit = 50;
-        public static final double kPClimber = 0.2;
-        public static final double kEngagePosition = 125;
-        public static final double kPrimePosition = 30;
+        public static final double kPClimber = 0.5;
+        public static final double kEngagePosition = 135;
+        public static final double kPrimePosition = 47;
         public static final double kIdlePosition = 0;
       }
 

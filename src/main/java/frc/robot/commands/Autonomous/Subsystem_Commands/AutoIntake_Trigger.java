@@ -12,12 +12,16 @@ public class AutoIntake_Trigger extends Command{
     double runTime;
     double intakeTime = 0;
     boolean shooting;
+    double upper;
+    double lower;
     Timer time = new Timer();
 
     /** Creates a new Drivetrain Snap-to-angle Command. */
-    public AutoIntake_Trigger(double runTime, boolean shooting) {
+    public AutoIntake_Trigger(double runTime, boolean shooting, double upper, double lower) {
         this.runTime = runTime;
         this.shooting = shooting;
+        this.upper = upper;
+        this.lower = lower;
     }
 
     // Called when the command is initially scheduled.
@@ -40,7 +44,7 @@ public class AutoIntake_Trigger extends Command{
         if(!Robot.skipNonPath){  
             Robot.lightStrip.section(3*LEDConstants.bufferSize/5,4*LEDConstants.bufferSize/5-1,Robot.lightStrip.shooterLo,LEDConstants.SATURATED,LEDConstants.FULL);
             Logger.info("INTKE", Double.toString(Robot.intake.getIntakeCurrent()) + " Amps");
-            Robot.intake.setIntakeVoltage(12);
+            Robot.intake.setIntakeVoltage(upper, lower);
             if(time.get() > 1 && Robot.intake.getIntakeCurrent() > 24){
                 intakeTime = time.get();
             }
@@ -61,7 +65,7 @@ public class AutoIntake_Trigger extends Command{
                 Robot.lightStrip.section(3*LEDConstants.bufferSize/5,4*LEDConstants.bufferSize/5-1,Robot.lightStrip.alignOOB,LEDConstants.SATURATED,LEDConstants.FULL);
                 Logger.info("INTKE", "Piece Acquired");
             }
-            Robot.intake.setIntakeVoltage(0);
+            Robot.intake.setIntakeVoltage(0,0);
         }
     }
 

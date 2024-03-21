@@ -93,24 +93,21 @@ public class IntakeTeleopCommand extends Command{
         Robot.intake.setWristPosition(Robot.intake.wristSetPoint);
 
         //Reject Piece if button is pressed, regardless of intake state
-        if (PlayerConfigs.intake) {
-            Robot.intake.intaking = true;
+        if (PlayerConfigs.intake && Robot.intake.intakeState == 1) {
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-            Robot.intake.setIntakeVoltage(12);
+            Robot.intake.setIntakeVoltage(12,0);
+        } else if (PlayerConfigs.intake) {
+            Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
+            Robot.intake.setIntakeVoltage(2,12);
         } else if (PlayerConfigs.fire) {
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
-            Robot.intake.setIntakeVoltage(12);
+            Robot.intake.setIntakeVoltage(12,12);
         } else if (PlayerConfigs.reject) {
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeShootingLimit);
-            Robot.intake.setIntakeVoltage(-2.4);
-        } else if(Robot.intake.intaking == true && !PlayerConfigs.intake) {
-            Robot.intake.resetTimer();
-            Robot.intake.intaking = false;
-        } else if (Robot.intake.intaking == false && Robot.intake.getTimer() < IntakeConstants.kIntakeDecompressionTime) {
-            Robot.intake.setIntakeVoltage(IntakeConstants.kIntakeDecompressionVoltage);
+            Robot.intake.setIntakeVoltage(-2.4,-12);
         } else {
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-            Robot.intake.setIntakeVoltage(0);
+            Robot.intake.setIntakeVoltage(0,0);
         }
 
         SmartDashboard.putNumber("Wrist Setpoint: ", Robot.intake.wristSetPoint);

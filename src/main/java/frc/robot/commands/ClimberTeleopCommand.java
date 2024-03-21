@@ -7,8 +7,6 @@ import frc.robot.Constants.ClimberConstants;
 import frc.robot.ControlConfigs.PlayerConfigs;
 
 public class ClimberTeleopCommand extends Command{
-
-    private boolean prev_climberEngage = false;
     
     public ClimberTeleopCommand(){
         addRequirements(Robot.climbers);
@@ -16,20 +14,9 @@ public class ClimberTeleopCommand extends Command{
     
     @Override
     public void execute (){
-        if(PlayerConfigs.climberEngage != prev_climberEngage){
-            prev_climberEngage = PlayerConfigs.climberEngage;
-            if(PlayerConfigs.climberEngage){
-                Robot.climbers.climberEngage = !Robot.climbers.climberEngage;
-            }
-        }
-
         //VERIFY DIRECTION
         if(!Robot.shooter.shootingMode){
-            if(Robot.climbers.climberEngage){
-                Robot.climbers.setClimbers(ClimberConstants.kEngagePosition);
-            } else{
-                Robot.climbers.setClimbers(ClimberConstants.kPrimePosition);
-            }
+            Robot.climbers.setClimbers(ClimberConstants.kPrimePosition + PlayerConfigs.climberEngage * ClimberConstants.kEngagePosition);
         } else {
             Robot.climbers.setClimbers(ClimberConstants.kIdlePosition);
         }

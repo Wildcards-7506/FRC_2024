@@ -37,7 +37,7 @@ public class PlayerConfigs {
     public static boolean intake;
 
     //Climbers
-    public static boolean climberEngage;
+    public static double climberEngage;
 
     public void getDriverConfig(){}
 

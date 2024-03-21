@@ -51,6 +51,6 @@ public class Jayden extends PlayerConfigs {
         PlayerConfigs.shooterActive = Robot.controller1.getBackButton();
         
         //Climbers
-        PlayerConfigs.climberEngage = Robot.controller1.getRightBumper();
+        PlayerConfigs.climberEngage = Robot.controller1.getRightTriggerAxis();
     }
 }

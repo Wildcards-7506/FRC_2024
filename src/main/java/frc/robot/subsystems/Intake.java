@@ -71,6 +71,8 @@ public class Intake extends SubsystemBase {
         intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
         UBI_1.setSmartCurrentLimit(80);
         UBI_2.setSmartCurrentLimit(80);
+        UBI_1.setSmartCurrentLimit(80);
+        UBI_2.setSmartCurrentLimit(80);
 
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);

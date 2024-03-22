@@ -30,7 +30,7 @@ public class IntakeTeleopCommand extends Command{
         }
 
         //Ground State
-        if ((PlayerConfigs.intake && Robot.intake.intakeState == 2) || !Robot.shooter.shootingMode || Robot.intake.intakeState == 1) {
+        if (!Robot.shooter.shootingMode || Robot.intake.intakeState == 1) {
             //Hold intake to stowed or contrained position to avoid damage or extension rule until low enough to open to ground position
             if (Robot.intake.getElbowEncoder() < IntakeConstants.kElbowDownConstraint + 5) {
                 Robot.intake.wristSetPoint = IntakeConstants.kWristGround;
@@ -95,7 +95,7 @@ public class IntakeTeleopCommand extends Command{
         //Reject Piece if button is pressed, regardless of intake state
         if (PlayerConfigs.intake && Robot.intake.intakeState == 1) {
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-            Robot.intake.setIntakeVoltage(12,0);
+            Robot.intake.setIntakeVoltage(12,-2.4);
         } else if (PlayerConfigs.intake) {
             Robot.intake.setIntakeCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
             Robot.intake.setIntakeVoltage(2,12);

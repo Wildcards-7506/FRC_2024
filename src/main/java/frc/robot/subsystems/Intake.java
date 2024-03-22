@@ -69,8 +69,8 @@ public class Intake extends SubsystemBase {
         elbowRotator.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
         intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-        UBI_1.setSmartCurrentLimit(IntakeConstants.kIntakeShootingLimit);
-        UBI_2.setSmartCurrentLimit(IntakeConstants.kIntakeShootingLimit);
+        UBI_1.setSmartCurrentLimit(80);
+        UBI_2.setSmartCurrentLimit(80);
 
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
@@ -125,7 +125,7 @@ public class Intake extends SubsystemBase {
 
     public void setIntakeVoltage(double upper, double lower) {
         intake.setVoltage(upper);
-        UBI_1.setVoltage(lower);
+        UBI_1.setVoltage(-lower);
         UBI_2.setVoltage(lower);
     }
 

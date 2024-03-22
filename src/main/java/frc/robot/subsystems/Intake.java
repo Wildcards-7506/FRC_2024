@@ -18,8 +18,8 @@ public class Intake extends SubsystemBase {
     private CANSparkMax elbowRotator;
     private CANSparkMax wristRotator;
     private CANSparkMax intake;
-    private CANSparkMax UBI_1;
-    private CANSparkMax UBI_2;
+    // private CANSparkMax UBI_1;
+    // private CANSparkMax UBI_2;
     
     private RelativeEncoder elbowEncoder;
     private RelativeEncoder wristEncoder;
@@ -40,14 +40,14 @@ public class Intake extends SubsystemBase {
         elbowRotator = new CANSparkMax(CANID.ELBOW_RIGHT, MotorType.kBrushless);
         wristRotator = new CANSparkMax(CANID.WRIST, MotorType.kBrushless);
         intake = new CANSparkMax(CANID.INTAKE, MotorType.kBrushless);
-        UBI_1 = new CANSparkMax(CANID.UBI_1, MotorType.kBrushless);
-        UBI_2 = new CANSparkMax(CANID.UBI_2, MotorType.kBrushless);
+        // UBI_1 = new CANSparkMax(CANID.UBI_1, MotorType.kBrushless);
+        // UBI_2 = new CANSparkMax(CANID.UBI_2, MotorType.kBrushless);
 
         elbowRotator.setIdleMode(IdleMode.kBrake);
         wristRotator.setIdleMode(IdleMode.kBrake);
         intake.setIdleMode(IdleMode.kBrake);
-        UBI_1.setIdleMode(IdleMode.kBrake);
-        UBI_2.setIdleMode(IdleMode.kBrake);
+        // UBI_1.setIdleMode(IdleMode.kBrake);
+        // UBI_2.setIdleMode(IdleMode.kBrake);
 
         elbowEncoder = elbowRotator.getEncoder();
         wristEncoder = wristRotator.getEncoder();
@@ -69,10 +69,8 @@ public class Intake extends SubsystemBase {
         elbowRotator.setSmartCurrentLimit(IntakeConstants.kElbowCurrentLimit);
         wristRotator.setSmartCurrentLimit(IntakeConstants.kWristCurrentLimit);
         intake.setSmartCurrentLimit(IntakeConstants.kIntakeCurrentLimit);
-        UBI_1.setSmartCurrentLimit(80);
-        UBI_2.setSmartCurrentLimit(80);
-        UBI_1.setSmartCurrentLimit(80);
-        UBI_2.setSmartCurrentLimit(80);
+        // UBI_1.setSmartCurrentLimit(80);
+        // UBI_2.setSmartCurrentLimit(80);
 
         elbowEncoder.setPositionConversionFactor(IntakeConstants.kElbowEncoderDistancePerPulse);
         wristEncoder.setPositionConversionFactor(IntakeConstants.kWristEncoderDistancePerPulse);
@@ -88,8 +86,8 @@ public class Intake extends SubsystemBase {
         elbowRotator.burnFlash();
         wristRotator.burnFlash();
         intake.burnFlash();
-        UBI_1.burnFlash();
-        UBI_2.burnFlash();
+        // UBI_1.burnFlash();
+        // UBI_2.burnFlash();
     }
 
     public void setIntakeCurrentLimit(int lim) {
@@ -127,8 +125,8 @@ public class Intake extends SubsystemBase {
 
     public void setIntakeVoltage(double upper, double lower) {
         intake.setVoltage(upper);
-        UBI_1.setVoltage(lower);
-        UBI_2.setVoltage(-lower);
+        // UBI_1.setVoltage(lower);
+        // UBI_2.setVoltage(-lower);
     }
 
     public void intakeLog(){

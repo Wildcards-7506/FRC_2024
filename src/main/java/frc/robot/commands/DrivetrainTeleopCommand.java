@@ -38,7 +38,7 @@ public class DrivetrainTeleopCommand extends Command{
         inputRot = PlayerConfigs.fineControlToggle ? 
             PlayerConfigs.fineTurnSpeed * PlayerConfigs.turnMovement : 
             PlayerConfigs.setupControlToggle ?
-            -PlayerConfigs.setupTurnSpeed * PlayerConfigs.turnMovement :
+            PlayerConfigs.setupTurnSpeed * PlayerConfigs.turnMovement :
             PlayerConfigs.fullTurnSpeed * PlayerConfigs.turnMovement;
 
         //Snap or align if needed, set drive if joystick inputs available, otherwise X

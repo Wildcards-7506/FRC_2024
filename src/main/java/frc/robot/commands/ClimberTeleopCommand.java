@@ -16,7 +16,7 @@ public class ClimberTeleopCommand extends Command{
     public void execute (){
         //VERIFY DIRECTION
         if(!Robot.shooter.shootingMode && Robot.intake.getElbowEncoder() < 45){
-                Robot.climbers.setClimbers(ClimberConstants.kPrimePosition + PlayerConfigs.climberEngage * ClimberConstants.kEngagePosition);
+            Robot.climbers.setClimbers(ClimberConstants.kPrimePosition + PlayerConfigs.climberEngage * ClimberConstants.kEngagePosition);
         } else {
             Robot.climbers.setClimbers(ClimberConstants.kIdlePosition);
         }
